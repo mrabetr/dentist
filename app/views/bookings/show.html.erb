@@ -1,0 +1,20 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <h2 class="text-center mb-3">Booking <%= @booking.id %></h2>
+      <p>On <%= @booking.start_time.strftime("%a, %e %b %Y") %>,
+        at <%= @booking.start_time.strftime("%H:%M") %>.
+        Doctor: <%= @doctor.first_name %>,
+        Patient: <%= @patient.first_name %>
+        (<%= @booking.status %>)
+      </p>
+      <%= link_to "List", bookings_path %>
+      <%= link_to edit_booking_path(@booking) do %>
+        <i class="far fa-edit"></i>
+      <% end %>
+      <%= link_to booking_path(@booking), method: :delete, data: { confirm: "Are you sure?" } do %>
+        <i class="far fa-trash-alt"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

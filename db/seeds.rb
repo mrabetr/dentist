@@ -18,31 +18,36 @@ puts "making user admin"
 admin.admin_profile!
 
 puts "adding doctors"
-doctor1 = User.create!(email: "doctor1@hotmail.com", password: "123456")
+doctor1 = User.create!(email: "doctor1@hotmail.com", password: "123456",
+  first_name: "Leila", last_name: "Nevia")
 doctor1.doctor_profile!
 
-doctor2 = User.create!(email: "doctor2@hotmail.com", password: "123456")
+doctor2 = User.create!(email: "doctor2@hotmail.com", password: "123456",
+  first_name: "John", last_name: "Smith")
 doctor2.doctor_profile!
 
 puts "adding patients"
-patient1 = User.create!(email: "patient1@hotmail.com", password: "123456")
-patient2 = User.create!(email: "patient2@hotmail.com", password: "123456")
-patient3 = User.create!(email: "patient3@hotmail.com", password: "123456")
+patient1 = User.create!(email: "patient1@hotmail.com", password: "123456",
+  first_name: "Sarah", last_name: "Smith")
+patient2 = User.create!(email: "patient2@hotmail.com", password: "123456",
+  first_name: "Peter", last_name: "Jones")
+patient3 = User.create!(email: "patient3@hotmail.com", password: "123456",
+  first_name: "Ali", last_name: "Ben")
 puts "finished adding users!"
 
 puts "adding services"
 service1 = Service.new(name: "Check up")
-service1.doctor = doctor1
+service1.doctor = doctor1.profile
 service1.save!
 
 service2 = Service.new(name: "Invisalign")
-service2.doctor = doctor1
+service2.doctor = doctor1.profile
 service2.save!
 
 puts "adding bookings"
 booking1 = Booking.new(start_time: Date.today, end_time: Date.today, status: "Pending")
-booking1.doctor = doctor1
-booking1.patient = patient1
+booking1.doctor = doctor1.profile
+booking1.patient = patient1.profile
 booking1.save!
 
 puts "adding booking services"

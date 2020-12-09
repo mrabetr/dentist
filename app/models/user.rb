@@ -13,13 +13,17 @@ class User < ApplicationRecord
 
   def doctor_profile!
     self.doctor = true
+    patient = self.profile
     self.profile = Doctor.create
+    patient.destroy
     self.save
   end
 
   def admin_profile!
     self.admin = true
+    patient = self.profile
     self.profile = Admin.create
+    patient.destroy
     self.save
   end
 end

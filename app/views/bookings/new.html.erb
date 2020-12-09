@@ -1,0 +1,14 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <h2 class="text-center mb-3">Add a new booking</h2>
+      <%#= render "form", booking: @booking %>
+      <%= simple_form_for(@booking) do |f| %>
+        <%= f.input :start_time, required: true, html5: true %>
+        <%= f.input :end_time, required: true, html5: true %>
+        <%= f.association :patient, label_method: :name, value_method: :id %>
+        <%= f.submit "Book", class: "btn btn-primary w-100" %>
+      <% end %>
+    </div>
+  </div>
+</div>

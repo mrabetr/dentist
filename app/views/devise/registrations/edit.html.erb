@@ -13,6 +13,18 @@
             <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
           <% end %>
 
+          <%= f.input :title,
+                      required: false,
+                      input_html: { autocomplete: "title" }%>
+          <%= f.input :first_name,
+                      required: false,
+                      input_html: { autocomplete: "given-name" }%>
+          <%= f.input :last_name,
+                      required: false,
+                      input_html: { autocomplete: "family-name" }%>
+          <%= f.input :mobile,
+                      required: false,
+                      input_html: { autocomplete: "tel" }%>
           <%= f.input :password,
                       hint: "leave it blank if you don't want to change it",
                       required: false,

@@ -1,5 +1,15 @@
 <div class="container mt-3">
-  <h2>Service <%= @service.id %></h2>
-  <p><%= @service.name %></p>
-  <%= link_to "List", services_path %>
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <h2 class="text-center mb-3">Service <%= @service.id %></h2>
+      <p><%= @service.name %></p>
+      <%= link_to "List", services_path %>
+      <%= link_to edit_service_path(@service) do %>
+        <i class="far fa-edit"></i>
+      <% end %>
+      <%= link_to service_path(@service), method: :delete, data: { confirm: "Are you sure?" } do %>
+        <i class="far fa-trash-alt"></i>
+      <% end %>
+    </div>
+  </div>
 </div>

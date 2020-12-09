@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_12_09_113345) do
   create_table "bookings", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string "status"
+    t.string "status", default: "Pending"
     t.bigint "doctor_id", null: false
     t.bigint "patient_id", null: false
     t.datetime "created_at", precision: 6, null: false
