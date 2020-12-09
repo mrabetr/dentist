@@ -14,6 +14,7 @@ patient1 = Patient.new
 user1.profile = patient1
 user1.save
 # user1.profile = Patient.create!(user: user1)
+user1 = User.create!(email: "mrabetr@hotmail.com", password: "123456")
 
 # user2 = User.new(email: "imenebia@hotmail.fr", password: "123456")
 # user2.profile = Doctor.create!(user: user1)
