@@ -1,0 +1,16 @@
+<div class="container mt-3">
+  <h2>Services</h2>
+
+  <ul>
+    <% @services.each do |service| %>
+      <li><%= link_to service.name, service_path(service) %> -
+        <%= link_to edit_service_path(service) do %>
+          <i class="far fa-edit"></i>
+        <% end %>
+        <%= link_to service_path(service), method: :delete, data: { confirm: "Are you sure?" } do %>
+          <i class="far fa-trash-alt"></i>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
