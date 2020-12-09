@@ -15,7 +15,7 @@
 
           <%= f.input :title,
                       required: false,
-                      input_html: { autocomplete: "title" }%>
+                      collection: User::TITLE %>
           <%= f.input :first_name,
                       required: false,
                       input_html: { autocomplete: "given-name" }%>

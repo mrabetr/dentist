@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   belongs_to :profile, polymorphic: true, optional: true
 
+  TITLE = ["Mrs.", "Mr.", "Miss", "Ms.", "Dr.", "Mlle."]
+
   before_create :default_profile
   def default_profile
     self.profile = Patient.create
