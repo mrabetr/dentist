@@ -4,6 +4,7 @@ class AddAttributesToUsers < ActiveRecord::Migration[6.0]
     add_column :users, :first_name, :string
     add_column :users, :last_name, :string
     add_column :users, :mobile, :string
-    add_reference :users, :profile, polymorphic: true, index: true
+    add_column :users, :doctor, :boolean, default: false
+    add_column :users, :admin, :boolean, default: false
   end
 end
