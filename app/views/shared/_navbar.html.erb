@@ -11,15 +11,19 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "Add Service", new_service_path, class: "nav-link" %>
-        </li>
+        <% if policy(Service).new? %>
+          <li class="nav-item active">
+            <%= link_to "Add Service", new_service_path, class: "nav-link" %>
+          </li>
+        <% end %>
         <li class="nav-item active">
           <%= link_to "Add Booking", new_booking_path, class: "nav-link" %>
         </li>
-        <li class="nav-item">
-          <%= link_to "Services", services_path, class: "nav-link" %>
-        </li>
+        <% if policy(Service).index? %>
+          <li class="nav-item">
+            <%= link_to "Services", services_path, class: "nav-link" %>
+          </li>
+        <% end %>
         <li class="nav-item">
           <%= link_to "Bookings", bookings_path, class: "nav-link" %>
         </li>

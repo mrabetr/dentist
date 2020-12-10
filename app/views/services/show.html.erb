@@ -4,11 +4,15 @@
       <h2 class="text-center mb-3">Service <%= @service.id %></h2>
       <p><%= @service.name %></p>
       <%= link_to "List", services_path %>
-      <%= link_to edit_service_path(@service) do %>
-        <i class="far fa-edit"></i>
+      <% if policy(@service).edit? %>
+        <%= link_to edit_service_path(@service) do %>
+          <i class="far fa-edit"></i>
+        <% end %>
       <% end %>
-      <%= link_to service_path(@service), method: :delete, data: { confirm: "Are you sure?" } do %>
-        <i class="far fa-trash-alt"></i>
+      <% if policy(@service).destroy? %>
+        <%= link_to service_path(@service), method: :delete, data: { confirm: "Are you sure?" } do %>
+          <i class="far fa-trash-alt"></i>
+        <% end %>
       <% end %>
     </div>
   </div>
