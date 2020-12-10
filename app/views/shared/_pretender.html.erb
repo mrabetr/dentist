@@ -1,0 +1,5 @@
+<% if current_user != true_user %>
+  You (<%= true_user.profile_type %>) are signed in as
+    <%= "#{current_user.first_name} #{current_user.last_name} (#{current_user.profile_type})" %>
+  <%= link_to "- Back to admin", stop_impersonating_users_path, method: :post %>
+<% end %>

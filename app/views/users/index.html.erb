@@ -1,0 +1,15 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <h2 class="text-center mb-3">Users</h2>
+      <p class="text-center">Choose user to impersonate</p>
+      <div class="list-group">
+        <% @users.each do |user| %>
+          <%= link_to impersonate_user_path(user), method: :post, class: "list-group-item list-group-item-action text-center" do  %>
+            <% "#{user.first_name} #{user.last_name} (#{user.profile_type})" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
