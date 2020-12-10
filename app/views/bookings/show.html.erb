@@ -9,11 +9,15 @@
         (<%= @booking.status %>)
       </p>
       <%= link_to "List", bookings_path %>
-      <%= link_to edit_booking_path(@booking) do %>
-        <i class="far fa-edit"></i>
+      <% if policy(@booking).edit? %>
+        <%= link_to edit_booking_path(@booking) do %>
+          <i class="far fa-edit"></i>
+        <% end %>
       <% end %>
-      <%= link_to booking_path(@booking), method: :delete, data: { confirm: "Are you sure?" } do %>
-        <i class="far fa-trash-alt"></i>
+      <% if policy(@booking).destroy? %>
+        <%= link_to booking_path(@booking), method: :delete, data: { confirm: "Are you sure?" } do %>
+          <i class="far fa-trash-alt"></i>
+        <% end %>
       <% end %>
     </div>
   </div>
