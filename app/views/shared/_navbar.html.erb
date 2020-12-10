@@ -16,9 +16,11 @@
             <%= link_to "Add Service", new_service_path, class: "nav-link" %>
           </li>
         <% end %>
-        <li class="nav-item active">
-          <%= link_to "Add Booking", new_booking_path, class: "nav-link" %>
-        </li>
+        <% if policy(Booking).new? %>
+          <li class="nav-item active">
+            <%= link_to "Add Booking", new_booking_path, class: "nav-link" %>
+          </li>
+        <% end %>
         <% if policy(Service).index? %>
           <li class="nav-item">
             <%= link_to "Services", services_path, class: "nav-link" %>
