@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :require_admin! # your authorization method
 
   def index
-    # @users = User.order(:id)
     @users = policy_scope(User).order(:id)
   end
 
