@@ -7,8 +7,15 @@
         <%= f.input :start_time, required: true, html5: true %>
         <%= f.input :end_time, required: true, html5: true %>
         <%= f.association :patient, label_method: :name, value_method: :id %>
-        <%= f.submit "Book", class: "btn btn-primary w-100" %>
+        <% services_no = 2 %>
+        <% services_no.times do %>
+          <%= f.simple_fields_for :booking_services do |b| %>
+            <%= b.association :service, label: "Service" %>
+          <% end %>
+        <% end %>
+        <%= f.submit "Book", class: "btn btn-primary w-100 mb-3" %>
       <% end %>
     </div>
   </div>
 </div>
+

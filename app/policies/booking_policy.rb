@@ -2,7 +2,7 @@ class BookingPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
-      if user.doctor || user.admin
+      if doctor_or_admin?
         scope.all
       else
         scope.where(patient: user.profile)

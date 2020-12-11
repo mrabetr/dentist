@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     @users = policy_scope(User).order(:id)
   end

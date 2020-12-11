@@ -8,6 +8,12 @@
         Patient: <%= @patient.first_name %>
         (<%= @booking.status %>)
       </p>
+      <div class="list-group">
+        <% @booking.services.each do |service| %>
+          <%= link_to service.name, service_path(service), class: "list-group-item list-group-item-action" %>
+        <% end %>
+      </div>
+      <br>
       <%= link_to "List", bookings_path %>
       <% if policy(@booking).edit? %>
         <%= link_to edit_booking_path(@booking) do %>
