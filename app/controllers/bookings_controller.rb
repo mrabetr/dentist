@@ -14,6 +14,7 @@ class BookingsController < ApplicationController
 
   def new
     @booking = Booking.new
+    @booking.booking_services.build
     authorize @booking
   end
 
@@ -58,6 +59,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time, :status, :patient_id)
+    params.require(:booking).permit(:start_time, :end_time, :status, :patient_id, booking_services_attributes: [:id, :service_id])
   end
 end

@@ -45,5 +45,18 @@ class ApplicationPolicy
     def resolve
       scope.all
     end
+
+    private
+
+    # added this method here as the one outsie doesn't work for this sub-class
+    def doctor_or_admin?
+      @user.doctor || @user.admin
+    end
+  end
+
+  private
+
+  def doctor_or_admin?
+    @user.doctor || @user.admin
   end
 end
