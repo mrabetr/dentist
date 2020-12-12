@@ -14,8 +14,12 @@
             <% end %>
           </div>
         </div>
-        <button type="button" class="btn btn-outline-secondary mb-3"
-          data-action="click->service#add">Add Service</button>
+        <div class="d-flex justify-content-between">
+          <button type="button" class="btn btn-outline-secondary mb-3"
+            data-action="click->service#add">Add Service</button>
+          <button type="button" class="btn btn-outline-secondary mb-3"
+            data-action="click->service#remove">Remove Service</button>
+        </div>
 
         <%= f.submit "Book", class: "btn btn-primary w-100 mb-3" %>
       <% end %>
