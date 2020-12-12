@@ -1,21 +1,24 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
-    <div class="col-xs-12 col-sm-8 col-lg-6">
+    <div class="col-xs-12 col-sm-8 col-lg-6" data-controller="service">
       <h2 class="text-center mb-3">Add a new booking</h2>
-      <%#= render "form", booking: @booking %>
       <%= simple_form_for(@booking) do |f| %>
         <%= f.input :start_time, required: true, html5: true %>
         <%= f.input :end_time, required: true, html5: true %>
         <%= f.association :patient, label_method: :name, value_method: :id %>
-        <% services_no = 2 %>
-        <% services_no.times do %>
-          <%= f.simple_fields_for :booking_services do |b| %>
-            <%= b.association :service, label: "Service" %>
-          <% end %>
-        <% end %>
+
+        <div data-service-target="new" data-services-no=1>
+          <div id="0">
+            <%= f.simple_fields_for :booking_services do |b| %>
+              <%= b.association :service, label: "Service" %>
+            <% end %>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-secondary mb-3"
+          data-action="click->service#add">Add Service</button>
+
         <%= f.submit "Book", class: "btn btn-primary w-100 mb-3" %>
       <% end %>
     </div>
   </div>
 </div>
-

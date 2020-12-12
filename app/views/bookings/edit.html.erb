@@ -7,6 +7,9 @@
           <%= f.input :end_time, required: true, html5: true %>
           <%= f.input :status, required: true, collection: Booking::STATUS %>
           <%= f.association :patient, label_method: :name, value_method: :id %>
+          <%= f.simple_fields_for :booking_services do |b| %>
+            <%= b.association :service, label: "Service" %>
+          <% end %>
           <%= f.submit "Update", class: "btn btn-primary w-100" %>
         <% end %>
     </div>
