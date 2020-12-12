@@ -27,4 +27,13 @@ export default class extends Controller {
     // here we're inserting the incremented nested attribute
     targetInput.insertAdjacentHTML('beforeend', newInput);
   }
+
+  remove(event) {
+    // this identifies the div with data-service-target="new"
+    const targetInput = this.newTarget;
+
+    // here we're targetting the lastElementChild
+    const lastId = targetInput.lastElementChild.id;
+    if (lastId !== '0') return targetInput.lastElementChild.remove();
+  }
 }
