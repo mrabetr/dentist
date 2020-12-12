@@ -1,8 +1,0 @@
-<%= simple_form_for(booking) do |f| %>
-  <%= f.input :start_time, required: true, html5: true %>
-  <%= f.input :end_time, required: true, html5: true %>
-  <%#= f.input :patient, collection: patients, value_method: :id %>
-  <%#= f.input :user, :collection => @locations,:label_method => :location_name,:value_method => :id,:label => "Location" ,:include_blank => false %>
-  <%= f.association :patient, label_method: :name, value_method: :id %>
-  <%= f.submit "Book", class: "btn btn-primary w-100" %>
-<% end %>

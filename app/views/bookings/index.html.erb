@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <h2 class="text-center mb-3">Bookings</h2>
-      <div class="list-group">
+      <div class="list-group mb-3">
         <% @bookings.each do |booking| %>
           <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>
             <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
