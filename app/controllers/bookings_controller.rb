@@ -2,12 +2,10 @@ class BookingsController < ApplicationController
   before_action :find_booking, only: [:show, :edit, :update, :destroy]
 
   def index
-    # @bookings = Booking.all
     @bookings = policy_scope(Booking).order(start_time: :asc)
   end
 
   def show
-    # @booking = Booking.find(params[:id])
     @doctor = @booking.doctor.user
     @patient = @booking.patient.user
   end
@@ -30,13 +28,9 @@ class BookingsController < ApplicationController
     end
   end
 
-  def edit
-    # @booking = Booking.find(params[:id])
-  end
+  def edit; end
 
   def update
-    # @booking = Booking.find(params[:id])
-
     if @booking.update(booking_params)
       redirect_to booking_path(@booking)
     else
@@ -45,7 +39,6 @@ class BookingsController < ApplicationController
   end
 
   def destroy
-    # @booking = Booking.find(params[:id])
     @booking.destroy
 
     redirect_to bookings_path

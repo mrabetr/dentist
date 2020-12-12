@@ -2,14 +2,10 @@ class ServicesController < ApplicationController
   before_action :find_service, only: [:show, :edit, :update, :destroy]
 
   def index
-    # @services = Service.all
     @services = policy_scope(Service).order(name: :asc)
   end
 
-  def show
-    # @service = Service.find(params[:id])
-    # authorize @service
-  end
+  def show; end
 
   def new
     @service = Service.new
@@ -28,13 +24,9 @@ class ServicesController < ApplicationController
     end
   end
 
-  def edit
-    # @service = Service.find(params[:id])
-  end
+  def edit; end
 
   def update
-    # @service = Service.find(params[:id])
-
     if @service.update(service_params)
       redirect_to service_path(@service)
     else
@@ -43,7 +35,6 @@ class ServicesController < ApplicationController
   end
 
   def destroy
-    # @service = Service.find(params[:id])
     @service.destroy
 
     redirect_to services_path
