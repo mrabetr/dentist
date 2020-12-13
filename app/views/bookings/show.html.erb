@@ -9,10 +9,16 @@
         (<%= @booking.status %>)
       </p>
       <div class="list-group">
-        <% @booking.services.each do |service| %>
-          <%= link_to service.name, service_path(service), class: "list-group-item list-group-item-action" %>
+        <% @booking.booking_services.each do |booking_service| %>
+          <%= link_to booking_service.service.name, service_path(booking_service.service), class: "list-group-item list-group-item-action" %>
+          <%# if @count > 1 %>
+            <%#= link_to "Delete", booking_path(booking_service.booking.id, booking: { booking_services_attributes: { id: booking_service.id, _destroy: true }}), remote: true, method: :patch, data: { confirm: "Are you sure?" } %>
+          <%# end %>
         <% end %>
       </div>
+      <%#= link_to "Delete", booking_path(@booking.id, booking: { booking_services_attributes: { id: @booking.booking_services.last.id, _destroy: true }}), remote: true, method: :patch, data: { confirm: "Are you sure?" } %>
+      <%# service_id = 2 %>
+      <%#= link_to "Add", booking_path(@booking.id, booking: { booking_services_attributes: { "0" => { service_id: "#{service_id}" }}}), remote: true, method: :patch %>
       <br>
       <%= link_to "List", bookings_path %>
       <% if policy(@booking).edit? %>

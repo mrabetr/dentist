@@ -36,4 +36,25 @@ export default class extends Controller {
     const lastId = targetInput.lastElementChild.id;
     if (lastId !== '0') return targetInput.lastElementChild.remove();
   }
+
+  addEdit(event) {
+    // this identifies the div with data-service-target="new"
+    const targetInput = this.newTarget;
+    // console.log(targetInput.childElementCount);
+    // console.log(targetInput.firstElementChild);
+    // console.log(targetInput.firstElementChild.nextElementSibling);
+
+    // since IDs start at 0 and we always have at least one servie,
+    // the next id is simply the count
+    const servicesCount = this.newTarget.dataset.servicesCount;
+    const newId = servicesCount;
+
+    // here we're targetting the firstElementChild since it will always have id="0"
+    // the specific replacement is to avoid replacing the 0 of service id 10
+    let newInput = targetInput.firstElementChild.outerHTML.replace('selected="selected" ', '');
+    newInput = newInput.replace('_0_', `_${newId}_`).replace('[0]', `[${newId}]`);
+
+    // here we're inserting the incremented nested attribute
+    targetInput.insertAdjacentHTML('beforeend', newInput);
+  }
 }

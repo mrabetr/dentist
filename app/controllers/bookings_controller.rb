@@ -28,7 +28,9 @@ class BookingsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @services_count = @booking.booking_services.count
+  end
 
   def update
     if @booking.update(booking_params)
@@ -52,6 +54,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time, :status, :patient_id, booking_services_attributes: [:id, :service_id])
+    params.require(:booking).permit(:start_time, :end_time, :status, :patient_id, booking_services_attributes: [:id, :service_id, :_destroy])
   end
 end
