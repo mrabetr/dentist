@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :services
   resources :bookings
 
-  resources :users, only: [:index] do
+  resources :users, only: [:index, :new] do
+    post "create_user", to: "users#create", as: :create, on: :collection
     post :impersonate, on: :member
     post :stop_impersonating, on: :collection
   end

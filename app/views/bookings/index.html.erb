@@ -1,7 +1,32 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
-    <div class="col-xs-12 col-sm-8 col-lg-6">
+    <div class="col-12">
       <h2 class="text-center mb-3">Bookings</h2>
+      <%= week_calendar events: @bookings do |date, bookings| %>
+        <div>
+          <span class="date-str"><%= date.day %></span>
+        </div>
+        <% (8..19).each do |hour| %>
+          <div>
+            <% time = Time.parse("#{hour}:00").strftime("%H:%M") %>
+            <%= link_to time, new_booking_path(date: date, time: time) %>
+            <%#= Time.parse("#{hour}:00").strftime("%H:%M") %>
+            <% bookings.select{ |b| b.start_time.hour == hour}.each do |booking| %>
+            <!-- <div> -->
+              <%= link_to booking_path(booking) do  %>
+                <%#= booking.start_time.strftime("%H:%M") %><%= booking.patient.user.first_name %>
+              <% end %>
+            <!-- </div> -->
+            <% end %>
+          </div>
+        <% end %>
+        <%# bookings.each do |booking| %>
+          <%#= link_to booking_path(booking) do  %>
+            <%#= booking.patient.user.first_name %>
+          <%# end %>
+        <%# end %>
+      <% end %>
+      <br>
       <div class="list-group mb-3">
         <% @bookings.each do |booking| %>
           <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>

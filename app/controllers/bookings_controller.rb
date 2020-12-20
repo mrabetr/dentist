@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @booking = Booking.new
+    @booking = Booking.new(date: params[:date], time: params[:time])
     @booking.booking_services.build
     authorize @booking
   end
@@ -19,6 +19,8 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.doctor = current_user.profile
+    @booking.start_time = DateTime.parse([@booking.date, @booking.time].join(' '))
+    @booking.end_time = @booking.start_time + @booking.length.minutes
     authorize @booking
 
     if @booking.save
@@ -41,9 +43,12 @@ class BookingsController < ApplicationController
   end
 
   def destroy
-    @booking.destroy
-
-    redirect_to bookings_path
+    if @booking.destroy
+      flash[:notice] = "Booking: #{@booking.start_time.strftime('%e %b %Y %H:%M%p')} to #{@booking.end_time.strftime('%e %b %Y %H:%M%p')} deleted"
+      redirect_to bookings_path
+    else
+      render :index
+    end
   end
 
   private
@@ -54,6 +59,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time, :status, :patient_id, booking_services_attributes: [:id, :service_id, :_destroy])
+    params.require(:booking).permit(:date, :time, :length, :start_time, :end_time, :status, :patient_id, booking_services_attributes: [:id, :service_id, :_destroy])
   end
 end
