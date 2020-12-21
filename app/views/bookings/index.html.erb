@@ -3,19 +3,12 @@
     <div class="col-12">
       <h2 class="text-center mb-3">Bookings</h2>
       <%= week_calendar events: @bookings do |date, bookings| %>
-        <!-- <div>
-          <span class="date-str"><%#= date.day %></span>
-        </div> -->
         <% (8..19).each do |hour| %>
           <% (0..1).each do |m| %>
             <div>
-              <%# time = Time.parse("#{hour}:#{m * 30}").strftime("%H:%M") %>
-              <%# time = Time.parse("#{hour}:#{m * 30}") %>
               <% time = DateTime.parse([date, "#{hour}:#{m * 30}"].join(' ')) %>
               <% time_to_s = time.strftime("%H:%M") %>
-              <%#= link_to time, new_booking_path(date: date, time: time) %>
               <%= link_to time_to_s, new_booking_path(date: date, time: time_to_s) %>
-              <%# bookings.select{ |b| b.start_time.strftime("%H:%M") == time }.each do |booking| %>
               <% bookings.select{ |b| time >= b.start_time && time < b.end_time }.each do |booking| %>
                 <%= link_to booking_path(booking) do  %>
                   <%= booking.patient.short_name %>

@@ -5,7 +5,6 @@
       <%= simple_form_for(@booking) do |f| %>
         <%= f.input :start_time, required: true, as: :date, html5: true %>
         <%#= f.input :end_time, required: true, html5: true %>
-        <%#= f.input :date, required: true, html5: true %>
         <%= f.input :time, required: true, collection: Booking::TIME %>
         <%= f.input :length, required: true, collection: Booking::LENGTH, label: "Length (mins)" %>
         <%= f.input :status, required: true, collection: Booking::STATUS %>
