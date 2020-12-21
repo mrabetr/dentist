@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :services
-  resources :bookings
+  resources :bookings do
+    resources :notes, only: [:create]
+  end
+
+  resources :notes, only: [:edit, :update, :destroy]
 
   resources :users, only: [:index, :new] do
     post "create_user", to: "users#create", as: :create, on: :collection
