@@ -3,9 +3,9 @@
     <div class="col-12">
       <h2 class="text-center mb-3">Bookings</h2>
       <%= week_calendar events: @bookings do |date, bookings| %>
-        <div>
-          <span class="date-str"><%= date.day %></span>
-        </div>
+        <!-- <div>
+          <span class="date-str"><%#= date.day %></span>
+        </div> -->
         <% (8..19).each do |hour| %>
           <% (0..1).each do |m| %>
             <div>

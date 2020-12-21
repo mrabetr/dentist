@@ -14,7 +14,7 @@
     <thead>
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
-          <th><%= t('date.abbr_day_names')[day.wday] %></th>
+          <th><%= t('date.abbr_day_names')[day.wday] %> <%= day.day %></th>
         <% end %>
       </tr>
     </thead>
