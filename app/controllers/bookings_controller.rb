@@ -8,6 +8,7 @@ class BookingsController < ApplicationController
   def show
     @doctor = @booking.doctor.user
     @patient = @booking.patient.user
+    @note = Note.new
   end
 
   def new

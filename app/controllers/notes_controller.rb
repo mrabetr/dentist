@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   before_action :find_note, only: [:edit, :update, :destroy]
-  before_action :find_booking, only: [:create, :update, :destroy]
+  before_action :find_booking, only: [:create]
 
   def create
     @note = Note.new(note_params)
@@ -18,13 +18,14 @@ class NotesController < ApplicationController
 
   def update
     if @note.update(note_params)
-      redirect_to booking_path(@booking)
+      redirect_to booking_path(@note.booking)
     else
       render :edit
     end
   end
 
   def destroy
+    @booking = @note.booking
     @note.destroy
 
     redirect_to booking_path(@booking)
