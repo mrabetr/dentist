@@ -38,8 +38,9 @@
           <%= image_tag "https://mhchealthcare.org/wp-content/uploads/2019/05/doctor-avatar-1-wpcf_200x200.jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
-            <%= link_to "Services", services_path, class: "dropdown-item" %>
-            <%= link_to "Bookings", bookings_path, class: "dropdown-item" %>
+            <% if policy(User).new? %>
+              <%= link_to "Add Patient", new_user_path, class: "dropdown-item" %>
+            <% end %>
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
