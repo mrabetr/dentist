@@ -15,7 +15,7 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def create?
-    doctor?
+    true
   end
 
   def update?
