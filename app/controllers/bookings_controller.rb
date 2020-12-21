@@ -23,11 +23,15 @@ class BookingsController < ApplicationController
     @booking.end_time = @booking.start_time + @booking.length.minutes
     authorize @booking
 
-    if @booking.save
-      redirect_to bookings_path
-    else
-      render :new
-    end
+    return render_new unless @booking.save
+
+    redirect_to bookings_path
+    # if @booking.save
+    #   redirect_to bookings_path
+    # else
+    #   flash[:alert] = @booking.errors.full_messages
+    #   render :new
+    # end
   end
 
   def edit
@@ -35,11 +39,25 @@ class BookingsController < ApplicationController
   end
 
   def update
-    if @booking.update(booking_params)
-      redirect_to booking_path(@booking)
-    else
-      render :edit
-    end
+    return render_edit unless @booking.update(booking_params)
+
+    @booking.start_time = DateTime.parse([@booking.date, @booking.time].join(' '))
+    @booking.end_time = @booking.start_time + @booking.length.minutes
+    return render_edit unless @booking.save
+
+    redirect_to booking_path(@booking)
+
+    # if @booking.update(booking_params)
+    #   @booking.start_time = DateTime.parse([@booking.date, @booking.time].join(' '))
+    #   @booking.end_time = @booking.start_time + @booking.length.minutes
+    #   if @booking.save
+    #     redirect_to booking_path(@booking)
+    #   else
+    #     render :edit
+    #   end
+    # else
+    #   render :edit
+    # end
   end
 
   def destroy
@@ -60,5 +78,15 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:date, :time, :length, :start_time, :end_time, :status, :patient_id, booking_services_attributes: [:id, :service_id, :_destroy])
+  end
+
+  def render_new
+    flash[:alert] = @booking.errors.full_messages
+    render :new
+  end
+
+  def render_edit
+    flash[:alert] = @booking.errors.full_messages
+    render :edit
   end
 end

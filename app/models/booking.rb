@@ -17,5 +17,5 @@ class Booking < ApplicationRecord
   # validates :date, future_date_only: true
   validates :start_time, presence: true
   validates :status, presence: true, inclusion: { in: STATUS }
-  validates_uniqueness_of :doctor_id, scope: [:start_time]
+  validates_uniqueness_of :start_time, scope: [:doctor_id]
 end

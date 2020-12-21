@@ -13,7 +13,7 @@ Admin.destroy_all
 User.destroy_all
 
 puts "creating a user"
-admin = User.create!(email: "admin@hotmail.com", password: "123456"
+admin = User.create!(email: "admin@hotmail.com", password: "123456",
   first_name: "Rafik", last_name: "Mravet")
 puts "making user admin"
 admin.admin_profile!

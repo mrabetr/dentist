@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     authorize User
 
     stop_impersonating_user
-    redirect_to root_path
+    redirect_to users_path
   end
 
   private

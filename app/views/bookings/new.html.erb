@@ -7,7 +7,7 @@
         <%#= f.input :end_time, required: true, html5: true %>
         <%= f.input :date, required: true, html5: true %>
         <%= f.input :time, required: true, collection: Booking::TIME %>
-        <%= f.input :length, label: "Length (mins)", required: true, collection: Booking::LENGTH, selected: "60" %>
+        <%= f.input :length, required: true, collection: Booking::LENGTH, label: "Length (mins)", selected: "60" %>
 
         <%= f.association :patient, label_method: :name, value_method: :id %>
 
