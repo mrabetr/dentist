@@ -11,6 +11,10 @@ class UserPolicy < ApplicationPolicy
     admin?
   end
 
+  def create?
+    doctor_or_admin?
+  end
+
   def impersonate?
     admin?
   end

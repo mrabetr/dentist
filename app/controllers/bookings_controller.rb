@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @booking = Booking.new
+    @booking = Booking.new(start_time: params[:date], time: params[:time])
     @booking.booking_services.build
     authorize @booking
   end
@@ -19,13 +19,12 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.doctor = current_user.profile
+    set_booking_times
     authorize @booking
 
-    if @booking.save
-      redirect_to bookings_path
-    else
-      render :new
-    end
+    return render_new unless @booking.save
+
+    redirect_to bookings_path
   end
 
   def edit
@@ -33,17 +32,21 @@ class BookingsController < ApplicationController
   end
 
   def update
-    if @booking.update(booking_params)
-      redirect_to booking_path(@booking)
-    else
-      render :edit
-    end
+    return render_edit unless @booking.update(booking_params)
+
+    set_booking_times
+    return render_edit unless @booking.save
+
+    redirect_to booking_path(@booking)
   end
 
   def destroy
-    @booking.destroy
-
-    redirect_to bookings_path
+    if @booking.destroy
+      flash[:notice] = "Booking: #{@booking.start_time.strftime('%e %b %Y %H:%M%p')} to #{@booking.end_time.strftime('%e %b %Y %H:%M%p')} deleted"
+      redirect_to bookings_path
+    else
+      render :index
+    end
   end
 
   private
@@ -54,6 +57,21 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time, :status, :patient_id, booking_services_attributes: [:id, :service_id, :_destroy])
+    params.require(:booking).permit(:date, :time, :length, :start_time, :end_time, :status, :patient_id, booking_services_attributes: [:id, :service_id, :_destroy])
+  end
+
+  def set_booking_times
+    @booking.start_time = DateTime.parse("#{@booking.start_time.to_date}T#{@booking.time}")
+    @booking.end_time = @booking.start_time + @booking.length.minutes
+  end
+
+  def render_new
+    flash[:alert] = @booking.errors.full_messages
+    render :new
+  end
+
+  def render_edit
+    flash[:alert] = @booking.errors.full_messages
+    render :edit
   end
 end
