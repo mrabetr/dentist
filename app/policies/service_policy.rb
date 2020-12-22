@@ -38,8 +38,4 @@ class ServicePolicy < ApplicationPolicy
   def doctor_owner?
     user == record.doctor.user
   end
-
-  # def doctor_or_admin?
-  #   user.doctor || user.admin
-  # end
 end

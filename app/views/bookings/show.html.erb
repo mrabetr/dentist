@@ -10,29 +10,31 @@
       </p>
       <div class="list-group">
         <% @booking.booking_services.each do |booking_service| %>
-          <%= link_to booking_service.service.name, service_path(booking_service.service), class: "list-group-item list-group-item-action" %>
+          <div class="list-group-item list-group-item-action"><%= booking_service.service.name %></div>
         <% end %>
       </div>
       <br>
       <div>
-        <% if @booking.note %>
-          <h5>Clinical Notes
-            <% if policy(@booking.note).edit? %>
-              <%= link_to edit_note_path(@booking.note) do %>
-                <i class="far fa-edit"></i>
+        <% if policy(User).doctor? %>
+          <% if @booking.note %>
+            <h5>Clinical Notes
+              <% if policy(@booking.note).edit? %>
+                <%= link_to edit_note_path(@booking.note) do %>
+                  <i class="far fa-edit"></i>
+                <% end %>
               <% end %>
-            <% end %>
-            <% if policy(@booking.note).destroy? %>
-              <%= link_to note_path(@booking.note), method: :delete, data: { confirm: "Are you sure?" } do %>
-                <i class="far fa-trash-alt"></i>
+              <% if policy(@booking.note).destroy? %>
+                <%= link_to note_path(@booking.note), method: :delete, data: { confirm: "Are you sure?" } do %>
+                  <i class="far fa-trash-alt"></i>
+                <% end %>
               <% end %>
+            </h5>
+            <p><%= @booking.note.note %></p>
+          <% else %>
+            <%= simple_form_for([@booking, @note], remote: true) do |f| %>
+              <%= f.input :note, label: "Notes" %>
+              <%= f.submit "Add", class: "btn btn-primary w-100 mb-3" %>
             <% end %>
-          </h5>
-          <p><%= @booking.note.note %></p>
-        <% else %>
-          <%= simple_form_for([@booking, @note], remote: true) do |f| %>
-            <%= f.input :note, label: "Notes" %>
-            <%= f.submit "Add", class: "btn btn-primary w-100 mb-3" %>
           <% end %>
         <% end %>
       </div>

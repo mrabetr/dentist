@@ -19,11 +19,11 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
-    if current_user.profile_type == "Doctor"
+    if policy(User).doctor?
       @booking.doctor = current_user.profile
-    elsif current_user.profile_type == "Patient"
+    elsif policy(User).patient?
       @booking.patient = current_user.profile
-      @booking.doctor = Doctor.find(1)
+      @booking.doctor = Doctor.first
     end
     set_booking_times
     authorize @booking

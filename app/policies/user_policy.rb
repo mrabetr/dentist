@@ -23,6 +23,14 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def doctor?
+    user.doctor
+  end
+
+  def patient?
+    user.profile_type == "Patient"
+  end
+
   private
 
   def admin?

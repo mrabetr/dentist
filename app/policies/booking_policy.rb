@@ -40,10 +40,6 @@ class BookingPolicy < ApplicationPolicy
     user == record.doctor.user
   end
 
-  # def doctor_or_admin?
-  #   user.doctor || user.admin
-  # end
-
   def doctor_admin_or_patient_owner?
     user.doctor || user.admin || user == record.patient.user
   end
