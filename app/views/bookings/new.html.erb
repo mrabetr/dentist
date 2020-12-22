@@ -8,22 +8,29 @@
         <%= f.input :time, required: true, collection: Booking::TIME %>
         <%= f.input :length, required: true, collection: Booking::LENGTH, label: "Length (mins)", selected: "60" %>
 
-        <%= f.association :patient, label_method: :name, value_method: :id %>
+        <% if current_user.profile_type == "Doctor" %>
+          <%= f.association :patient, label_method: :name, value_method: :id %>
+        <% end %>
 
         <div data-service-target="new" data-services-no=1>
           <div id="0">
             <%= f.simple_fields_for :booking_services do |b| %>
-              <%= b.association :service, label: "Service" %>
+              <% if current_user.profile_type == "Doctor" %>
+                <%= b.association :service, label: "Service" %>
+              <% elsif current_user.profile_type == "Patient" %>
+                <%= b.association :service, label: "Service", collection: Service.first(1) %>
+              <% end %>
             <% end %>
           </div>
         </div>
-        <div class="d-flex justify-content-between">
-          <button type="button" class="btn btn-outline-secondary mb-3"
-            data-action="click->service#add">Add Service</button>
-          <button type="button" class="btn btn-outline-secondary mb-3"
-            data-action="click->service#remove">Remove Service</button>
-        </div>
-
+        <% if current_user.profile_type == "Doctor" %>
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-secondary mb-3"
+              data-action="click->service#add">Add Service</button>
+            <button type="button" class="btn btn-outline-secondary mb-3"
+              data-action="click->service#remove">Remove Service</button>
+          </div>
+        <% end %>
         <%= f.submit "Book", class: "btn btn-primary w-100 mb-3" %>
       <% end %>
     </div>

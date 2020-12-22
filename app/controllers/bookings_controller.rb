@@ -19,7 +19,12 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
-    @booking.doctor = current_user.profile
+    if current_user.profile_type == "Doctor"
+      @booking.doctor = current_user.profile
+    elsif current_user.profile_type == "Patient"
+      @booking.patient = current_user.profile
+      @booking.doctor = Doctor.find(1)
+    end
     set_booking_times
     authorize @booking
 
@@ -58,7 +63,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:date, :time, :length, :start_time, :end_time, :status, :patient_id, booking_services_attributes: [:id, :service_id, :_destroy])
+    params.require(:booking).permit(:date, :time, :length, :start_time, :end_time, :status, :patient_id, :doctor_id, booking_services_attributes: [:id, :service_id, :_destroy])
   end
 
   def set_booking_times
