@@ -10,6 +10,10 @@ class BookingPolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    doctor_or_admin?
+  end
+
   def show?
     doctor_admin_or_patient_owner?
   end

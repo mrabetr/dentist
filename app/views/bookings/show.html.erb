@@ -14,6 +14,29 @@
         <% end %>
       </div>
       <br>
+      <div>
+        <% if @booking.note %>
+          <h5>Clinical Notes
+            <% if policy(@booking.note).edit? %>
+              <%= link_to edit_note_path(@booking.note) do %>
+                <i class="far fa-edit"></i>
+              <% end %>
+            <% end %>
+            <% if policy(@booking.note).destroy? %>
+              <%= link_to note_path(@booking.note), method: :delete, data: { confirm: "Are you sure?" } do %>
+                <i class="far fa-trash-alt"></i>
+              <% end %>
+            <% end %>
+          </h5>
+          <p><%= @booking.note.note %></p>
+        <% else %>
+          <%= simple_form_for([@booking, @note], remote: true) do |f| %>
+            <%= f.input :note, label: "Notes" %>
+            <%= f.submit "Add", class: "btn btn-primary w-100 mb-3" %>
+          <% end %>
+        <% end %>
+      </div>
+      <br>
       <%= link_to "List", bookings_path %>
       <% if policy(@booking).edit? %>
         <%= link_to edit_booking_path(@booking) do %>
