@@ -15,7 +15,11 @@
         <div data-service-target="new" data-services-no=1>
           <div id="0">
             <%= f.simple_fields_for :booking_services do |b| %>
-              <%= b.association :service, label: "Service" %>
+              <% if current_user.profile_type == "Doctor" %>
+                <%= b.association :service, label: "Service" %>
+              <% elsif current_user.profile_type == "Patient" %>
+                <%= b.association :service, label: "Service", collection: Service.first(1) %>
+              <% end %>
             <% end %>
           </div>
         </div>
