@@ -18,7 +18,7 @@
               <% if policy(User).doctor? %>
                 <%= b.association :service, label: "Service" %>
               <% elsif policy(User).patient? %>
-                <%= b.association :service, label: "Service", collection: Service.first(1) %>
+                <%= b.association :service, label: "Service", collection: Service.where(public: true) %>
               <% end %>
             <% end %>
           </div>
