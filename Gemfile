@@ -31,7 +31,7 @@ gem "simple_calendar", "~> 2.0"
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'money-rails'
-
+gem 'stripe'
 gem 'devise'
 
 gem 'autoprefixer-rails'

@@ -18,19 +18,46 @@ class BookingsController < ApplicationController
   end
 
   def create
+    # raise
     @booking = Booking.new(booking_params)
+    authorize @booking
     if policy(User).doctor?
       @booking.doctor = current_user.profile
+      set_booking_times
+      # authorize @booking
+
+      return render_new unless @booking.save
+
+      redirect_to bookings_path
     elsif policy(User).patient?
       @booking.patient = current_user.profile
       @booking.doctor = Doctor.first
+      set_booking_times
+      # authorize @booking
+
+      return render_new unless @booking.save
+
+      @booking.amount = @booking.services.first.price
+      @booking.state = "pending"
+      @booking.save
+
+      session = Stripe::Checkout::Session.create(
+        payment_method_types: ['card'],
+        line_items: [{
+          name: @booking.services.first.name,
+          # images: [teddy.photo_url],
+          amount: @booking.services.first.price_cents,
+          currency: 'gbp',
+          quantity: 1
+        }],
+        success_url: booking_url(@booking),
+        cancel_url: booking_url(@booking)
+      )
+
+      @booking.update(checkout_session_id: session.id)
+
+      redirect_to new_booking_payment_path(@booking)
     end
-    set_booking_times
-    authorize @booking
-
-    return render_new unless @booking.save
-
-    redirect_to bookings_path
   end
 
   def edit
@@ -59,11 +86,12 @@ class BookingsController < ApplicationController
 
   def find_booking
     @booking = Booking.find(params[:id])
+    # @booking = current_user.bookings.find(params[:id])
     authorize @booking
   end
 
   def booking_params
-    params.require(:booking).permit(:date, :time, :length, :start_time, :end_time, :status, :patient_id, :doctor_id, booking_services_attributes: [:id, :service_id, :_destroy])
+    params.require(:booking).permit(:start_time, :end_time, :time, :length, :status, :patient_id, :doctor_id, booking_services_attributes: [:id, :service_id, :_destroy])
   end
 
   def set_booking_times

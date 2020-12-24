@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   resources :services
   resources :bookings do
-    resources :notes, only: [:create]
+    resources :notes, only: :create
+    resources :payments, only: :new
   end
 
   resources :notes, only: [:edit, :update, :destroy]

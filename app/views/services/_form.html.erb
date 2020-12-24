@@ -2,5 +2,6 @@
   <%= f.input :name, label: "Name", required: true %>
   <%= f.input :description %>
   <%= f.input :public, as: :radio_buttons %>
-  <%= f.submit "Add Service", class: "btn btn-primary w-100" %>
+  <%= f.input :price %>
+  <%= f.submit class: "btn btn-primary w-100" %>
 <% end %>

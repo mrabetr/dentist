@@ -1,7 +1,7 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
-      <h2 class="text-center mb-3">Booking <%= @booking.id %></h2>
+      <h2 class="text-center mb-3">Booking #<%= @booking.id %> <small><span class="badge badge-primary"><%= @booking.state %></span></small></h2>
       <p>On <%= @booking.start_time.strftime("%a, %e %b %Y") %>,
         at <%= @booking.start_time.strftime("%H:%M") %> for <%= "#{@booking.length}mins" %>.
         Doctor: <%= @doctor.first_name %>,
@@ -13,6 +13,13 @@
           <div class="list-group-item list-group-item-action"><%= booking_service.service.name %></div>
         <% end %>
       </div>
+      <br>
+        <ul class="list-unstyled">
+          <li><strong>ISSUED ON:</strong> <%= @booking.created_at.to_date %></li>
+          <li><strong>SERVICE:</strong> <%= @booking.services.first.name %></li>
+          <li><strong>TOTAL:</strong> <%= humanized_money_with_symbol @booking.amount %></li>
+          </li>
+        </ul>
       <br>
       <div>
         <% if policy(User).doctor? %>
