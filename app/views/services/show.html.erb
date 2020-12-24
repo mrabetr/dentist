@@ -5,10 +5,10 @@
       <p><%= @service.name %></p>
       <% if @service.public %>
         <p>Price: <%= humanized_money_with_symbol(@service.price) %></p>
-        <%= form_tag bookings_path do %>
-          <%= hidden_field_tag 'service_id', @service.id %>
-          <%= submit_tag "Book", class: "btn btn-primary w-100" %>
-        <% end %>
+        <%#= form_tag bookings_path do %>
+          <%#= hidden_field_tag 'service_id', @service.id %>
+          <%#= submit_tag "Book", class: "btn btn-primary w-100" %>
+        <%# end %>
       <% end %>
       <%= link_to "List", services_path %>
       <% if policy(@service).edit? %>

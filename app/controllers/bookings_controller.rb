@@ -18,13 +18,11 @@ class BookingsController < ApplicationController
   end
 
   def create
-    # raise
     @booking = Booking.new(booking_params)
     authorize @booking
     if policy(User).doctor?
       @booking.doctor = current_user.profile
       set_booking_times
-      # authorize @booking
 
       return render_new unless @booking.save
 
@@ -33,7 +31,6 @@ class BookingsController < ApplicationController
       @booking.patient = current_user.profile
       @booking.doctor = Doctor.first
       set_booking_times
-      # authorize @booking
 
       return render_new unless @booking.save
 
@@ -45,7 +42,7 @@ class BookingsController < ApplicationController
         payment_method_types: ['card'],
         line_items: [{
           name: @booking.services.first.name,
-          # images: [teddy.photo_url],
+          # images: [@booking.services.first.photo_url],
           amount: @booking.services.first.price_cents,
           currency: 'gbp',
           quantity: 1
@@ -86,7 +83,6 @@ class BookingsController < ApplicationController
 
   def find_booking
     @booking = Booking.find(params[:id])
-    # @booking = current_user.bookings.find(params[:id])
     authorize @booking
   end
 

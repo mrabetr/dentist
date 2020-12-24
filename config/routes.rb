@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :notes, only: [:edit, :update, :destroy]
 
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
+
   resources :users, only: [:index, :new] do
     post "create_user", to: "users#create", as: :create, on: :collection
     post :impersonate, on: :member
