@@ -2,12 +2,32 @@
   justify-content: space-between;
   background: white;
   position: sticky;
+
+  .navbar-collapse {
+    flex-grow: 0;
+  }
+
+  .navbar-brand img {
+    width: 40px;
+  }
 }
 
-.navbar-lewagon .navbar-collapse {
+.navbar-home {
+  justify-content: space-between;
+  background-color: transparent;
+  transition: 0.5s background-color ease;
+
+  .navbar-collapse {
   flex-grow: 0;
+  }
+
+  .navbar-brand img {
+  width: 40px;
+  }
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.navbar-home-white {
+  background-color: white;
+  box-shadow: 0px 3px 4px 0px rgba(0,0,0,0.1);
 }
+
