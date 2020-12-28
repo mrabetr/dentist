@@ -44,5 +44,6 @@ class UsersController < ApplicationController
   def user_password
     # replace this with random password generator and send automatic email to renew password
     @user.password = "123456"
+    @user.send_reset_password_instructions
   end
 end
