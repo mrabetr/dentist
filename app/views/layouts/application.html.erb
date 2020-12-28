@@ -12,7 +12,11 @@
   </head>
 
   <body>
-    <%= render 'shared/navbar' %>
+    <% if current_page?(controller: 'pages', action: 'home') %>
+      <%= render 'shared/navbar_home' %>
+    <% else %>
+      <%= render 'shared/navbar' %>
+    <% end %>
     <%= render 'shared/flashes' %>
     <%= render 'shared/pretender' %>
 
