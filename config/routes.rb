@@ -4,10 +4,13 @@ Rails.application.routes.draw do
 
   resources :services
   resources :bookings do
-    resources :notes, only: [:create]
+    resources :notes, only: :create
+    resources :payments, only: :new
   end
 
   resources :notes, only: [:edit, :update, :destroy]
+
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
 
   resources :users, only: [:index, :new] do
     post "create_user", to: "users#create", as: :create, on: :collection

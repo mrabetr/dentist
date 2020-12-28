@@ -3,6 +3,13 @@
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <h2 class="text-center mb-3">Service <%= @service.id %></h2>
       <p><%= @service.name %></p>
+      <% if @service.public %>
+        <p>Price: <%= humanized_money_with_symbol(@service.price) %></p>
+        <%#= form_tag bookings_path do %>
+          <%#= hidden_field_tag 'service_id', @service.id %>
+          <%#= submit_tag "Book", class: "btn btn-primary w-100" %>
+        <%# end %>
+      <% end %>
       <%= link_to "List", services_path %>
       <% if policy(@service).edit? %>
         <%= link_to edit_service_path(@service) do %>

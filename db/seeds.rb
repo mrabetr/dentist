@@ -7,10 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts "Destroying all user tables"
 
-Doctor.destroy_all
-Patient.destroy_all
-Admin.destroy_all
-User.destroy_all
+Doctor.destroy_all if Rails.env.development?
+Patient.destroy_all if Rails.env.development?
+Admin.destroy_all if Rails.env.development?
+User.destroy_all if Rails.env.development?
 
 puts "creating a user"
 admin = User.create!(email: "admin@hotmail.com", password: "123456",

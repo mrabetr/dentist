@@ -6,6 +6,8 @@ class Booking < ApplicationRecord
   has_one :note, dependent: :destroy
   accepts_nested_attributes_for :booking_services, allow_destroy: true
 
+  monetize :amount_cents
+
   STATUS = ["Pending", "Completed", "Cancelled"]
   TIME = []
   (8..19).each do |hour|
