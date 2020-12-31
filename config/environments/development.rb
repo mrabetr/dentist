@@ -1,6 +1,9 @@
 Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.perform_deliveries = true  
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { :api_token => "8c11aa38-46f6-4b57-80ad-f57d94396f5b" }
+
 
   config.hosts << /[a-z0-9]+\.ngrok\.io/
 
@@ -37,7 +40,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 

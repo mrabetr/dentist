@@ -34,6 +34,7 @@ gem "simple_calendar", "~> 2.0"
 gem 'money-rails'
 gem 'stripe'
 gem 'stripe_event'
+gem 'postmark-rails'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
