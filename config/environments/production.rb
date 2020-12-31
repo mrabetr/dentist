@@ -2,7 +2,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "http://www.clinic-app.com" }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :postmark
-  config.action_mailer.postmark_settings = { :api_token => "8c11aa38-46f6-4b57-80ad-f57d94396f5b" }
+  config.action_mailer.postmark_settings = { api_token: ENV['POSTMARK_API_TOKEN'] }
 
 
   # Settings specified here will take precedence over those in config/application.rb.
