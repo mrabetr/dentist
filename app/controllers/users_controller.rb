@@ -3,6 +3,10 @@ class UsersController < ApplicationController
     @users = policy_scope(User).order(:id)
   end
 
+  def patients
+    @patients = policy_scope(User).where(profile_type: "Patient").order(:id)
+  end
+
   def new
     @user = User.new
     authorize @user

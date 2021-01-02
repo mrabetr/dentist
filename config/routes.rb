@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :new] do
     post "create_user", to: "users#create", as: :create, on: :collection
+    get :patients, as: :patients, on: :collection
     post :impersonate, on: :member
     post :stop_impersonating, on: :collection
   end

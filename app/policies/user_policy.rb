@@ -1,7 +1,7 @@
 class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      raise Pundit::NotAuthorizedError, 'not allowed to view this page' unless user.admin
+      raise Pundit::NotAuthorizedError, 'not allowed to view this page' unless doctor_or_admin?
 
       scope.all
     end
@@ -9,6 +9,10 @@ class UserPolicy < ApplicationPolicy
 
   def index?
     admin?
+  end
+
+  def patients?
+    doctor_or_admin?
   end
 
   def create?

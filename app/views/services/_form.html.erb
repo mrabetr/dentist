@@ -1,5 +1,5 @@
 <%= simple_form_for(service) do |f| %>
-  <%= f.input :name, label: "Name", required: true %>
+  <%= f.input :name, label: "Name", required: true, autofocus: true %>
   <%= f.input :description %>
   <%= f.input :public, as: :radio_buttons %>
   <%= f.input :price %>
