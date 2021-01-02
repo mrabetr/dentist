@@ -16,6 +16,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     user_password
     authorize @user
+    @user.skip_confirmation!
 
     if @user.save
       redirect_to root_path
@@ -48,6 +49,6 @@ class UsersController < ApplicationController
   def user_password
     # replace this with random password generator and send automatic email to renew password
     @user.password = "123456"
-    @user.send_reset_password_instructions
+    # @user.send_reset_password_instructions
   end
 end
