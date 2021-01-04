@@ -3,6 +3,10 @@ class UsersController < ApplicationController
     @users = policy_scope(User).order(:id)
   end
 
+  def patients
+    @patients = policy_scope(User).where(profile_type: "Patient").order(:id)
+  end
+
   def new
     @user = User.new
     authorize @user
@@ -17,6 +21,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path
     else
+      flash[:alert] = @user.errors.full_messages
       render :new
     end
   end
@@ -44,7 +49,7 @@ class UsersController < ApplicationController
 
   def user_password
     # replace this with random password generator and send automatic email to renew password
-    @user.password = "123456"
+    @user.password = ENV['NEW_USER_PASSWORD']
     # @user.send_reset_password_instructions
   end
 end
