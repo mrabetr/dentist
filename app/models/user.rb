@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  belongs_to :profile, polymorphic: true, optional: true
+  belongs_to :profile, polymorphic: true, optional: true, dependent: :destroy
 
   TITLE = ["Mrs.", "Mr.", "Miss", "Ms.", "Dr.", "Mlle."]
 

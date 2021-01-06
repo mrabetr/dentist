@@ -1,0 +1,14 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <h2 class="text-center mb-3">Patients</h2>
+      <div class="list-group">
+        <% @patients.each do |patient| %>
+          <%= link_to "#", class: "list-group-item list-group-item-action" do  %>
+            <%= patient.profile.name %> (<%= patient.email %>)
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
