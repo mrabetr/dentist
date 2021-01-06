@@ -35,6 +35,7 @@ gem 'money-rails'
 gem 'stripe'
 gem 'stripe_event'
 gem 'postmark-rails'
+gem 'will_paginate', '~> 3.1.0'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'

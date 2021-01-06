@@ -31,7 +31,7 @@
       </ul>
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-upcoming" role="tabpanel" aria-labelledby="pills-upcoming-tab">
-        <% @bookings.each do |booking| %>
+        <% @bookingsu.each do |booking| %>
           <% if booking.start_time > Time.now %>
             <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>
               <% if policy(Booking).index? %>
@@ -44,9 +44,10 @@
             <% end %>
           <% end %>
         <% end %>
+        <%= will_paginate @bookingsu %>
         </div>
         <div class="tab-pane fade" id="pills-past" role="tabpanel" aria-labelledby="pills-past-tab">
-        <% @bookings.each do |booking| %>
+        <% @bookingsp.each do |booking| %>
           <% if booking.start_time < Time.now %>
             <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>
               <% if policy(Booking).index? %>
@@ -59,6 +60,7 @@
             <% end %>
           <% end %>
         <% end %>
+        <%= will_paginate @bookingsp %>
         </div>
       </div>
     </div>
