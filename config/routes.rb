@@ -18,4 +18,10 @@ Rails.application.routes.draw do
     post :impersonate, on: :member
     post :stop_impersonating, on: :collection
   end
+
+  resources :patients, only: [:show] do
+    resources :medical_forms, only: [:new, :create]
+  end
+
+  resources :medical_forms, only: [:show, :edit, :update, :destroy]
 end
