@@ -2,7 +2,9 @@ class BookingsController < ApplicationController
   before_action :find_booking, only: [:show, :edit, :update, :destroy]
 
   def index
-    @bookings = policy_scope(Booking).order(start_time: :asc)
+    @bookings = policy_scope(Booking).paginate(page: params[:page], per_page: 5).order(start_time: :asc)
+    @bookingsu = policy_scope(Booking).where('start_time > ?', Time.now).paginate(page: params[:page], per_page: 5).order(start_time: :asc)
+    @bookingsp = policy_scope(Booking).where('start_time < ?', Time.now).paginate(page: params[:page], per_page: 5).order(start_time: :asc)
   end
 
   def show
