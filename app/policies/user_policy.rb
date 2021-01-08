@@ -19,6 +19,10 @@ class UserPolicy < ApplicationPolicy
     doctor_or_admin?
   end
 
+  def update?
+    doctor_or_admin?
+  end
+
   def impersonate?
     admin?
   end

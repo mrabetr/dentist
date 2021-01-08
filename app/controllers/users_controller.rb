@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: [:edit, :update]
+
   def index
     @users = policy_scope(User).order(:id)
   end
@@ -26,6 +28,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    @user.skip_reconfirmation!
+
+    if @user.update(user_params)
+      redirect_to patient_path(@user.profile)
+    else
+      flash[:alert] = @user.errors.full_messages
+      render :new
+    end
+  end
+
   def impersonate
     user = User.find(params[:id])
     authorize user
@@ -42,6 +57,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def find_user
+    @user = User.find(params[:id])
+    authorize @user
+  end
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :mobile)
