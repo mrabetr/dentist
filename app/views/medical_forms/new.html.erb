@@ -43,22 +43,22 @@
               <%= b.input :dob, label: "Date of birth (dd/mm/yyyy)", html5: true %>
             </div>
             <div class="col-6 form-group">
-              <%= b.input :sex, collection: ["Male", "Female"] %>
+              <%= b.input :sex, label: "Gender", collection: ["Male", "Female"] %>
             </div>
           </div>
           <div class="form-row">
-            <div class="col-8 form-group">
+            <div class="col-7 form-group">
               <p>How would you like to receive correspondence from Design Dental Centre?</p>
             </div>
-            <div class="col-4 form-group">
+            <div class="col-5 form-group">
               <%= b.input :communication, label: false, collection: ["email", "mobile"], selected: "email" %>
             </div>
           </div>
           <div class="form-row">
-            <div class="col-8 form-group">
+            <div class="col-7 form-group">
               <p>Date of last dental visit (dd/mm/yyyy):</p>
             </div>
-            <div class="col-4 form-group">
+            <div class="col-5 form-group">
               <%= b.input :last_visit, label: false, html5: true %>
             </div>
           </div>
@@ -201,10 +201,10 @@
         <p>(Check all that apply)</p>
         <div class="form-row">
           <div class="form-group col-6">
-            <%= f.input :teeth_pain, as: :boolean %>
+            <%= f.input :teeth_pain, label: "Pain or discomfort on your teeth", as: :boolean %>
           </div>
           <div class="form-group col-6">
-            <%= f.input :food_trap, as: :boolean %>
+            <%= f.input :food_trap, label: "Food often stuck between teeth", as: :boolean %>
           </div>
         </div>
         <div class="form-row">
@@ -212,20 +212,20 @@
             <%= f.input :teeth_sensitivity, as: :boolean %>
           </div>
           <div class="form-group col-6">
-            <%= f.input :mouth_ulcers, as: :boolean %>
+            <%= f.input :mouth_ulcers, label: "Mouth ulcers / cold sores", as: :boolean %>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-6">
-            <%= f.input :bleeding, as: :boolean %>
+            <%= f.input :bleeding, label: "Bleeding when brushing / flossing", as: :boolean %>
           </div>
           <div class="form-group col-6">
-            <%= f.input :grinding_teeth, as: :boolean %>
+            <%= f.input :grinding_teeth, label: "Grinding teeth / clenching", as: :boolean %>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-12">
-            <%= f.input :unpleasant_taste, as: :boolean %>
+            <%= f.input :unpleasant_taste, label: "Unpleasant taste / odours in your mouth", as: :boolean %>
           </div>
         </div>
         <h4>Making the most of your smile</h4>
@@ -233,7 +233,7 @@
         <p>(Check all that apply)</p>
         <div class="form-row">
           <div class="form-group col-6">
-            <%= f.input :stained_teeth, as: :boolean %>
+            <%= f.input :stained_teeth, label: "Stained / discoloured teeth", as: :boolean %>
           </div>
           <div class="form-group col-6">
             <%= f.input :missing_teeth, as: :boolean %>
@@ -241,15 +241,15 @@
         </div>
         <div class="form-row">
           <div class="form-group col-6">
-            <%= f.input :uneven_teeth, as: :boolean %>
+            <%= f.input :uneven_teeth, label: "Uneven teeth / gaps", as: :boolean %>
           </div>
           <div class="form-group col-6">
-            <%= f.input :crooked_teeth, as: :boolean %>
+            <%= f.input :crooked_teeth, label: "Crossed over / crooked teeth", as: :boolean %>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-6">
-            <%= f.input :black_filling, as: :boolean %>
+            <%= f.input :black_filling, label: "Unsightly / black filling", as: :boolean %>
           </div>
           <div class="form-group col-6">
             <%= f.input :uncomfortable_dentures, as: :boolean %>
@@ -257,13 +257,15 @@
         </div>
         <div class="form-row">
           <div class="form-group col-6">
-            <%= f.input :cracked_teeth, as: :boolean %>
+            <%= f.input :cracked_teeth, label: "Cracked / transparent teeth", as: :boolean %>
           </div>
           <div class="form-group col-6">
             <%= f.input :bad_breath, as: :boolean %>
           </div>
         </div>
         <%= f.input :other_medical_info, label: "Please provide further details about any concerns you may have with your smile:" %>
+        <p>By submitting this form you certify to have read and understood the above information and that all of your answers are accurate and up to date.</p>
+        <p>Any incorrect information can be dangerous to your health and you must inform us of any changes.</p>
         <%= f.submit "Submit Form", class: "btn btn-primary w-100 mb-3" %>
       <% end %>
     </div>
