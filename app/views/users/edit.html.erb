@@ -1,0 +1,14 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <h2 class="text-center mb-3">Update patient</h2>
+      <%= simple_form_for(@user, url: update_user_path(@user)) do |f| %>
+        <%= f.input :email, required: true, autofocus: true %>
+        <%= f.input :first_name, required: true %>
+        <%= f.input :last_name, required: true %>
+        <%= f.input :mobile %>
+        <%= f.submit "Update Patient", class: "btn btn-primary w-100" %>
+      <% end %>
+    </div>
+  </div>
+</div>
