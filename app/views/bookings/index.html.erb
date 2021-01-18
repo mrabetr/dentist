@@ -21,16 +21,7 @@
         <% end %>
       <% end %>
       <br>
-      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="pills-upcoming-tab" data-toggle="pill" href="#pills-upcoming" role="tab" aria-controls="pills-upcoming" aria-selected="true">Upcoming</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="pills-past-tab" data-toggle="pill" href="#pills-past" role="tab" aria-controls="pills-past" aria-selected="false">Past</a>
-        </li>
-      </ul>
-      <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active mb-3" id="pills-upcoming" role="tabpanel" aria-labelledby="pills-upcoming-tab">
+      <h2 class="mb-3">Upcoming Bookings</h2>
         <% @bookingsu.each do |booking| %>
           <% if booking.start_time > Time.now %>
             <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>
@@ -44,9 +35,8 @@
             <% end %>
           <% end %>
         <% end %>
-        <%= will_paginate @bookingsu %>
-        </div>
-        <div class="tab-pane fade mb-3" id="pills-past" role="tabpanel" aria-labelledby="pills-past-tab">
+        <%= will_paginate @bookingsu, param_name: :new_bookings %>
+      <h2 class="mb-3">Past Bookings</h2>
         <% @bookingsp.each do |booking| %>
           <% if booking.start_time < Time.now %>
             <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>
@@ -60,9 +50,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <%= will_paginate @bookingsp %>
-        </div>
-      </div>
+        <%= will_paginate @bookingsp, param_name: :old_bookings %>
     </div>
   </div>
 </div>
