@@ -14,13 +14,13 @@
         <% end %>
       </div>
       <br>
-        <ul class="list-unstyled">
-          <li><strong>ISSUED ON:</strong> <%= @booking.created_at.to_date %></li>
-          <li><strong>SERVICE:</strong> <%= @booking.services.first.name %></li>
-          <li><strong>TOTAL:</strong> <%= humanized_money_with_symbol @booking.amount %></li>
+        <!-- <ul class="list-unstyled">
+          <li><strong>ISSUED ON:</strong> <%#= @booking.created_at.to_date %></li>
+          <li><strong>SERVICE:</strong> <%#= @booking.services.first.name %></li>
+          <li><strong>TOTAL:</strong> <%#= humanized_money_with_symbol @booking.amount %></li>
           </li>
         </ul>
-      <br>
+      <br> -->
       <div>
         <% if policy(User).doctor? %>
           <% if @booking.note %>
