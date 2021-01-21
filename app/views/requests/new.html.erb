@@ -1,0 +1,25 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <h2 class="text-center mb-3">Entre your details</h2>
+      <%= simple_form_for @request do |f| %>
+        <div class="form-row">
+          <div class="col-6 form-group">
+            <%= f.input :first_name, required: true,
+                        input_html: { autocomplete: "given-name" } %>
+          </div>
+          <div class="col-6 form-group">
+            <%= f.input :last_name, required: true,
+                        input_html: { autocomplete: "family-name" } %>
+          </div>
+        </div>
+        <%= f.input :email, required: true, input_html: { autocomplete: "email" } %>
+        <%= f.input :mobile, required: true, input_html: { autocomplete: "tel" } %>
+        <%= f.input :comments, label: "Comments or special requests",
+                    placeholder: "e.g. type of dental treatment required and preferred day/time of the week for an appopintment.",
+                    required: true %>
+        <%= f.submit "Request an Appointment", class: "btn btn-primary w-100 mb-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>

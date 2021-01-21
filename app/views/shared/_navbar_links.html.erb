@@ -1,6 +1,8 @@
 <!-- <div class="navbar navbar-expand-sm navbar-light navbar-lewagon fixed-top"> -->
   <%= link_to root_path, class: "navbar-brand" do %>
-    <%= image_tag "https://lirp-cdn.multiscreensite.com/c416ec49/dms3rep/multi/opt/tooth-allport-166w.png" %>
+    <%#= image_tag "https://lirp-cdn.multiscreensite.com/c416ec49/dms3rep/multi/opt/tooth-allport-166w.png" %>
+    <%= image_tag "logo.png" %>
+    <%= image_tag "clinic_name.png" %>
     <% end %>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +55,7 @@
           </div>
         </li>
       <% else %>
+          <%= link_to "Book Now", new_request_path, class: "btn btn-primary" %>
         <li class="nav-item">
           <%= link_to "Login", new_user_session_path, class: "nav-link" %>
         </li>
