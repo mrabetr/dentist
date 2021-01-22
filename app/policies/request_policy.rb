@@ -7,6 +7,10 @@ class RequestPolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    doctor_or_admin?
+  end
+
   def show?
     doctor_or_admin?
   end

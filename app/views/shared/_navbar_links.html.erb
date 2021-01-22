@@ -30,6 +30,11 @@
         <li class="nav-item">
           <%= link_to "Bookings", bookings_path, class: "nav-link" %>
         </li>
+        <% if policy(Request).index? %>
+          <li class="nav-item">
+            <%= link_to "Requests", requests_path, class: "nav-link" %>
+          </li>
+        <% end %>
         <% if policy(Service).index? %>
           <li class="nav-item">
             <%= link_to "Services", services_path, class: "nav-link" %>
