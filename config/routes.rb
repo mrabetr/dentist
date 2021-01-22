@@ -23,4 +23,6 @@ Rails.application.routes.draw do
   resources :patients, only: [:index, :show, :edit, :update]
 
   resources :medical_forms
+
+  resources :requests, only: [:new, :create, :index, :show]
 end
