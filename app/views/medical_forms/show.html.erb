@@ -42,7 +42,7 @@
       <% if @form.smoking %><p><i class="far fa-check-square"></i> Smokes <%= @form.smoking_frequency %> cigarette(s) on average per week</p><% end %>
       <% if @form.alcohol %><p><i class="far fa-check-square"></i> Drinks <%= @form.alcohol_frequency %> unit(s) of alcohol on average per week</p><% end %>
       <% if @form.pregnant_nursing %><p><i class="far fa-check-square"></i> Pregnant/Nursing, due date: <%= @form.due_date.strftime("%d/%m/%Y") %></p><% end %>
-      <% if !@form.other_medical_info.nil? %>
+      <% if !@form.other_medical_info.nil? && @form.other_medical_info != "" %>
         <p>Additional details of any medical problem and/or any medication taken:</p>
         <p><%= @form.other_medical_info %></p>
       <% end %>
@@ -65,7 +65,7 @@
       <% if @form.uncomfortable_dentures %><p><i class="far fa-check-square"></i> Uncomfortable dentures</p><% end %>
       <% if @form.cracked_teeth %><p><i class="far fa-check-square"></i> Cracked / transparent teeth</p><% end %>
       <% if @form.bad_breath %><p><i class="far fa-check-square"></i> Bad breath</p><% end %>
-      <% if !@form.other_smile_info.nil? %>
+      <% if !@form.other_smile_info.nil? && @form.other_smile_info != "" %>
         <p>Additional details about any smile concerns:</p>
         <p><%= @form.other_smile_info %></p>
       <% end %>
