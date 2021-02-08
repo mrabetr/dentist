@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     post :stop_impersonating, on: :collection
   end
 
-  resources :patients, only: [:index, :show, :edit, :update]
+  resources :patients, only: [:index, :show, :edit, :update, :destroy]
 
   resources :medical_forms
 
