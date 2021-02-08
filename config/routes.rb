@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  # this was added after removing :registerable from User model to limit external sign ups
+  as :user do
+    get 'users/edit', to: "devise/registrations#edit", as: :edit_user_registration
+    put 'users', to: "devise/registrations#update", as: :user_registration
+  end
+
   root to: 'pages#home'
 
   resources :services
