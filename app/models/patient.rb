@@ -12,4 +12,8 @@ class Patient < ApplicationRecord
   def short_name
     "#{user.first_name.first}. #{user.last_name}"
   end
+
+  def name_email
+    "#{user.first_name} #{user.last_name} - #{user.email}"
+  end
 end

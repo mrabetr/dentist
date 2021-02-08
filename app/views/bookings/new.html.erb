@@ -9,7 +9,7 @@
         <%= f.input :length, required: true, collection: Booking::LENGTH, label: "Length (mins)", selected: "60" %>
 
         <% if policy(User).doctor? %>
-          <%= f.association :patient, label_method: :name, value_method: :id, input_html: { class: 'select2' } %>
+          <%= f.association :patient, label_method: :name_email, value_method: :id, input_html: { class: 'select2' } %>
         <% end %>
 
         <div data-service-target="new">
