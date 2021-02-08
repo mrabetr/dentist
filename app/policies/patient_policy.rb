@@ -14,4 +14,8 @@ class PatientPolicy < ApplicationPolicy
   def update?
     doctor_or_admin?
   end
+
+  def destroy?
+    doctor_or_admin?
+  end
 end

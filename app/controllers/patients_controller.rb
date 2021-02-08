@@ -1,8 +1,8 @@
 class PatientsController < ApplicationController
-  before_action :find_patient, only: [:show, :edit, :update]
+  before_action :find_patient, only: [:show, :edit, :update, :destroy]
 
   def index
-    @patients = policy_scope(Patient)
+    @patients = policy_scope(Patient).order(id: :asc)
   end
 
   def show; end
@@ -18,6 +18,12 @@ class PatientsController < ApplicationController
       flash[:alert] = @patient.errors.full_messages
       render :edit
     end
+  end
+
+  def destroy
+    @patient.destroy
+
+    redirect_to patients_path
   end
 
   private

@@ -6,6 +6,17 @@
       <p class="text-center mb-3"><%= @patient.user.email %></p>
       <p class="text-center mb-3"><%= @patient.user.mobile %></p>
       <p class="text-center mb-3"><%= @patient.dob %></p>
+      <%= link_to "List", patients_path %>
+      <% if policy(@patient).edit? %>
+        <%= link_to edit_patient_path(@patient) do %>
+          <i class="far fa-edit"></i>
+        <% end %>
+      <% end %>
+      <% if policy(@patient).destroy? %>
+        <%= link_to patient_path(@patient), method: :delete, data: { confirm: "Are you sure?" } do %>
+          <i class="far fa-trash-alt"></i>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
