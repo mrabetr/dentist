@@ -1,4 +1,6 @@
 class MedicalFormsController < ApplicationController
+  before_action :find_form, only: [:show]
+
   def new
     @form = MedicalForm.new
     @patient = current_user.profile
@@ -23,7 +25,16 @@ class MedicalFormsController < ApplicationController
     end
   end
 
+  def show
+    @patient = @form.patient
+  end
+
   private
+
+  def find_form
+    @form = MedicalForm.find(params[:id])
+    authorize @form
+  end
 
   def user_params
     params.require(:medical_form).permit(user: [:title, :first_name, :last_name,

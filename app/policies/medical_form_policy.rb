@@ -9,9 +9,13 @@ class MedicalFormPolicy < ApplicationPolicy
     user.profile_type == "Patient"
   end
 
-  # private
+  def show?
+    doctor_or_admin? || patient_owner?
+  end
 
-  # def patient_owner?
-  #   user == record.patient.user
-  # end
+  private
+
+  def patient_owner?
+    user == record.patient.user
+  end
 end

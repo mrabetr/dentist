@@ -7,21 +7,21 @@
         <%= f.simple_fields_for(@form.patient.user) do |b| %>
           <div class="form-row">
             <div class="col-3 form-group">
-              <%= b.input :title, collection: User::TITLE %>
+              <%= b.input :title, required: true, collection: User::TITLE %>
             </div>
             <div class="col-4 form-group">
-              <%= b.input :first_name %>
+              <%= b.input :first_name, required: true %>
             </div>
             <div class="col-5 form-group">
-              <%= b.input :last_name %>
+              <%= b.input :last_name, required: true %>
             </div>
           </div>
           <div class="form-row">
             <div class="col-7 form-group">
-              <%= b.input :email %>
+              <%= b.input :email, required: true %>
             </div>
             <div class="col-5 form-group">
-              <%= b.input :mobile %>
+              <%= b.input :mobile, required: true %>
             </div>
           </div>
         <% end %>
@@ -40,15 +40,15 @@
           </div>
           <div class="form-row">
             <div class="col-6 form-group">
-              <%= b.input :dob, label: "Date of birth (dd/mm/yyyy)", html5: true %>
+              <%= b.input :dob, label: "Date of birth (dd/mm/yyyy)", html5: true, required: true %>
             </div>
             <div class="col-6 form-group">
-              <%= b.input :sex, label: "Gender", collection: ["Male", "Female"] %>
+              <%= b.input :sex, label: "Gender", collection: ["Male", "Female"], required: true %>
             </div>
           </div>
           <div class="form-row">
             <div class="col-7 form-group">
-              <p>How would you like to receive correspondence from Design Dental Centre?</p>
+              <p>How would you like to receive correspondence from Design Dental Clinic?</p>
             </div>
             <div class="col-5 form-group">
               <%= b.input :communication, label: false, collection: ["email", "mobile"], selected: "email" %>
@@ -59,7 +59,7 @@
               <p>Date of last dental visit (dd/mm/yyyy):</p>
             </div>
             <div class="col-5 form-group">
-              <%= b.input :last_visit, label: false, html5: true %>
+              <%= b.input :last_visit, label: false, html5: true, required: true %>
             </div>
           </div>
           <h4>Doctor’s Details (GP)</h4>
@@ -263,7 +263,7 @@
             <%= f.input :bad_breath, as: :boolean %>
           </div>
         </div>
-        <%= f.input :other_medical_info, label: "Please provide further details about any concerns you may have with your smile:" %>
+        <%= f.input :other_smile_info, label: "Please provide further details about any concerns you may have with your smile:" %>
         <p>By submitting this form you certify to have read and understood the above information and that all of your answers are accurate and up to date.</p>
         <p>Any incorrect information can be dangerous to your health and you must inform us of any changes.</p>
         <%= f.submit "Submit Form", class: "btn btn-primary w-100 mb-3" %>
