@@ -26,14 +26,17 @@ require("channels")
 import "bootstrap";
 
 // Internal imports, e.g:
-// import { initSelect2 } from '../components/init_select2';
 import { initUpdateNavbarOnScroll } from '../components/navbar';
+import { initSelect2 } from '../plugins/init_select2';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
   if (document.querySelector(".navbar-home")) {
     initUpdateNavbarOnScroll();
+  }
+  if (document.querySelector(".select2")) {
+    initSelect2();
   }
 });
 
