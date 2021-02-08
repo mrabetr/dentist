@@ -1,5 +1,5 @@
 class Patient < ApplicationRecord
-  has_one :user, as: :profile
+  has_one :user, as: :profile, dependent: :destroy
   has_many :bookings, dependent: :destroy
   has_many :doctors, through: :bookings
   has_many :notes, through: :bookings
