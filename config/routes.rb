@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, skip: :registrations
 
   # this was added after removing :registerable from User model to limit external sign ups
   as :user do
-    get 'users/edit', to: "devise/registrations#edit", as: :edit_user_registration
-    put 'users', to: "devise/registrations#update", as: :user_registration
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', :as => 'user_registration'
   end
 
   root to: 'pages#home'
