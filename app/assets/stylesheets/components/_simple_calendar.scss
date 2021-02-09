@@ -46,7 +46,12 @@
   }
 
   .day {
-    height: 80px;
+    height: 60px;
+    padding: 0;
+  }
+
+  .week .day {
+    padding: 6px;
   }
 
   .wday-0 {}
@@ -58,7 +63,12 @@
   .wday-6 {}
 
   .today {
-    background: #FFFFC0
+    background: #fef9ef
+    // background: #FFFFC0
+  }
+
+  .week .today {
+    background: none
   }
 
   .past {}

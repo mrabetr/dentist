@@ -1,8 +1,37 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
-    <div class="col-12">
+    <div class="col-10">
       <h2 class="text-center mb-3">Bookings</h2>
       <% if policy(Booking).index? %>
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <%= calendar(number_of_days: 1, events: @bookings) do |date, bookings| %>
+              <% (8..19).each do |hour| %>
+                <% (0..1).each do |m| %>
+                  <div>
+                    <% time = DateTime.parse([date, "#{hour}:#{m * 30}"].join(' ')) %>
+                    <% time_to_s = time.strftime("%H:%M") %>
+                    <%= link_to time_to_s, new_booking_path(date: date, time: time_to_s) %>
+                    <% bookings.select{ |b| time >= b.start_time && time < b.end_time }.each do |booking| %>
+                      <%= link_to booking_path(booking) do  %>
+                        <%= booking.patient.short_name %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="col-12 col-lg-6">
+            <%= month_calendar(events: @bookings) do |date, bookings| %>
+              <%= link_to date.day, bookings_path(start_date: date), class: "btn btn-outline-secondary border-0 w-100 h-100 p-0 d-flex justify-content-center align-items-center" %>
+              <%#= link_to date.day, bookings_path(start_date: date), class: "list-group-item list-group-item-action bg-transparent border-0" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if !policy(Booking).index? %>
         <%= week_calendar events: @bookings do |date, bookings| %>
           <% (8..19).each do |hour| %>
             <% (0..1).each do |m| %>
