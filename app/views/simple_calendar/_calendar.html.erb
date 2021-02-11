@@ -1,12 +1,18 @@
 <div class="simple-calendar">
   <div class="calendar-heading">
     <div class="d-flex justify-content-between">
-      <span class="calendar-title"><%= start_date.day %> <%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
-      <div>
-        <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
-        <%= link_to "Today", bookings_path %>
-        <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
-      </div>
+      <h6 class="calendar-title pt-2"><%= start_date.day %> <%= t('date.month_names')[start_date.month] %> <%= start_date.year %></h6>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-sm mb-2">
+          <li class="page-item">
+            <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class:"page-link text-dark" %>
+          </li>
+          <li class="page-item"><%= link_to "Today", bookings_path, class:"page-link text-dark" %></li>
+          <li class="page-item">
+            <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class:"page-link text-dark" %>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 

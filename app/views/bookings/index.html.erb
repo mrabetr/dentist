@@ -5,18 +5,23 @@
       <% if policy(Booking).index? %>
         <div class="row justify-content-center">
           <div class="col-12 col-lg-6">
+            <%#= week_calendar events: @bookings do |date, bookings| %>
             <%= calendar(number_of_days: 1, events: @bookings) do |date, bookings| %>
               <% (8..19).each do |hour| %>
                 <% (0..1).each do |m| %>
-                  <div>
+                <div class="row m-0 p-0">
+                  <div class="col-2 m-0 p-0">
                     <% time = DateTime.parse([date, "#{hour}:#{m * 30}"].join(' ')) %>
                     <% time_to_s = time.strftime("%H:%M") %>
-                    <%= link_to time_to_s, new_booking_path(date: date, time: time_to_s) %>
+                    <%= link_to time_to_s, new_booking_path(date: date, time: time_to_s), class:"btn btn-light btn-block rounded-0 p-0" %>
+                  </div>
+                  <div class="col-10 m-0 p-0">
                     <% bookings.select{ |b| time >= b.start_time && time < b.end_time }.each do |booking| %>
-                      <%= link_to booking_path(booking) do  %>
+                      <%= link_to booking_path(booking), class:"btn btn-outline-secondary btn-block rounded-0 py-0 border-0 text-left" do  %>
                         <%= booking.patient.short_name %>
                       <% end %>
                     <% end %>
+                  </div>
                   </div>
                 <% end %>
               <% end %>
@@ -25,61 +30,54 @@
           <div class="col-12 col-lg-6">
             <%= month_calendar(events: @bookings) do |date, bookings| %>
               <%= link_to date.day, bookings_path(start_date: date), class: "btn btn-outline-secondary border-0 w-100 h-100 p-0 d-flex justify-content-center align-items-center" %>
-              <%#= link_to date.day, bookings_path(start_date: date), class: "list-group-item list-group-item-action bg-transparent border-0" %>
             <% end %>
+            <div>
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="upcoming-tab" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming Bookings</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="past-tab" data-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false">Past Bookings</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+                  <% @bookingsu.each do |booking| %>
+                    <% if booking.start_time > Time.now %>
+                      <%= link_to booking_path(booking), class: "list-group-item list-group-item-action p-2" do  %>
+                        <% if policy(Booking).index? %>
+                          <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
+                          Patient: #{booking.patient.name}" %>
+                        <% else %>
+                          <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
+                          Doctor: #{booking.doctor.name}" %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <%#= will_paginate @bookingsu, param_name: :new_bookings %>
+                </div>
+                <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+                  <% @bookingsp.each do |booking| %>
+                    <% if booking.start_time < Time.now %>
+                      <%= link_to booking_path(booking), class: "list-group-item list-group-item-action p-2" do  %>
+                        <% if policy(Booking).index? %>
+                          <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
+                          Patient: #{booking.patient.name}" %>
+                        <% else %>
+                          <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
+                          Doctor: #{booking.doctor.name}" %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <%#= will_paginate @bookingsp, param_name: :old_bookings %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       <% end %>
-
-      <% if !policy(Booking).index? %>
-        <%= week_calendar events: @bookings do |date, bookings| %>
-          <% (8..19).each do |hour| %>
-            <% (0..1).each do |m| %>
-              <div>
-                <% time = DateTime.parse([date, "#{hour}:#{m * 30}"].join(' ')) %>
-                <% time_to_s = time.strftime("%H:%M") %>
-                <%= link_to time_to_s, new_booking_path(date: date, time: time_to_s) %>
-                <% bookings.select{ |b| time >= b.start_time && time < b.end_time }.each do |booking| %>
-                  <%= link_to booking_path(booking) do  %>
-                    <%= booking.patient.short_name %>
-                  <% end %>
-                <% end %>
-              </div>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <br>
-      <h2 class="mb-3">Upcoming Bookings</h2>
-        <% @bookingsu.each do |booking| %>
-          <% if booking.start_time > Time.now %>
-            <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>
-              <% if policy(Booking).index? %>
-                <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
-                Booking #{booking.id} - Patient: #{booking.patient.name}" %>
-              <% else %>
-                <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
-                Booking #{booking.id} - Doctor: #{booking.doctor.name}" %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-        <%= will_paginate @bookingsu, param_name: :new_bookings %>
-      <h2 class="mb-3">Past Bookings</h2>
-        <% @bookingsp.each do |booking| %>
-          <% if booking.start_time < Time.now %>
-            <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>
-              <% if policy(Booking).index? %>
-                <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
-                Booking #{booking.id} - Patient: #{booking.patient.name}" %>
-              <% else %>
-                <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
-                Booking #{booking.id} - Doctor: #{booking.doctor.name}" %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-        <%= will_paginate @bookingsp, param_name: :old_bookings %>
     </div>
   </div>
 </div>

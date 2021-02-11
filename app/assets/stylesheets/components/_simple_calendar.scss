@@ -45,13 +45,17 @@
     border-left-width: 1px;
   }
 
+  h6 {
+    font-weight: bold;
+  }
+
   .day {
     height: 60px;
     padding: 0;
   }
 
   .week .day {
-    padding: 6px;
+    // padding: 6px;
   }
 
   .wday-0 {}
