@@ -73,6 +73,10 @@ class BookingsController < ApplicationController
     redirect_to booking_path(@booking)
   end
 
+  def update_amount
+    # raise
+  end
+
   def destroy
     if @booking.destroy
       flash[:notice] = "Booking: #{@booking.start_time.strftime('%e %b %Y %H:%M%p')} to #{@booking.end_time.strftime('%e %b %Y %H:%M%p')} deleted"
