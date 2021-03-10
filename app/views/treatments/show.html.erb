@@ -1,0 +1,42 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <h2 class="text-center mb-3">Treatment <%= @treatment.id %></h2>
+      <p>Patient: <%= link_to @treatment.patient.name, patient_path(@treatment.patient) %></p>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Procedure</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @treatment.procedures.each do |procedure| %>
+            <tr>
+                <td><%= procedure.procedure %></td>
+                <td><%= humanized_money_with_symbol(procedure.price) %></td>
+            </tr>
+          <% end %>
+          <tr class="table-dark">
+            <td>Total</td>
+            <td><%= humanized_money_with_symbol(@total) %></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+      <%= link_to "List", treatments_path %>
+      <% if policy(@treatment).edit? %>
+        <%= link_to edit_treatment_path(@treatment) do %>
+          <i class="far fa-edit"></i>
+        <% end %>
+      <% end %>
+      <% if policy(@treatment).destroy? %>
+        <%= link_to treatment_path(@treatment), method: :delete, data: { confirm: "Are you sure?" } do %>
+          <i class="far fa-trash-alt"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

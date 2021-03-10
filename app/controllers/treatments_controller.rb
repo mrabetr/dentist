@@ -1,4 +1,10 @@
 class TreatmentsController < ApplicationController
+  before_action :find_treatment, only: [:show, :edit, :update, :destroy]
+
+  def show
+    @total = @treatment.procedures.sum(:price_cents) / 100.0
+  end
+
   def new
     @treatment = Treatment.new
     @treatment.procedures.build
@@ -18,6 +24,11 @@ class TreatmentsController < ApplicationController
   end
 
   private
+
+  def find_treatment
+    @treatment = Treatment.find(params[:id])
+    authorize @treatment
+  end
 
   def treatment_params
     params.require(:treatment).permit(:name, :recommendations, :discussion, :patient_id,

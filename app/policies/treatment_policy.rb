@@ -5,7 +5,19 @@ class TreatmentPolicy < ApplicationPolicy
     end
   end
 
+  def show?
+    doctor_or_admin?
+  end
+
   def create?
+    doctor?
+  end
+
+  def update?
+    doctor?
+  end
+
+  def destroy?
     doctor?
   end
 
