@@ -3,6 +3,8 @@ class TreatmentsController < ApplicationController
 
   def show
     @total = @treatment.procedures.sum(:price_cents) / 100.0
+    @total_payments = @treatment.bookings.sum(:amount_cents) / 100.0
+    @balance = @total - @total_payments
   end
 
   def new

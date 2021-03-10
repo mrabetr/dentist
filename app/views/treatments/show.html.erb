@@ -1,7 +1,7 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
-      <h2 class="text-center mb-3">Treatment <%= @treatment.id %></h2>
+      <h2 class="text-center mb-3">Treatment Plan<%= @treatment.id %></h2>
       <p>Patient: <%= link_to @treatment.patient.name, patient_path(@treatment.patient) %></p>
 
       <table class="table table-striped">
@@ -24,6 +24,29 @@
           </tr>
         </tbody>
       </table>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Payment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @treatment.bookings.each do |booking| %>
+            <tr>
+                <td><%= booking.start_time.strftime("%a, %e %b %Y") %></td>
+                <td><%= humanized_money_with_symbol(booking.amount) %></td>
+            </tr>
+          <% end %>
+          <tr class="table-dark">
+            <td>Total</td>
+            <td><%= humanized_money_with_symbol(@total_payments) %></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h5>Outstanding balance: <%= humanized_money_with_symbol(@balance) %></h5>
 
       <br>
       <%= link_to "List", treatments_path %>

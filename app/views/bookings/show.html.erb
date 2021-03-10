@@ -43,10 +43,16 @@
               <%= f.submit "Add Notes", class: "btn btn-primary w-100 mb-3" %>
             <% end %>
           <% end %>
-          <%= simple_form_for(@booking, url: update_amount_booking_path(@booking)) do |f| %>
+
+          <% if @booking.amount != 0 %>
+            <h5>Payment</h5>
+            <p><%= humanized_money_with_symbol(@booking.amount) %></p>
+          <% else %>
+            <%= simple_form_for(@booking, url: update_amount_booking_path(@booking), remote: true) do |f| %>
               <%= f.input :amount, label: "Payment" %>
               <%= f.submit "Add Payment", class: "btn btn-primary w-100 mb-3" %>
             <% end %>
+          <% end %>
         <% end %>
       </div>
       <br>

@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :find_booking, only: [:show, :edit, :update, :destroy]
+  before_action :find_booking, only: [:show, :edit, :update, :update_amount, :destroy]
 
   def index
     @bookings = policy_scope(Booking).order(start_time: :asc)
@@ -74,7 +74,9 @@ class BookingsController < ApplicationController
   end
 
   def update_amount
-    # raise
+    return flash_alert unless @booking.update(booking_params)
+
+    redirect_to booking_path(@booking)
   end
 
   def destroy
@@ -94,7 +96,9 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time, :time, :length, :status, :patient_id, :doctor_id, booking_services_attributes: [:id, :service_id, :_destroy])
+    params.require(:booking).permit(:start_time, :end_time, :time, :length, :status,
+      :patient_id, :doctor_id, :amount, :treatment_id,
+      booking_services_attributes: [:id, :service_id, :_destroy])
   end
 
   def set_booking_times
@@ -103,12 +107,16 @@ class BookingsController < ApplicationController
   end
 
   def render_new
-    flash[:alert] = @booking.errors.full_messages
+    flash_alert
     render :new
   end
 
   def render_edit
-    flash[:alert] = @booking.errors.full_messages
+    flash_alert
     render :edit
+  end
+
+  def flash_alert
+    flash[:alert] = @booking.errors.full_messages
   end
 end
