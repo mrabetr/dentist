@@ -4,6 +4,7 @@ class Patient < ApplicationRecord
   has_many :doctors, through: :bookings
   has_many :notes, through: :bookings
   has_many :medical_forms, dependent: :destroy
+  has_many :treatments, dependent: :destroy
 
   def name
     "#{user.first_name} #{user.last_name}"

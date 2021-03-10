@@ -1,14 +1,33 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
-    <div class="col-xs-12 col-sm-8 col-lg-6" data-controller="service">
+    <div class="col-xs-12 col-sm-8 col-lg-6" data-controller="procedure">
       <h2 class="text-center mb-3">Add a new treatment</h2>
       <%= simple_form_for(@treatment) do |f| %>
         <%= f.association :patient, label_method: :name_email, value_method: :id, input_html: { class: 'select2' } %>
-        <%= f.simple_fields_for :procedures do |b| %>
-          <%= b.input :procedure %>
-          <%= b.input :price %>
-        <% end %>
-        <%= f.submit "Add", class: "btn btn-primary w-100 mb-3" %>
+
+        <div data-procedure-target="new">
+          <div id="0">
+            <%= f.simple_fields_for :procedures do |b| %>
+              <div class="form-row">
+                <div class="col-8 form-group">
+                  <%= b.input :procedure %>
+                </div>
+                <div class="col-4 form-group">
+                  <%= b.input :price %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button type="button" class="btn btn-outline-secondary mb-3"
+            data-action="click->procedure#add">Add Procedure</button>
+          <button type="button" class="btn btn-outline-secondary mb-3"
+            data-action="click->procedure#remove">Remove Procedure</button>
+        </div>
+
+        <%= f.submit class: "btn btn-primary w-100 mb-3" %>
       <% end %>
     </div>
   </div>
