@@ -32,4 +32,6 @@ Rails.application.routes.draw do
   resources :medical_forms
 
   resources :requests, only: [:new, :create, :index, :show]
+
+  resources :treatments, except: :index
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_142757) do
+ActiveRecord::Schema.define(version: 2021_03_09_202745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,10 @@ ActiveRecord::Schema.define(version: 2021_01_21_142757) do
     t.string "state"
     t.string "checkout_session_id"
     t.integer "amount_cents", default: 0, null: false
+    t.bigint "treatment_id"
     t.index ["doctor_id"], name: "index_bookings_on_doctor_id"
     t.index ["patient_id"], name: "index_bookings_on_patient_id"
+    t.index ["treatment_id"], name: "index_bookings_on_treatment_id"
   end
 
   create_table "doctors", force: :cascade do |t|
@@ -127,6 +129,16 @@ ActiveRecord::Schema.define(version: 2021_01_21_142757) do
     t.string "gp_tel"
   end
 
+  create_table "procedures", force: :cascade do |t|
+    t.string "procedure"
+    t.string "justification"
+    t.integer "price_cents", default: 0, null: false
+    t.bigint "treatment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["treatment_id"], name: "index_procedures_on_treatment_id"
+  end
+
   create_table "requests", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -146,6 +158,16 @@ ActiveRecord::Schema.define(version: 2021_01_21_142757) do
     t.integer "price_cents", default: 0, null: false
     t.boolean "public", default: false
     t.index ["doctor_id"], name: "index_services_on_doctor_id"
+  end
+
+  create_table "treatments", force: :cascade do |t|
+    t.string "name"
+    t.text "recommendations"
+    t.text "discussion"
+    t.bigint "patient_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_treatments_on_patient_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -178,7 +200,10 @@ ActiveRecord::Schema.define(version: 2021_01_21_142757) do
   add_foreign_key "booking_services", "services"
   add_foreign_key "bookings", "doctors"
   add_foreign_key "bookings", "patients"
+  add_foreign_key "bookings", "treatments"
   add_foreign_key "medical_forms", "patients"
   add_foreign_key "notes", "bookings"
+  add_foreign_key "procedures", "treatments"
   add_foreign_key "services", "doctors"
+  add_foreign_key "treatments", "patients"
 end
