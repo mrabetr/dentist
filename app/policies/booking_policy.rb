@@ -26,6 +26,10 @@ class BookingPolicy < ApplicationPolicy
     doctor_owner?
   end
 
+  def update_amount?
+    update?
+  end
+
   def destroy?
     doctor_owner?
   end

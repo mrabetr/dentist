@@ -3,14 +3,25 @@
     <div class="col-xs-12 col-sm-8 col-lg-6" data-controller="service">
       <h2 class="text-center mb-3">Add a new booking</h2>
       <%= simple_form_for(@booking) do |f| %>
+        <% if policy(User).doctor? %>
+          <%= f.association :patient, label_method: :name_email, value_method: :id,
+            input_html: { class: 'select2' } %>
+          <%#= f.association :treatment, label: "Treatment Plan", label_method: :id %>
+          <%= f.input :treatment_id, label: "Treatment Plan", label_method: :reference,
+            value_method: :id, collection: Treatment.all.order(id: :desc),
+            input_html: { class: 'select2' } %>
+        <% end %>
+
         <%= f.input :start_time, label: "Date (dd/mm/yyyy)", required: true, as: :date, html5: true %>
         <%#= f.input :end_time, required: true, html5: true %>
-        <%= f.input :time, required: true, collection: Booking::TIME %>
-        <%= f.input :length, required: true, collection: Booking::LENGTH, label: "Length (mins)", selected: "60" %>
-
-        <% if policy(User).doctor? %>
-          <%= f.association :patient, label_method: :name_email, value_method: :id, input_html: { class: 'select2' } %>
-        <% end %>
+        <div class="form-row">
+          <div class="col-6 form-group">
+            <%= f.input :time, required: true, collection: Booking::TIME %>
+          </div>
+          <div class="col-6 form-group">
+            <%= f.input :length, required: true, collection: Booking::LENGTH, label: "Length (mins)", selected: "60" %>
+          </div>
+        </div>
 
         <div data-service-target="new">
           <div id="0">

@@ -1,6 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :doctor
   belongs_to :patient
+  # belongs_to :treatment
   has_many :booking_services, dependent: :destroy
   has_many :services, through: :booking_services
   has_one :note, dependent: :destroy
