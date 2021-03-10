@@ -40,9 +40,13 @@
           <% else %>
             <%= simple_form_for([@booking, @note], remote: true) do |f| %>
               <%= f.input :note, label: "Notes" %>
-              <%= f.submit "Add", class: "btn btn-primary w-100 mb-3" %>
+              <%= f.submit "Add Notes", class: "btn btn-primary w-100 mb-3" %>
             <% end %>
           <% end %>
+          <%= simple_form_for(@booking, url: update_amount_booking_path(@booking)) do |f| %>
+              <%= f.input :amount, label: "Payment" %>
+              <%= f.submit "Add Payment", class: "btn btn-primary w-100 mb-3" %>
+            <% end %>
         <% end %>
       </div>
       <br>
