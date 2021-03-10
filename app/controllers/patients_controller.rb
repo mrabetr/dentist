@@ -5,7 +5,9 @@ class PatientsController < ApplicationController
     @patients = policy_scope(Patient).order(id: :asc)
   end
 
-  def show; end
+  def show
+    @bookings = @patient.bookings.order(start_time: :desc)
+  end
 
   def edit; end
 

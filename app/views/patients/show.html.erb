@@ -2,10 +2,10 @@
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <h2 class="text-center mb-3">Patient</h2>
-      <p class="text-center mb-3"><%= @patient.name %></p>
-      <p class="text-center mb-3"><%= @patient.user.email %></p>
-      <p class="text-center mb-3"><%= @patient.user.mobile %></p>
-      <p class="text-center mb-3"><%= @patient.dob %></p>
+      <p>Full name: <%= @patient.name %></p>
+      <p>email: <%= @patient.user.email %></p>
+      <p>Mobile: <%= @patient.user.mobile %></p>
+      <p>DoB: <%= @patient.dob %></p>
       <%= link_to "List", patients_path %>
       <% if policy(@patient).edit? %>
         <%= link_to edit_patient_path(@patient) do %>
@@ -15,6 +15,18 @@
       <% if policy(@patient).destroy? %>
         <%= link_to patient_path(@patient), method: :delete, data: { confirm: "Are you sure?" } do %>
           <i class="far fa-trash-alt"></i>
+        <% end %>
+      <% end %>
+
+      <h2 class="text-center mb-3">Treatments</h2>
+      <% @patient.treatments.each do |treatment| %>
+        <%= link_to "Treatment #{treatment.id}", treatment_path(treatment), class: "list-group-item list-group-item-action" %>
+      <% end %>
+      <br>
+      <h2 class="text-center mb-3">Bookings</h2>
+      <% @bookings.each do |booking| %>
+        <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>
+          <% "#{booking.start_time.strftime("%a, %e %b %Y")}" %>
         <% end %>
       <% end %>
     </div>
