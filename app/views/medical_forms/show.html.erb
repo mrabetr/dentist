@@ -69,6 +69,8 @@
         <p>Additional details about any smile concerns:</p>
         <p><%= @form.other_smile_info %></p>
       <% end %>
+
+      <%= link_to "New updates?", new_medical_form_path(patient_id: @patient.id), class:"btn btn-primary w-100 mb-3" %>
     </div>
   </div>
 </div>

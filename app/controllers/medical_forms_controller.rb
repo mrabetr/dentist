@@ -2,15 +2,19 @@ class MedicalFormsController < ApplicationController
   before_action :find_form, only: [:show]
 
   def new
-    @form = MedicalForm.new
-    @patient = current_user.profile
-    @form.patient = @patient
+    @form = MedicalForm.new(patient_id: params[:patient_id])
+    # raise
+    # @patient = @form.patient
+    # @patient = current_user.profile
+    # @form.patient = @patient
     authorize @form
   end
 
   def create
     @form = MedicalForm.new(form_params)
-    user = current_user
+    # raise
+    # user = current_user
+    user = User.where(email: user_params[:email])[0]
     patient = user.profile
     @form.patient = patient
     authorize @form
@@ -19,7 +23,7 @@ class MedicalFormsController < ApplicationController
     patient.update(patient_params)
 
     if @form.save
-      redirect_to root_path
+      redirect_to medical_form_path(@form)
     else
       render :new
     end
@@ -57,6 +61,7 @@ class MedicalFormsController < ApplicationController
       :alcohol_frequency, :other_medical_info, :teeth_pain, :teeth_sensitivity,
       :bleeding, :unpleasant_taste, :food_trap, :mouth_ulcers, :grinding_teeth,
       :stained_teeth, :uneven_teeth, :black_filling, :cracked_teeth, :missing_teeth,
-      :crooked_teeth, :uncomfortable_dentures, :bad_breath, :other_smile_info)
+      :crooked_teeth, :uncomfortable_dentures, :bad_breath, :other_smile_info,
+      :patient_id)
   end
 end

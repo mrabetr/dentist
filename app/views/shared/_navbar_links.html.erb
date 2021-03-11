@@ -22,6 +22,9 @@
             <% if policy(Booking).new? %>
               <%= link_to "New Booking", new_booking_path, class: "dropdown-item" %>
             <% end %>
+            <% if policy(MedicalForm).new? && current_user.profile_type == "Patient" %>
+              <%= link_to "New Medical Form", new_medical_form_path(patient_id: current_user.profile.id), class: "dropdown-item" %>
+            <% end %>
             <% if policy(User).new? %>
               <%= link_to "New Patient", new_user_path, class: "dropdown-item" %>
             <% end %>
@@ -33,6 +36,11 @@
         <li class="nav-item">
           <%= link_to "Bookings", bookings_path, class: "nav-link" %>
         </li>
+        <% if current_user.profile_type == "Patient" && current_user.profile.medical_forms.last %>
+          <li class="nav-item">
+            <%= link_to "Medical Form", medical_form_path(current_user.profile.medical_forms.last), class: "nav-link" %>
+          </li>
+        <% end %>
         <% if policy(Request).index? %>
           <li class="nav-item">
             <%= link_to "Requests", requests_path, class: "nav-link" %>
