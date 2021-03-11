@@ -6,7 +6,7 @@ class MedicalFormPolicy < ApplicationPolicy
   end
 
   def create?
-    user.profile_type == "Patient"
+    user.doctor || user.profile_type == "Patient"
   end
 
   def show?

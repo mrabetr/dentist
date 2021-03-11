@@ -5,22 +5,20 @@
         <h2 class="text-center mb-3">Confidential Medical History Questionnaire</h2>
         <h4>Personal Information</h4>
         <%= f.simple_fields_for(@form.patient.user) do |b| %>
+          <%= b.hidden_field :email %>
           <div class="form-row">
-            <div class="col-3 form-group">
-              <%= b.input :title, required: true, collection: User::TITLE %>
-            </div>
-            <div class="col-4 form-group">
+            <div class="col-6 form-group">
               <%= b.input :first_name, required: true %>
             </div>
-            <div class="col-5 form-group">
+            <div class="col-6 form-group">
               <%= b.input :last_name, required: true %>
             </div>
           </div>
           <div class="form-row">
-            <div class="col-7 form-group">
-              <%= b.input :email, required: true %>
+            <div class="col-6 form-group">
+              <%= b.input :title, required: true, collection: User::TITLE %>
             </div>
-            <div class="col-5 form-group">
+            <div class="col-6 form-group">
               <%= b.input :mobile, required: true %>
             </div>
           </div>

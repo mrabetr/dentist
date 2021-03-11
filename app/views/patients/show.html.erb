@@ -17,7 +17,16 @@
           <i class="far fa-trash-alt"></i>
         <% end %>
       <% end %>
-
+      <hr>
+      <% if @patient.medical_forms.last %>
+        <h2 class="text-center mb-3">Medical Form</h2>
+        <% @patient.medical_forms.order(id: :desc).each do |medical_form| %>
+          <%= link_to "Form #{medical_form.id}", medical_form_path(medical_form), class: "list-group-item list-group-item-action" %>
+        <% end %>
+      <% else %>
+        <%= link_to "Add Medical Form", new_medical_form_path(patient_id: @patient.id), class: "btn btn-primary w-100 mb-3" %>
+      <% end %>
+      <br>
       <h2 class="text-center mb-3">Treatment Plans</h2>
       <% @patient.treatments.each do |treatment| %>
         <%= link_to "Treatment Plan #{treatment.id}", treatment_path(treatment), class: "list-group-item list-group-item-action" %>
@@ -29,6 +38,7 @@
           <% "#{booking.start_time.strftime("%a, %e %b %Y")}" %>
         <% end %>
       <% end %>
+      <br>
     </div>
   </div>
 </div>

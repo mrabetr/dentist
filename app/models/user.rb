@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   belongs_to :profile, polymorphic: true, optional: true, dependent: :destroy
 
-  TITLE = ["Mrs.", "Mr.", "Miss", "Ms.", "Dr.", "Mlle."]
+  TITLE = ["Mrs.", "Mr.", "Miss.", "Ms.", "Dr.", "Mlle."]
 
   before_create :default_profile
   def default_profile

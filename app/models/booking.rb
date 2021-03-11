@@ -1,7 +1,6 @@
 class Booking < ApplicationRecord
   belongs_to :doctor
   belongs_to :patient
-  # belongs_to :treatment
   has_many :booking_services, dependent: :destroy
   has_many :services, through: :booking_services
   has_one :note, dependent: :destroy
@@ -22,4 +21,11 @@ class Booking < ApplicationRecord
   validates :start_time, presence: true
   validates :status, presence: true, inclusion: { in: STATUS }
   validates_uniqueness_of :start_time, scope: [:doctor_id]
+
+  # the below is commented out otherwise you can't save a booking without having a treatment referenced
+  # belongs_to :treatment
+  # this methid has been added to access treatment from a booking e.g. @booking.treamnent
+  def treatment
+    Treatment.find(treatment_id)
+  end
 end
