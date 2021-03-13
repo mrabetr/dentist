@@ -1,13 +1,15 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
-      <h2 class="text-center mb-3">Request</h2>
-      <p>On <%= @request.created_at.strftime("%Y/%m/%d at %H:%M") %>, <%= @request.email %></p>
-      <p>First name: <%= @request.first_name %></p>
-      <p>Last name: <%= @request.last_name %></p>
-      <p>Mobile: <%= @request.mobile %></p>
-      <h4>Request</h4>
-      <p><%= @request.comments %></p>
+      <div class="container bg-white rounded rounded-3 my-3 p-3">
+        <h2 class="text-center mb-3">Request</h2>
+        <p><strong>Received on</strong>: <%= @request.created_at.strftime("%Y/%m/%d at %H:%M") %></p>
+        <p><strong>Full name</strong>: <%= "#{@request.first_name} #{@request.last_name}" %></p>
+        <p><strong>Email</strong>: <%= @request.email %></p>
+        <p><strong>Mobile</strong>: <%= @request.mobile %></p>
+        <h4>Message</h4>
+        <p><%= @request.comments %></p>
+      </div>
     </div>
   </div>
 </div>
