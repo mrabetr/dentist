@@ -6,12 +6,12 @@
 // General style
 $font-family-sans-serif:  $body-font;
 $headings-font-family:    $headers-font;
-$body-bg:                 $light-gray;
+$body-bg:                 $my-body-bg;
 $font-size-base: 1rem;
 
 // Colors
-$body-color: $gray;
-$primary:    $blue;
+$body-color: $my-body-color;
+$primary:    $my-primary;
 $success:    $green;
 $info:       $yellow;
 $danger:     $red;
@@ -23,3 +23,13 @@ $border-radius-lg: 2px;
 $border-radius-sm: 2px;
 
 // Override other variables below!
+$link-color: $my-support-color;
+$nav-link-color: $my-support-color;
+
+$navbar-light-color: $my-support-color;
+$navbar-light-hover-color: #276d78;
+$navbar-light-active-color: #276d78;
+
+$dropdown-link-color: $my-support-color;
+$dropdown-link-hover-color: #276d78;;
+$dropdown-link-hover-bg: rgba($my-support-color, 0.5);

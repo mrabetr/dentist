@@ -1,28 +1,29 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
-      <%= image_tag "clinic_name.png", style: 'width:100%;' %>
-      <hr>
-      <h2 class="text-center mb-3">Request an Appointment</h2>
-      <h4>Entre your details</h4>
-      <%= simple_form_for @request do |f| %>
-        <div class="form-row">
-          <div class="col-6 form-group">
-            <%= f.input :first_name, required: true,
-                        input_html: { autocomplete: "given-name" } %>
+      <%= image_tag "clinic_name.png", class: "bg-white shadow rounded rounded-3 my-3 p-3 w-100" %>
+      <div class="container bg-white rounded rounded-3 mt-3 mb-5 p-4">
+        <h2 class="text-center mb-3">Request an Appointment</h2>
+        <h4>Entre your details</h4>
+        <%= simple_form_for @request do |f| %>
+          <div class="form-row">
+            <div class="col-6 form-group">
+              <%= f.input :first_name, required: true,
+                          input_html: { autocomplete: "given-name" } %>
+            </div>
+            <div class="col-6 form-group">
+              <%= f.input :last_name, required: true,
+                          input_html: { autocomplete: "family-name" } %>
+            </div>
           </div>
-          <div class="col-6 form-group">
-            <%= f.input :last_name, required: true,
-                        input_html: { autocomplete: "family-name" } %>
-          </div>
-        </div>
-        <%= f.input :email, required: true, input_html: { autocomplete: "email" } %>
-        <%= f.input :mobile, required: true, input_html: { autocomplete: "tel" } %>
-        <%= f.input :comments, label: "Comments or special requests",
-                    placeholder: "e.g. type of dental treatment required and preferred day/time of the week for an appopintment.",
-                    required: true %>
-        <%= f.submit "Request an Appointment", class: "btn btn-primary w-100 mb-3" %>
-      <% end %>
+          <%= f.input :email, required: true, input_html: { autocomplete: "email" } %>
+          <%= f.input :mobile, required: true, input_html: { autocomplete: "tel" } %>
+          <%= f.input :comments, label: "Comments or special requests",
+                      placeholder: "e.g. type of dental treatment required and preferred day/time of the week for an appopintment.",
+                      required: true %>
+          <%= f.submit "Request an Appointment", class: "btn btn-primary w-100 shadow" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
