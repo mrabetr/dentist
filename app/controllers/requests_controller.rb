@@ -3,7 +3,7 @@ class RequestsController < ApplicationController
   before_action :find_request, only: [:show]
 
   def index
-    @requests = policy_scope(Request)
+    @requests = policy_scope(Request).order(id: :desc)
   end
 
   def new

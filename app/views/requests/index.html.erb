@@ -1,13 +1,15 @@
-<div class="container mt-3">
+<div class="container min-vh-100 mt-3">
   <div class="row justify-content-center">
-    <div class="col-xs-12 col-sm-8 col-lg-6">
+    <div class="col-xs-12 col-sm-8 col-lg-6 mb-4">
       <h2 class="text-center mb-3">Requests</h2>
-      <% @requests.each do |request| %>
-            <%= link_to request_path(request), class: "list-group-item list-group-item-action" do  %>
-                <%= request.created_at.strftime("%Y/%m/%d at %H:%M") %>, from <%= request.first_name %> <%= request.last_name %>
+      <div class="list-group">
+        <% @requests.each do |request| %>
+          <%= link_to request_path(request), class: "list-group-item list-group-item-action" do  %>
+            <%= request.created_at.strftime("%Y/%m/%d at %H:%M") %>, from <%= request.first_name %> <%= request.last_name %>
                 (<%= request.email %>)
           <% end %>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
