@@ -1,0 +1,24 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <%#= image_tag "clinic_name.png", class: "bg-white shadow rounded rounded-3 p-3 w-100" %>
+      <%= image_tag "logo.png", class: "mx-auto d-block w-25" %>
+      <br>
+      <%= link_to "https://www.instagram.com/leilaimenenebia/", target:"_blank", class: "text-center" do %>
+        <h5>@leilaimenenebia</h5>
+      <% end %>
+      <%= link_to new_request_path, class: "btn btn-primary my-2 mx-0 py-3 px-0 w-100" do %>
+        Request an apppointment
+      <% end %>
+      <%= link_to "https://calendly.com/leila-imene/15min", target:"_blank", class: "btn btn-primary my-2 mx-0 py-3 px-0 w-100" do %>
+        Book a 15mins free consultation
+      <% end %>
+      <%= link_to "https://goo.gl/maps/g3gBAxqrF2nGSoAU6", target:"_blank", class: "btn btn-primary my-2 mx-0 py-3 px-0 w-100" do %>
+        Where to find us
+      <% end %>
+      <%= link_to "https://www.clinic-app.com/", class: "btn btn-primary my-2 mx-0 py-3 px-0 w-100" do %>
+        Our website
+      <% end %>
+    </div>
+  </div>
+</div>

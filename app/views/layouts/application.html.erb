@@ -15,7 +15,7 @@
   <body>
     <% if current_page?(root_path) %>
       <%= render 'shared/navbar_home' %>
-    <% else %>
+    <% elsif !current_page?(links_path)%>
       <%= render 'shared/navbar' %>
     <% end %>
     <%= render 'shared/flashes' %>
@@ -23,6 +23,6 @@
 
     <%= yield %>
 
-    <%= render 'shared/footer' %>
+    <%= render 'shared/footer' unless current_page?(links_path) %>
   </body>
 </html>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'pages#home'
+  get 'links', to: 'pages#links'
 
   resources :services
   resources :bookings do
