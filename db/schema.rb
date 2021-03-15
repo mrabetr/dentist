@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_09_202745) do
+ActiveRecord::Schema.define(version: 2021_03_15_100933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,14 @@ ActiveRecord::Schema.define(version: 2021_03_09_202745) do
     t.string "gp_tel"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.integer "amount_cents", default: 0, null: false
+    t.bigint "treatment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["treatment_id"], name: "index_payments_on_treatment_id"
+  end
+
   create_table "procedures", force: :cascade do |t|
     t.string "procedure"
     t.string "justification"
@@ -203,6 +211,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_202745) do
   add_foreign_key "bookings", "treatments"
   add_foreign_key "medical_forms", "patients"
   add_foreign_key "notes", "bookings"
+  add_foreign_key "payments", "treatments"
   add_foreign_key "procedures", "treatments"
   add_foreign_key "services", "doctors"
   add_foreign_key "treatments", "patients"

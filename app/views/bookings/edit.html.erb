@@ -34,9 +34,9 @@
             <% end %>
         </div>
         <div class="d-flex justify-content-between">
-          <button type="button" class="btn btn-outline-secondary mb-3"
+          <button type="button" class="btn btn-outline-secondary btn-sm w-25 mb-3"
             data-action="click->service#addEdit">Add Service</button>
-          <%= link_to "Cancel Edit", booking_path(@booking), class: "btn btn-outline-secondary mb-3" %>
+          <%= link_to "Cancel Edit", booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25 mb-3" %>
         </div>
         <%= f.submit "Update", class: "btn btn-primary w-100 mb-3" %>
       <% end %>

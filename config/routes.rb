@@ -35,5 +35,7 @@ Rails.application.routes.draw do
 
   resources :requests, only: [:new, :create, :index, :show]
 
-  resources :treatments, except: :index
+  resources :treatments, except: :index do
+    resources :payments, only: :create
+  end
 end

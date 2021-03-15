@@ -74,6 +74,7 @@ class BookingsController < ApplicationController
   end
 
   def update_amount
+    @booking.update(status: "Completed")
     return flash_alert unless @booking.update(booking_params)
 
     redirect_to booking_path(@booking)

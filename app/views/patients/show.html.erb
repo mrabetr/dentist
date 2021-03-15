@@ -2,25 +2,29 @@
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <h2 class="text-center mb-3">Patient</h2>
-      <p>Full name: <%= @patient.name %></p>
-      <p>email: <%= @patient.user.email %></p>
-      <p>Mobile: <%= @patient.user.mobile %></p>
-      <p>DoB: <%= @patient.dob %></p>
-      <%= link_to "List", patients_path %>
-      <% if policy(@patient).edit? %>
-        <%= link_to edit_patient_path(@patient) do %>
-          <i class="far fa-edit"></i>
+      <div class="container bg-white rounded rounded-3 my-3 p-3">
+        <p><strong>Full Name</strong>: <%= @patient.name %></p>
+        <p><strong>Email</strong>: <%= @patient.user.email %></p>
+        <p><strong>Mobile</strong>: <%= @patient.user.mobile %></p>
+        <p><strong>DoB</strong>: <%= @patient.dob %></p>
+      </div>
+      <div class="d-flex justify-content-between">
+        <% if policy(@patient).edit? %>
+          <%= link_to edit_patient_path(@patient), class: "btn btn-outline-secondary btn-sm w-25" do %>
+            Edit
+          <% end %>
         <% end %>
-      <% end %>
-      <% if policy(@patient).destroy? %>
-        <%= link_to patient_path(@patient), method: :delete, data: { confirm: "Are you sure?" } do %>
-          <i class="far fa-trash-alt"></i>
+        <% if policy(@patient).destroy? %>
+          <%= link_to patient_path(@patient), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
+            Delete
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
+
       <hr>
       <% if @patient.medical_forms.last %>
-        <h2 class="text-center mb-3">Medical Form</h2>
-        <% @patient.medical_forms.order(id: :desc).each do |medical_form| %>
+        <h2 class="text-center mb-3">Medical Forms</h2>
+        <% @medical_forms.each do |medical_form| %>
           <%= link_to "Form #{medical_form.id}", medical_form_path(medical_form), class: "list-group-item list-group-item-action" %>
         <% end %>
       <% else %>
@@ -28,7 +32,7 @@
       <% end %>
       <br>
       <h2 class="text-center mb-3">Treatment Plans</h2>
-      <% @patient.treatments.each do |treatment| %>
+      <% @treatments.each do |treatment| %>
         <%= link_to "Treatment Plan #{treatment.id}", treatment_path(treatment), class: "list-group-item list-group-item-action" %>
       <% end %>
       <br>

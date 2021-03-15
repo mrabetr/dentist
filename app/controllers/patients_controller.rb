@@ -7,6 +7,8 @@ class PatientsController < ApplicationController
 
   def show
     @bookings = @patient.bookings.order(start_time: :desc)
+    @treatments = @patient.treatments.order(id: :desc)
+    @medical_forms = @patient.medical_forms.order(id: :desc)
   end
 
   def edit; end
