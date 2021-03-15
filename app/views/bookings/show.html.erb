@@ -2,10 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <h2 class="text-center mb-3">Booking #<%= @booking.id %> <small><span class="badge badge-primary"><%= @booking.state %></span></small></h2>
-      <p>On <%= @booking.start_time.strftime("%a, %e %b %Y") %>,
+      <p><strong>Patient</strong>: <%= link_to @booking.patient.name, patient_path(@booking.patient) %></p>
+      <p><%= @booking.start_time.strftime("%a, %e %b %Y") %>,
         at <%= @booking.start_time.strftime("%H:%M") %> for <%= "#{@booking.length}mins" %>.
-        Doctor: <%= @doctor.first_name %>,
-        Patient: <%= @patient.first_name %>
         (<%= @booking.status %>)
       </p>
       <div class="list-group">
@@ -13,14 +12,27 @@
           <div class="list-group-item list-group-item-action"><%= booking_service.service.name %></div>
         <% end %>
       </div>
-      <br>
-        <!-- <ul class="list-unstyled">
-          <li><strong>ISSUED ON:</strong> <%#= @booking.created_at.to_date %></li>
-          <li><strong>SERVICE:</strong> <%#= @booking.services.first.name %></li>
-          <li><strong>TOTAL:</strong> <%#= humanized_money_with_symbol @booking.amount %></li>
-          </li>
-        </ul>
-      <br> -->
+
+      <!-- <ul class="list-unstyled">
+        <li><strong>ISSUED ON:</strong> <%#= @booking.created_at.to_date %></li>
+        <li><strong>SERVICE:</strong> <%#= @booking.services.first.name %></li>
+        <li><strong>TOTAL:</strong> <%#= humanized_money_with_symbol @booking.amount %></li>
+        </li>
+      </ul> -->
+
+      <div class="d-flex justify-content-between my-3">
+        <% if policy(@booking).edit? %>
+          <%= link_to edit_booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25" do %>
+            Edit
+          <% end %>
+        <% end %>
+        <% if policy(@booking).destroy? %>
+          <%= link_to booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
+            Delete
+          <% end %>
+        <% end %>
+      </div>
+
       <div>
         <% if policy(User).doctor? %>
           <% if @booking.note %>
@@ -39,7 +51,7 @@
             <p><%= @booking.note.note %></p>
           <% else %>
             <%= simple_form_for([@booking, @note], remote: true) do |f| %>
-              <%= f.input :note, label: "Notes" %>
+              <h5><%= f.input :note, label: "Notes" %></h5>
               <%= f.submit "Add Notes", class: "btn btn-primary w-100 mb-3" %>
             <% end %>
           <% end %>
@@ -49,24 +61,13 @@
             <p><%= humanized_money_with_symbol(@booking.amount) %></p>
           <% else %>
             <%= simple_form_for(@booking, url: update_amount_booking_path(@booking), remote: true) do |f| %>
-              <%= f.input :amount, label: "Payment" %>
+              <h5><%= f.input :amount, label: "Payment" %></h5>
               <%= f.submit "Add Payment", class: "btn btn-primary w-100 mb-3" %>
             <% end %>
           <% end %>
         <% end %>
       </div>
-      <br>
-      <%= link_to "List", bookings_path %>
-      <% if policy(@booking).edit? %>
-        <%= link_to edit_booking_path(@booking) do %>
-          <i class="far fa-edit"></i>
-        <% end %>
-      <% end %>
-      <% if policy(@booking).destroy? %>
-        <%= link_to booking_path(@booking), method: :delete, data: { confirm: "Are you sure?" } do %>
-          <i class="far fa-trash-alt"></i>
-        <% end %>
-      <% end %>
+      <%= link_to "Back to patient", patient_path(@booking.patient) %>
     </div>
   </div>
 </div>

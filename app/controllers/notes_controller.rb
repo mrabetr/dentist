@@ -8,6 +8,7 @@ class NotesController < ApplicationController
     authorize @note
 
     if @note.save
+      @booking.update(status: "Completed")
       redirect_to booking_path(@booking)
     else
       render "booking/show"
