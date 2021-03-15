@@ -11,20 +11,19 @@
             <%#= submit_tag "Book", class: "btn btn-primary w-100" %>
           <%# end %>
         <% end %>
-        <div class="d-flex justify-content-between">
-          <% if policy(@service).edit? %>
-            <%= link_to edit_service_path(@service), class: "btn btn-outline-secondary btn-sm w-25" do %>
-              Edit
-            <% end %>
-          <% end %>
-          <% if policy(@service).destroy? %>
-            <%= link_to service_path(@service), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
-              Delete
-            <% end %>
-          <% end %>
-        </div>
       </div>
-      <%= link_to "Back to services", services_path %>
+      <div class="d-flex justify-content-between">
+        <% if policy(@service).edit? %>
+          <%= link_to edit_service_path(@service), class: "btn btn-outline-secondary btn-sm w-25" do %>
+            Edit
+          <% end %>
+        <% end %>
+        <% if policy(@service).destroy? %>
+          <%= link_to service_path(@service), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
+            Delete
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

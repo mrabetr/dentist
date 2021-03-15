@@ -7,6 +7,7 @@
         at <%= @booking.start_time.strftime("%H:%M") %> for <%= "#{@booking.length}mins" %>.
         (<%= @booking.status %>)
       </p>
+      <h5>Services</h5>
       <div class="list-group">
         <% @booking.booking_services.each do |booking_service| %>
           <div class="list-group-item list-group-item-action"><%= booking_service.service.name %></div>
@@ -20,6 +21,40 @@
         </li>
       </ul> -->
 
+      <hr>
+      <div>
+        <% if policy(User).doctor? %>
+          <% if @booking.note %>
+            <div class="d-flex justify-content-between my-3">
+              <h5>Clinical Notes</h5>
+              <% if policy(@booking.note).edit? %>
+                <%= link_to edit_note_path(@booking.note) do %>
+                  <i class="far fa-edit"></i>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="container bg-white rounded rounded-3 my-3 p-3">
+              <p><%= @booking.note.note %></p>
+            </div>
+          <% else %>
+            <%= simple_form_for([@booking, @note], remote: true) do |f| %>
+              <h5><%= f.input :note, label: "Notes" %></h5>
+              <%= f.submit "Add Notes", class: "btn btn-primary w-100 mb-3" %>
+            <% end %>
+          <% end %>
+          <hr>
+          <% if @booking.amount != 0 %>
+            <h5>Payment</h5>
+            <p><%= humanized_money_with_symbol(@booking.amount) %></p>
+          <% else %>
+            <%= simple_form_for(@booking, url: update_amount_booking_path(@booking), remote: true) do |f| %>
+              <h5><%= f.input :amount, label: "Payment" %></h5>
+              <%= f.submit "Add Payment", class: "btn btn-primary w-100 mb-3" %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <hr>
       <div class="d-flex justify-content-between my-3">
         <% if policy(@booking).edit? %>
           <%= link_to edit_booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25" do %>
@@ -29,41 +64,6 @@
         <% if policy(@booking).destroy? %>
           <%= link_to booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
             Delete
-          <% end %>
-        <% end %>
-      </div>
-
-      <div>
-        <% if policy(User).doctor? %>
-          <% if @booking.note %>
-            <h5>Clinical Notes
-              <% if policy(@booking.note).edit? %>
-                <%= link_to edit_note_path(@booking.note) do %>
-                  <i class="far fa-edit"></i>
-                <% end %>
-              <% end %>
-              <% if policy(@booking.note).destroy? %>
-                <%= link_to note_path(@booking.note), method: :delete, data: { confirm: "Are you sure?" } do %>
-                  <i class="far fa-trash-alt"></i>
-                <% end %>
-              <% end %>
-            </h5>
-            <p><%= @booking.note.note %></p>
-          <% else %>
-            <%= simple_form_for([@booking, @note], remote: true) do |f| %>
-              <h5><%= f.input :note, label: "Notes" %></h5>
-              <%= f.submit "Add Notes", class: "btn btn-primary w-100 mb-3" %>
-            <% end %>
-          <% end %>
-
-          <% if @booking.amount != 0 %>
-            <h5>Payment</h5>
-            <p><%= humanized_money_with_symbol(@booking.amount) %></p>
-          <% else %>
-            <%= simple_form_for(@booking, url: update_amount_booking_path(@booking), remote: true) do |f| %>
-              <h5><%= f.input :amount, label: "Payment" %></h5>
-              <%= f.submit "Add Payment", class: "btn btn-primary w-100 mb-3" %>
-            <% end %>
           <% end %>
         <% end %>
       </div>
