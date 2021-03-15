@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     bookings_path
   end
 
+  def default_url_options
+    { host: ENV["DOMAIN"] || "localhost:3000" }
+  end
+
   private
 
   def configure_permitted_parameters
