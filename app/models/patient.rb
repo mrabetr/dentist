@@ -10,7 +10,7 @@ class Patient < ApplicationRecord
   pg_search_scope :patient_search, # name a method 'patient_search'
     against: [:sex, :city],       # specify which columns I am searching
     associated_against: {         # search in an associated table
-      user: [:first_name, :last_name]
+      user: [:first_name, :last_name, :email]
     },
     using: {
       tsearch: { prefix: true }   # full search text -> tsearch
