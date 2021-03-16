@@ -28,16 +28,16 @@ import "bootstrap";
 // Internal imports, e.g:
 import { initUpdateNavbarOnScroll } from '../components/navbar';
 import { initSelect2 } from '../plugins/init_select2';
+import { searchInputShadowOnMouseover } from '../components/search';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
-  if (document.querySelector(".navbar-home")) {
-    initUpdateNavbarOnScroll();
-  }
+  initUpdateNavbarOnScroll();
   if (document.querySelector(".select2")) {
     initSelect2();
   }
+  searchInputShadowOnMouseover();
 });
 
 import "controllers"

@@ -7,7 +7,8 @@
             <%= text_field_tag :query,
               params[:query],
               class: "form-control rounded-pill pl-4",
-              placeholder: "🕵️‍♀️ find your patient"
+              placeholder: " 🕵️‍♀️ find your patient",
+              autofocus: true
             %>
             <%= submit_tag "Search", :style => "display: none;" %>
         </div>
