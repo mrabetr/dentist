@@ -14,7 +14,7 @@
     <ul class="navbar-nav mr-auto text-right">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
-          <%= image_tag "plus-icon-dark-blue", class: "avatar dropdown-toggle", id: "navbarDropdown", role: "button", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <%= image_tag "plus-icon-dark-blue.png", class: "avatar dropdown-toggle", id: "navbarDropdown", role: "button", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdown">
             <% if policy(Treatment).new? %>
               <%= link_to "New Treatment", new_treatment_path, class: "dropdown-item" %>
