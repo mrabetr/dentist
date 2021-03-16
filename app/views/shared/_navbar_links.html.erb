@@ -14,8 +14,8 @@
     <ul class="navbar-nav mr-auto text-right">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
-          <%= image_tag "https://cdn2.iconfinder.com/data/icons/everything-but-the-kitchen-sink-2/100/common-06-512.png", class: "avatar dropdown-toggle", id: "navbarDropdown", role: "button", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <%= image_tag "plus-icon-dark-blue", class: "avatar dropdown-toggle", id: "navbarDropdown", role: "button", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdown">
             <% if policy(Treatment).new? %>
               <%= link_to "New Treatment", new_treatment_path, class: "dropdown-item" %>
             <% end %>
