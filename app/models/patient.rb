@@ -6,6 +6,16 @@ class Patient < ApplicationRecord
   has_many :medical_forms, dependent: :destroy
   has_many :treatments, dependent: :destroy
 
+  include PgSearch::Model
+  pg_search_scope :patient_search, # name a method 'patient_search'
+    against: [:sex, :city],       # specify which columns I am searching
+    associated_against: {         # search in an associated table
+      user: [:first_name, :last_name]
+    },
+    using: {
+      tsearch: { prefix: true }   # full search text -> tsearch
+    }
+
   def name
     "#{user.first_name} #{user.last_name}"
   end
