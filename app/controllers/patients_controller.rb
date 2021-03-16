@@ -2,7 +2,12 @@ class PatientsController < ApplicationController
   before_action :find_patient, only: [:show, :edit, :update, :destroy]
 
   def index
-    @patients = policy_scope(Patient).order(id: :asc)
+    # @patients = policy_scope(Patient).order(id: :asc)
+    if params[:query].present?
+      @patients = policy_scope(Patient).patient_search(params[:query])
+    else
+      @patients = policy_scope(Patient).order(id: :asc)
+    end
   end
 
   def show
