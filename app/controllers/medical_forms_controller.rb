@@ -3,6 +3,7 @@ class MedicalFormsController < ApplicationController
 
   def new
     @form = MedicalForm.new(patient_id: params[:patient_id])
+    @form.patient = current_user.profile if params[:patient_id].nil?
     # raise
     # @patient = @form.patient
     # @patient = current_user.profile
