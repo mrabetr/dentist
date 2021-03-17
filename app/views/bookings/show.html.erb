@@ -2,7 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <h2 class="text-center mb-3">Booking #<%= @booking.id %> <small><span class="badge badge-primary"><%= @booking.state %></span></small></h2>
-      <p><strong>Patient</strong>: <%= link_to @booking.patient.name, patient_path(@booking.patient) %></p>
+      <% if policy(User).doctor? %>
+        <p><strong>Patient</strong>: <%= link_to @booking.patient.name, patient_path(@booking.patient) %></p>
+      <% end %>
       <p><%= @booking.start_time.strftime("%a, %e %b %Y") %>,
         at <%= @booking.start_time.strftime("%H:%M") %> for <%= "#{@booking.length}mins" %>.
         (<%= @booking.status %>)
@@ -21,9 +23,9 @@
         </li>
       </ul> -->
 
-      <hr>
-      <div>
-        <% if policy(User).doctor? %>
+      <% if policy(User).doctor? %>
+        <hr>
+        <div>
           <% if @booking.note %>
             <div class="d-flex justify-content-between my-3">
               <h5>Clinical Notes</h5>
@@ -52,22 +54,22 @@
               <%= f.submit "Add Payment", class: "btn btn-primary w-100 mb-3" %>
             <% end %>
           <% end %>
-        <% end %>
-      </div>
-      <hr>
-      <div class="d-flex justify-content-between my-3">
-        <% if policy(@booking).edit? %>
-          <%= link_to edit_booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25" do %>
-            Edit
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between my-3">
+          <% if policy(@booking).edit? %>
+            <%= link_to edit_booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25" do %>
+              Edit
+            <% end %>
           <% end %>
-        <% end %>
-        <% if policy(@booking).destroy? %>
-          <%= link_to booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
-            Delete
+          <% if policy(@booking).destroy? %>
+            <%= link_to booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
+              Delete
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-      <%= link_to "Back to patient", patient_path(@booking.patient) %>
+        </div>
+        <%= link_to "Back to patient", patient_path(@booking.patient) %>
+      <% end %>
     </div>
   </div>
 </div>

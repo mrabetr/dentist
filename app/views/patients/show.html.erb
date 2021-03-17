@@ -22,13 +22,16 @@
       </div>
 
       <hr>
+      <h2 class="text-center mb-3">Medical Forms</h2>
       <% if @patient.medical_forms.last %>
-        <h2 class="text-center mb-3">Medical Forms</h2>
         <% @medical_forms.each do |medical_form| %>
           <%= link_to "Form #{medical_form.id}", medical_form_path(medical_form), class: "list-group-item list-group-item-action" %>
         <% end %>
       <% else %>
-        <%= link_to "Add Medical Form", new_medical_form_path(patient_id: @patient.id), class: "btn btn-primary w-100 mb-3" %>
+        <div class="d-flex justify-content-between">
+          <%= link_to "Add Medical Form", new_medical_form_path(patient_id: @patient.id), class: "btn btn-primary mb-3" %>
+          <%= link_to "Ask Patient to Add Form", patient_send_password_email_path(@patient), remote: true, class: "btn btn-primary mb-3", data: { confirm: "Please confirm to send email." } %>
+        </div>
       <% end %>
       <br>
       <h2 class="text-center mb-3">Treatment Plans</h2>

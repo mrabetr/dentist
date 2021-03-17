@@ -18,7 +18,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    bookings_path
+    return bookings_path if resource.doctor
+    return users_path if resource.admin
+
+    new_medical_form_path
   end
 
   def default_url_options

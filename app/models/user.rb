@@ -28,4 +28,15 @@ class User < ApplicationRecord
     patient.destroy
     self.save
   end
+
+  # Uncomment below for manually getting the token and send on email with the link:
+  # https://designdentalclinic/users/password/edit?reset_password_token=#{raw}
+  # def run_reset_password_token
+  #   raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+
+  #   self.reset_password_token   = enc
+  #   self.reset_password_sent_at = Time.now.utc
+  #   save(validate: false)
+  #   raw
+  # end
 end
