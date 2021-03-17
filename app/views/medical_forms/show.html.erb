@@ -3,7 +3,7 @@
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <%= image_tag "clinic_name.png", class: "bg-white shadow rounded rounded-3 my-3 p-3 w-100" %>
       <h2 class="text-center mb-3">Confidential Medical History Questionnaire</h2>
-      <% if current_user.doctor %>
+      <% if policy(User).doctor? %>
         <p><strong>Patient</strong>: <%= link_to @form.patient.name, patient_path(@form.patient) %></p>
       <% end %>
       <p>Submitted on <%= @form.created_at.strftime("%d/%m/%Y at %H:%M") %></p>
@@ -81,7 +81,7 @@
       </div>
 
       <%= link_to "New updates?", new_medical_form_path(patient_id: @patient.id), class:"btn btn-primary w-100 mb-3" %>
-      <% if current_user.doctor %>
+      <% if policy(User).doctor? %>
         <%= link_to "Back to patient", patient_path(@form.patient) %>
       <% end %>
     </div>
