@@ -29,6 +29,13 @@ class PatientsController < ApplicationController
     end
   end
 
+  def send_password_email
+    @patient = Patient.find(params[:patient_id])
+    authorize @patient
+    @patient.user.send_reset_password_instructions
+    redirect_to patient_path(@patient)
+  end
+
   def destroy
     @patient.destroy
 

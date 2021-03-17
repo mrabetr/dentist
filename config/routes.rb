@@ -29,7 +29,9 @@ Rails.application.routes.draw do
     post :stop_impersonating, on: :collection
   end
 
-  resources :patients, only: [:index, :show, :edit, :update, :destroy]
+  resources :patients, only: [:index, :show, :edit, :update, :destroy] do
+    get 'send_password_email', to: 'patients#send_password_email'
+  end
 
   resources :medical_forms
 

@@ -18,4 +18,8 @@ class PatientPolicy < ApplicationPolicy
   def destroy?
     doctor_or_admin?
   end
+
+  def send_password_email?
+    doctor_or_admin?
+  end
 end
