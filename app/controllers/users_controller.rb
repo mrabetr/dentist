@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    @user = User.new(email: params[:email], first_name: params[:first_name],
+                      last_name: params[:last_name], mobile: params[:mobile])
     authorize @user
   end
 

@@ -7,9 +7,13 @@
         <p><strong>Full Name</strong>: <%= "#{@request.first_name} #{@request.last_name}" %></p>
         <p><strong>Email</strong>: <%= @request.email %></p>
         <p><strong>Mobile</strong>: <%= @request.mobile %></p>
+        <hr>
         <h4>Message</h4>
         <p><%= @request.comments %></p>
       </div>
+      <%= link_to "Add as patient?", new_user_path(email: @request.email,
+        first_name: @request.first_name, last_name: @request.last_name,
+        mobile: @request.mobile), class: "btn btn-primary w-100 mb-3" %>
     </div>
   </div>
 </div>

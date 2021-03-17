@@ -4,7 +4,6 @@ class MedicalFormsController < ApplicationController
   def new
     @form = MedicalForm.new(patient_id: params[:patient_id])
     @form.patient = current_user.profile if params[:patient_id].nil?
-    # raise
     # @patient = @form.patient
     # @patient = current_user.profile
     # @form.patient = @patient
@@ -13,9 +12,9 @@ class MedicalFormsController < ApplicationController
 
   def create
     @form = MedicalForm.new(form_params)
-    # raise
     # user = current_user
-    user = User.where(email: user_params[:email])[0]
+    # Note the email param is given as a hidden field from the new view
+    user = User.find_by(email: user_params[:email])
     patient = user.profile
     @form.patient = patient
     authorize @form
