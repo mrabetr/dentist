@@ -1,11 +1,11 @@
 class TestMailer < ApplicationMailer
-  default from: 'contact@clinic-app.com'
+  default from: 'contact@designdentalclinic.com'
 
   def hello
     mail(
       subject: 'Hello from Postmark',
-      to: 'contact@clinic-app.com',
-      from: 'contact@clinic-app.com',
+      to: 'contact@designdentalclinic.com',
+      from: 'contact@designdentalclinic.com',
       html_body: '<strong>Hello</strong> dear Postmark user.',
       track_opens: 'true',
       message_stream: 'outbound')
