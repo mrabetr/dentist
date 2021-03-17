@@ -1,7 +1,7 @@
 class BookingPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      # scope.all
       if doctor_or_admin?
         scope.all
       else
@@ -19,7 +19,8 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    # update to true when ready to allow patient to add a new booking
+    doctor?
   end
 
   def update?
