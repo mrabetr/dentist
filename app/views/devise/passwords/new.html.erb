@@ -4,17 +4,18 @@
       <%= image_tag "clinic_name.png", class: "bg-white shadow rounded rounded-3 my-3 p-3 w-100" %>
 
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= f.error_notification %>
+
         <div class="container bg-white rounded rounded-3 my-3 p-3">
           <h2 class="text-center mb-3">Forgot your password?</h2>
-          <%= f.error_notification %>
           <div class="form-inputs">
             <%= f.input :email,
                         required: true,
                         autofocus: true,
                         input_html: { autocomplete: "email" } %>
           </div>
-
         </div>
+
         <div class="form-actions">
           <%= f.button :submit, "Send me reset password instructions", class:"btn btn-primary w-100" %>
         </div>

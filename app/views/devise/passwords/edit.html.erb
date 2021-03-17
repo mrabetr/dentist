@@ -4,24 +4,29 @@
       <%= image_tag "clinic_name.png", class: "bg-white shadow rounded rounded-3 my-3 p-3 w-100" %>
 
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.error_notification %>
+
+        <%= f.input :reset_password_token, as: :hidden %>
+        <%= f.full_error :reset_password_token %>
+
         <div class="container bg-white rounded rounded-3 my-3 p-3">
           <h2 class="text-center mb-3">Update your password</h2>
-            <div class="form-inputs">
-              <%= f.input :password,
-                          label: "Password",
-                          required: true,
-                          autofocus: true,
-                          hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                          input_html: { autocomplete: "new-password" } %>
-              <%= f.input :password_confirmation,
-                          label: "Confirm your password",
-                          required: true,
-                          input_html: { autocomplete: "new-password" } %>
-            </div>
-
+          <div class="form-inputs">
+            <%= f.input :password,
+                        label: "Password",
+                        required: true,
+                        autofocus: true,
+                        hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                        input_html: { autocomplete: "new-password" } %>
+            <%= f.input :password_confirmation,
+                        label: "Confirm your password",
+                        required: true,
+                        input_html: { autocomplete: "new-password" } %>
+          </div>
         </div>
+
         <div class="form-actions">
-          <%= f.button :submit, "Update my password", class:"btn btn-primary w-100" %>
+          <%= f.button :submit, "Update my password", class: "btn btn-primary w-100" %>
         </div>
       <% end %>
 
@@ -31,6 +36,3 @@
     </div>
   </div>
 </div>
-
-
-
