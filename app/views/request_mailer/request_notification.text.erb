@@ -1,5 +1,13 @@
-Hey team<%#= Doctor.first.user.first_name %>,
+Hey team,
 
 Someone sent a new appointment request!
 
-Congrats!
+<% @request = Request.last %>
+Full Name: <%= "#{@request.first_name} #{@request.last_name}" %>
+
+Email: <%= @request.email %>
+
+Mobile: <%= @request.mobile %>
+
+Message:
+<%= @request.comments %>
