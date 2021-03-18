@@ -4,9 +4,8 @@
       <h2 class="text-center mb-3">Update treatment</h2>
       <p><strong>Patient</strong>: <%= link_to @treatment.patient.name, patient_path(@treatment.patient) %></p>
       <%= simple_form_for(@treatment) do |f| %>
-        <%#= f.association :patient, label_method: :name_email, value_method: :id, input_html: { class: 'select2' } %>
 
-        <div data-procedure-target="new">
+        <div data-procedure-target="new" data-procedures-count=<%= @procedures_count %>>
           <%= f.simple_fields_for :procedures do |b| %>
             <div class="form-row">
               <div class="col-8 form-group">

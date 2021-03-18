@@ -31,6 +31,27 @@ class TreatmentsController < ApplicationController
     end
   end
 
+  def edit
+    @procedures_count = @treatment.procedures.count
+  end
+
+  def update
+    return render_edit unless @treatment.update(treatment_params)
+
+    redirect_to treatment_path(@treatment)
+  end
+
+  def destroy
+    patient = @treatment.patient
+    if @treatment.destroy
+      flash[:notice] = "Treatment no #{@treatment.id} has been deleted"
+      redirect_to patient_path(patient)
+    else
+      flash_alert
+      render :show
+    end
+  end
+
   private
 
   def find_treatment
@@ -43,8 +64,12 @@ class TreatmentsController < ApplicationController
                   procedures_attributes: [:id, :procedure, :justification, :price, :_destroy])
   end
 
-  def payment_params
-    params.require(:payment).permit(:name, :recommendations, :discussion, :patient_id,
-                  procedures_attributes: [:id, :procedure, :justification, :price, :_destroy])
+  def render_edit
+    flash_alert
+    render :edit
+  end
+
+  def flash_alert
+    flash[:alert] = @treatment.errors.full_messages
   end
 end

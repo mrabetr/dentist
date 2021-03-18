@@ -1,7 +1,7 @@
 <div class="container min-vh-100 mt-3">
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
-      <h2 class="text-center mb-3">Treatment Plan<%= @treatment.id %></h2>
+      <h2 class="text-center mb-3">Treatment Plan #<%= @treatment.id %></h2>
       <div class="d-flex justify-content-between">
         <p><strong>Patient</strong>: <%= link_to @treatment.patient.name, patient_path(@treatment.patient) %></p>
         <!-- Button trigger modal -->
@@ -33,16 +33,17 @@
       </table>
 
       <div class="d-flex justify-content-between">
+        <div></div>
         <% if policy(@treatment).edit? %>
           <%= link_to edit_treatment_path(@treatment), class: "btn btn-outline-secondary btn-sm w-25" do %>
-            Edit
+            Edit Plan
           <% end %>
         <% end %>
-        <% if policy(@treatment).destroy? %>
-          <%= link_to treatment_path(@treatment), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
+        <!-- <%# if policy(@treatment).destroy? %>
+          <%#= link_to treatment_path(@treatment), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
             Delete
-          <% end %>
-        <% end %>
+          <%# end %>
+        <%# end %> -->
       </div>
 
       <br>
@@ -60,7 +61,10 @@
         <tbody>
           <% @bookings.each do |booking| %>
             <tr>
-                <td style="width: 80%;"><%= booking.start_time.strftime("%a, %e %b %Y") %></td>
+                <td style="width: 80%;">
+                  <%= link_to booking.start_time.strftime("%a, %e %b %Y"), booking_path(booking) %>
+                  <%#= booking.start_time.strftime("%a, %e %b %Y") %>
+                </td>
                 <td><%= humanized_money_with_symbol(booking.amount) %></td>
             </tr>
           <% end %>
