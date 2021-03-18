@@ -17,16 +17,16 @@ class User < ApplicationRecord
     self.doctor = true
     patient = self.profile
     self.profile = Doctor.create
-    patient.destroy
     self.save
+    patient.destroy
   end
 
   def admin_profile!
     self.admin = true
     patient = self.profile
     self.profile = Admin.create
-    patient.destroy
     self.save
+    patient.destroy
   end
 
   # Uncomment below for manually getting the token and send on email with the link:
