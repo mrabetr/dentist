@@ -64,7 +64,7 @@
         <li class="nav-item dropdown">
           <%= image_tag "https://mhchealthcare.org/wp-content/uploads/2019/05/doctor-avatar-1-wpcf_200x200.jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", role: "button", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdown">
-            <h6 class="dropdown-item disabled">Hi <%= current_user.first_name %>!</h6>
+            <h6 class="dropdown-item disabled pt-3">Hi <%= current_user.first_name %>!</h6>
             <hr class="dropdown-divider mb-0">
             <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
