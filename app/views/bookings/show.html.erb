@@ -24,6 +24,18 @@
       </ul> -->
 
       <% if policy(User).doctor? %>
+        <div class="d-flex justify-content-between my-3">
+          <% if policy(@booking).edit? %>
+            <%= link_to edit_booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25" do %>
+              Edit
+            <% end %>
+          <% end %>
+          <% if policy(@booking).destroy? %>
+            <%= link_to booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
+              Delete
+            <% end %>
+          <% end %>
+        </div>
         <hr>
         <div>
           <% if @booking.note %>
@@ -51,20 +63,7 @@
           <% else %>
             <%= simple_form_for(@booking, url: update_amount_booking_path(@booking), remote: true) do |f| %>
               <h5><%= f.input :amount, label: "Payment" %></h5>
-              <%= f.submit "Add Payment", class: "btn btn-primary w-100 mb-3" %>
-            <% end %>
-          <% end %>
-        </div>
-        <hr>
-        <div class="d-flex justify-content-between my-3">
-          <% if policy(@booking).edit? %>
-            <%= link_to edit_booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25" do %>
-              Edit
-            <% end %>
-          <% end %>
-          <% if policy(@booking).destroy? %>
-            <%= link_to booking_path(@booking), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
-              Delete
+              <%= f.submit "Add Payment", class: "btn btn-primary w-100 mb-3", data: { confirm: "Have you saved your notes?" } %>
             <% end %>
           <% end %>
         </div>

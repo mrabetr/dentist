@@ -51,8 +51,8 @@ export default class extends Controller {
 
     // here we're targetting the firstElementChild since it will always have id="0"
     // the specific replacement is to avoid replacing the 0 of service id 10
-    let newInput = targetInput.firstElementChild.outerHTML.replace('selected="selected" ', '');
-    newInput = newInput.replace('_0_', `_${newId}_`).replace('[0]', `[${newId}]`);
+    let newInput = targetInput.firstElementChild.outerHTML.replaceAll('selected="selected" ', '');
+    newInput = newInput.replaceAll('_0_', `_${newId}_`).replaceAll('[0]', `[${newId}]`);
 
     // here we're inserting the incremented nested attribute
     targetInput.insertAdjacentHTML('beforeend', newInput);

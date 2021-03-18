@@ -29,4 +29,24 @@ export default class extends Controller {
     const lastId = targetInput.lastElementChild.id;
     if (lastId !== '0') return targetInput.lastElementChild.remove();
   }
+
+  addEdit(event) {
+    // this identifies the div with data-service-target="new"
+    const targetInput = this.newTarget;
+
+    // since IDs start at 0 and we always have at least one procedure,
+    // the next id is simply the count
+    const proceduresCount = this.newTarget.dataset.proceduresCount;
+    const newId = proceduresCount;
+
+    // here we're targetting the firstElementChild since it will always have id="0"
+    // the specific replacement is to avoid replacing the 0 of procedure id 10
+    let newInput = targetInput.firstElementChild.outerHTML.replaceAll('_0_', `_${newId}_`).replaceAll('[0]', `[${newId}]`);
+    console.log(newInput);
+
+    // here we're inserting the incremented nested attribute
+    targetInput.insertAdjacentHTML('beforeend', newInput);
+    // here we're resetting all values to ""
+    targetInput.lastElementChild.querySelectorAll('input').forEach(element => element.value = "");
+  }
 }
