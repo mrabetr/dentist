@@ -3,8 +3,8 @@
     <div class="col-xs-12 col-sm-6">
       <%= image_tag "clinic_name.png", class: "bg-white shadow rounded rounded-3 my-3 p-3 w-100" %>
       <h2 class="text-center mb-3 mx-5">Confidential Medical History Questionnaire</h2>
-      <div class="container bg-white rounded rounded-3 my-3 p-3">
-        <%= simple_form_for @form do |f| %>
+      <%= simple_form_for @form do |f| %>
+        <div class="container bg-white rounded rounded-3 my-3 p-3">
           <h4>Personal Information</h4>
           <%= f.simple_fields_for(@form.patient.user) do |b| %>
             <%= b.hidden_field :email %>
@@ -268,7 +268,7 @@
             </div>
           </div>
           <%= f.input :other_smile_info, label: "Please provide further details about any concerns you may have with your smile:" %>
-      </div>
+        </div>
         <p>By submitting this form you certify to have read and understood the above information and that all of your answers are accurate and up to date.</p>
         <p>Any incorrect information can be dangerous to your health and you must inform us of any changes.</p>
         <%= f.submit "Submit Form", class: "btn btn-primary w-100 mb-3" %>
