@@ -24,12 +24,11 @@ $border-radius-sm: 2px;
 
 // Override other variables below!
 $link-color: $my-support-color;
-$nav-link-color: $my-support-color;
 
 $navbar-light-color: $my-support-color;
-$navbar-light-hover-color: #276d78;
-$navbar-light-active-color: #276d78;
+$navbar-light-hover-color: $my-support-dark;
+$navbar-light-active-color: $my-support-dark;
 
 $dropdown-link-color: $my-support-color;
-$dropdown-link-hover-color: #276d78;;
+$dropdown-link-hover-color: $my-support-dark;;
 $dropdown-link-hover-bg: rgba($my-support-color, 0.5);
