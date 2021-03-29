@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_15_100933) do
+ActiveRecord::Schema.define(version: 2021_03_29_165114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,9 +78,9 @@ ActiveRecord::Schema.define(version: 2021_03_15_100933) do
     t.boolean "pregnant_nursing", default: false
     t.date "due_date"
     t.boolean "smoking", default: false
-    t.integer "smoking_frequency"
+    t.string "smoking_frequency"
     t.boolean "alcohol", default: false
-    t.integer "alcohol_frequency"
+    t.string "alcohol_frequency"
     t.text "other_medical_info"
     t.boolean "teeth_pain", default: false
     t.boolean "teeth_sensitivity", default: false
