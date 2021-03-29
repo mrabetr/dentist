@@ -10,16 +10,18 @@ class PaymentsController < ApplicationController
     @treatment = Treatment.find(params[:treatment_id])
     @payment.treatment = @treatment
 
-    if @payment.save
-      redirect_to treatment_path(@treatment)
-    else
-      render render "treatment/show"
-    end
+    flash_alert unless @payment.save
+
+    redirect_to treatment_path(@treatment)
   end
 
   private
 
   def payment_params
     params.require(:payment).permit(:amount, :treatment_id)
+  end
+
+  def flash_alert
+    flash[:alert] = "Error: " + @payment.errors.full_messages.first + ". Try again."
   end
 end
