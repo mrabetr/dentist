@@ -22,7 +22,9 @@ export default class extends Controller {
     const newId = parseInt(lastId) + 1;
 
     // here we're targetting the firstElementChild since it will always have id="0"
-    const newInput = targetInput.firstElementChild.outerHTML.replace(/0/g, newId);
+    // const newInput = targetInput.firstElementChild.outerHTML.replace(/0/g, newId);
+    let newInput = targetInput.firstElementChild.outerHTML.replaceAll('id="0"', `id="${newId}"`);
+    newInput = newInput.replaceAll('_0_', `_${newId}_`).replaceAll('[0]', `[${newId}]`);
 
     // here we're inserting the incremented nested attribute
     targetInput.insertAdjacentHTML('beforeend', newInput);

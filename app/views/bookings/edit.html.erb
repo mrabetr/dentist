@@ -28,7 +28,7 @@
 
         <div data-service-target="new" data-services-count=<%= @services_count %>>
             <%= f.simple_fields_for :booking_services do |b| %>
-              <%= b.association :service, label: "Service" %>
+              <%= b.association :service, label: "Service", collection: Service.order(:name) %>
               <%= b.check_box :_destroy %>
               <%= b.label :delete %>
             <% end %>
