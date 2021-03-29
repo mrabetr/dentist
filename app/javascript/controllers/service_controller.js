@@ -58,5 +58,8 @@ export default class extends Controller {
 
     // here we're inserting the incremented nested attribute
     targetInput.insertAdjacentHTML('beforeend', newInput);
+
+    // here we're re-assigning the incremented servicesCount to be used if another service is added
+    this.newTarget.dataset.servicesCount = parseInt(newId) + 1;
   }
 }

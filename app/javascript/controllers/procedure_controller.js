@@ -48,5 +48,7 @@ export default class extends Controller {
     targetInput.insertAdjacentHTML('beforeend', newInput);
     // here we're resetting all values to ""
     targetInput.lastElementChild.querySelectorAll('input').forEach(element => element.value = "");
+    // here we're re-assigning the incremented proceduresCount to be used if another procedure is added
+    this.newTarget.dataset.proceduresCount = parseInt(newId) + 1;
   }
 }
