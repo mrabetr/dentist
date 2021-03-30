@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :find_booking, only: [:show, :edit, :update, :update_amount, :destroy]
+  before_action :find_booking, only: [:show, :edit, :update, :update_amount, :destroy, :send_sms]
 
   def index
     @bookings = policy_scope(Booking).order(start_time: :asc)
@@ -87,6 +87,11 @@ class BookingsController < ApplicationController
     else
       render :index
     end
+  end
+
+  def send_sms
+    @booking.sms_notification
+    redirect_to booking_path(@booking), notice: 'Your patient has been notified!'
   end
 
   private
