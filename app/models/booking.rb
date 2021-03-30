@@ -28,4 +28,15 @@ class Booking < ApplicationRecord
   def treatment
     Treatment.find(treatment_id)
   end
+
+  def sms_notification
+    dr_name = "Dr #{doctor.user.last_name}"
+    dr_mobile = doctor.user.mobile
+    patient_name = patient.user.first_name
+    patient_mobile = patient.user.mobile
+    booking_time = start_time.strftime('%H:%M, %a, %e %b %Y')
+    message = "Hi #{patient_name}, your dental appointment is due at #{booking_time}. Looking forward to seeing you. Thanks -- #{dr_name}, mob: #{dr_mobile}, Design Dental Clinic."
+    sms = TwilioSms.new(from: dr_name, to: patient_mobile, message: message)
+    sms.call
+  end
 end

@@ -35,6 +35,10 @@ class BookingPolicy < ApplicationPolicy
     doctor_owner?
   end
 
+  def send_sms?
+    doctor?
+  end
+
   private
 
   def doctor?

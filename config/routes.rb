@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :notes, only: :create
     resources :payments, only: :new
     patch :update_amount, on: :member
+    get :send_sms, on: :member
   end
 
   resources :notes, only: [:edit, :update, :destroy]

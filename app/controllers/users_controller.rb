@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @user.skip_confirmation!
 
     if @user.save
-      redirect_to root_path
+      redirect_to bookings_path, notice: 'Your patient was added successfully!'
     else
       flash[:alert] = @user.errors.full_messages
       render :new

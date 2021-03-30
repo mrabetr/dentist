@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   belongs_to :profile, polymorphic: true, optional: true, dependent: :destroy
 
+  validates :mobile, phone: true, allow_blank: true
+
   TITLE = ["Mrs.", "Mr.", "Miss.", "Ms.", "Dr.", "Mlle."]
 
   before_create :default_profile
