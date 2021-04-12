@@ -34,8 +34,8 @@ class Booking < ApplicationRecord
     dr_mobile = doctor.user.mobile
     patient_name = patient.user.first_name
     patient_mobile = patient.user.mobile
-    booking_time = start_time.strftime('%H:%M, %a, %e %b %Y')
-    message = "Hi #{patient_name}, your dental appointment is due at #{booking_time}. Looking forward to seeing you. Thanks -- #{dr_name}, mob: #{dr_mobile}, Design Dental Clinic."
+    booking_time = start_time.strftime('%a, %e %b %Y at %H:%M')
+    message = "Hi #{patient_name}, this is a reminder that your dental appointment is scheduled on #{booking_time}. Looking forward to seeing you. Thanks -- #{dr_name}, Design Dental Clinic. (Please call or message #{dr_mobile} if unable to attend)"
     sms = TwilioSms.new(from: dr_name, to: patient_mobile, message: message)
     sms.call
   end
