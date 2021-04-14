@@ -33,17 +33,16 @@
       </table>
 
       <div class="d-flex justify-content-between">
-        <div></div>
         <% if policy(@treatment).edit? %>
           <%= link_to edit_treatment_path(@treatment), class: "btn btn-outline-secondary btn-sm w-25" do %>
             Edit Plan
           <% end %>
         <% end %>
-        <!-- <%# if policy(@treatment).destroy? %>
-          <%#= link_to treatment_path(@treatment), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
+        <% if policy(@treatment).destroy? %>
+          <%= link_to treatment_path(@treatment), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
             Delete
-          <%# end %>
-        <%# end %> -->
+          <% end %>
+        <% end %>
       </div>
 
       <br>
