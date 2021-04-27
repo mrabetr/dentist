@@ -15,8 +15,16 @@
                 <%= b.input :price %>
               </div>
             </div>
-            <%= b.check_box :_destroy %>
-            <%= b.label :delete %>
+            <div class="d-flex justify-content-between">
+              <div>
+                <%= b.check_box :completed %>
+                <%= b.label :completed %>
+              </div>
+              <div>
+                <%= b.check_box :_destroy %>
+                <%= b.label :delete %>
+              </div>
+            </div>
           <% end %>
         </div>
 

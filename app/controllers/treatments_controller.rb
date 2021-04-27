@@ -61,7 +61,7 @@ class TreatmentsController < ApplicationController
 
   def treatment_params
     params.require(:treatment).permit(:name, :recommendations, :discussion, :patient_id,
-                  procedures_attributes: [:id, :procedure, :justification, :price, :_destroy])
+                  procedures_attributes: [:id, :procedure, :justification, :price, :completed, :_destroy])
   end
 
   def render_edit
