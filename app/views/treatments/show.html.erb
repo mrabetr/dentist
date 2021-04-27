@@ -21,7 +21,15 @@
         <tbody>
           <% @procedures.each do |procedure| %>
             <tr>
-              <td style="width: 80%;"><%= procedure.procedure %></td>
+              <td style="width: 80%;">
+                <%#= procedure.completed ? "✅" : "🟩" %>
+                <% if procedure.completed %>
+                  <i class="far fa-check-circle"></i>
+                <% else %>
+                  <i class="far fa-times-circle"></i>
+                <% end %>
+                <%= procedure.procedure %>
+              </td>
               <td><%= humanized_money_with_symbol(procedure.price) %></td>
             </tr>
           <% end %>
