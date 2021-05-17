@@ -90,6 +90,8 @@ class BookingsController < ApplicationController
   end
 
   def send_sms
+    return missing_mobile_alert unless @booking.patient.user.mobile.present?
+
     @booking.sms_notification
     redirect_to booking_path(@booking), notice: 'Your patient has been notified!'
   end
@@ -124,5 +126,10 @@ class BookingsController < ApplicationController
 
   def flash_alert
     flash[:alert] = @booking.errors.full_messages
+  end
+
+  def missing_mobile_alert
+    flash[:alert] = 'Error: Patient not notified. Please add patient\'s mobile number first'
+    redirect_to booking_path(@booking)
   end
 end
