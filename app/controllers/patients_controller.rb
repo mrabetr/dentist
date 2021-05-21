@@ -33,7 +33,7 @@ class PatientsController < ApplicationController
     @patient = Patient.find(params[:patient_id])
     authorize @patient
     @patient.user.send_reset_password_instructions
-    redirect_to patient_path(@patient)
+    redirect_to patient_path(@patient), notice: 'Your patient has been notified!'
   end
 
   def destroy
