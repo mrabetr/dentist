@@ -1,4 +1,4 @@
-class RequestMailer < ApplicationMailer
+class NotificationMailer < ApplicationMailer
   def request_notification
     mail(to: 'requests@designdentalclinic.com', subject: 'Someone sent a new request!')
   end
