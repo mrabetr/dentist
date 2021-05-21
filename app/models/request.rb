@@ -4,6 +4,6 @@ class Request < ApplicationRecord
   after_commit :send_email, on: :create
 
   def send_email
-    RequestMailer.request_notification.deliver!
+    NotificationMailer.request_notification.deliver!
   end
 end
