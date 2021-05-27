@@ -16,7 +16,7 @@ class RequestsController < ApplicationController
     authorize @request
 
     if @request.save
-      redirect_to root_path
+      redirect_to root_path, notice: 'Thanks for contacting us! We have received your request and we will contact you soonest.'
     else
       render :new
     end
