@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :find_patient, only: [:show, :edit, :update, :destroy]
+  before_action :find_patient, only: [:show, :edit, :update, :destroy, :send_sms_routine_reminder]
 
   def index
     # @patients = policy_scope(Patient).order(id: :asc)
@@ -29,6 +29,12 @@ class PatientsController < ApplicationController
     end
   end
 
+  def destroy
+    @patient.destroy
+
+    redirect_to patients_path
+  end
+
   def send_password_email
     @patient = Patient.find(params[:patient_id])
     authorize @patient
@@ -36,10 +42,11 @@ class PatientsController < ApplicationController
     redirect_to patient_path(@patient), notice: 'Your patient has been notified!'
   end
 
-  def destroy
-    @patient.destroy
+  def send_sms_routine_reminder
+    return missing_mobile_alert unless @patient.user.mobile.present?
 
-    redirect_to patients_path
+    sms_routine_reminder
+    redirect_to patient_path(@patient), notice: 'Your patient has been notified!'
   end
 
   private
@@ -55,5 +62,21 @@ class PatientsController < ApplicationController
 
   def user_params
     params.require(:patient).permit(user: [:first_name, :last_name, :mobile, :email])[:user]
+  end
+
+  def sms_routine_reminder
+    dr_name = "Dr #{current_user.last_name}"
+    dr_email = "leila.nebia@designdentalclinic.com"
+    dr_mobile = current_user.mobile
+    patient_name = @patient.user.first_name
+    patient_mobile = @patient.user.mobile
+    message = "Dear #{patient_name}, it is time for your routine dental check up. Please contact us at #{dr_email} to book an appointment. Regards -- #{dr_name}, Design Dental Clinic. Mobile: #{dr_mobile}"
+    sms = TwilioSms.new(from: dr_name, to: patient_mobile, message: message)
+    sms.call
+  end
+
+  def missing_mobile_alert
+    flash[:alert] = 'Error: Patient not notified. Please add patient\'s mobile number first'
+    redirect_to patient_path(@patient)
   end
 end

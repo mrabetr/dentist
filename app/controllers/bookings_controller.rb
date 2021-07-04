@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :find_booking, only: [:show, :edit, :update, :update_amount, :destroy, :send_sms]
+  before_action :find_booking, only: [:show, :edit, :update, :update_amount, :destroy, :send_sms_reminder, :send_sms_confirmation]
 
   def index
     @bookings = policy_scope(Booking).order(start_time: :asc)
@@ -89,10 +89,17 @@ class BookingsController < ApplicationController
     end
   end
 
-  def send_sms
+  def send_sms_reminder
     return missing_mobile_alert unless @booking.patient.user.mobile.present?
 
-    @booking.sms_notification
+    @booking.sms_reminder
+    redirect_to booking_path(@booking), notice: 'Your patient has been notified!'
+  end
+
+  def send_sms_confirmation
+    return missing_mobile_alert unless @booking.patient.user.mobile.present?
+
+    @booking.sms_confirmation
     redirect_to booking_path(@booking), notice: 'Your patient has been notified!'
   end
 

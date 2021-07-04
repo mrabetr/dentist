@@ -2,6 +2,10 @@
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <h2 class="text-center mb-3">Patient</h2>
+      <div class="d-flex justify-content-between mb-3">
+          <div></div>
+          <%= link_to "Send Routine Reminder", send_sms_routine_reminder_patient_path(@patient), class: "btn btn-primary btn-sm", data: { confirm: "Confirm SMS sending?" } %>
+        </div>
       <div class="container bg-white rounded rounded-3 my-3 p-3">
         <p><strong>Full Name</strong>: <%= @patient.name %></p>
         <p><strong>Email</strong>: <%= @patient.user.email %></p>

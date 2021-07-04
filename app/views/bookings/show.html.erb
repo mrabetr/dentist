@@ -3,9 +3,10 @@
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <h2 class="text-center mb-3">Booking #<%= @booking.id %> <small><span class="badge badge-primary"><%= @booking.state %></span></small></h2>
       <% if policy(User).doctor? %>
+        <p class="mb-3"><strong>Patient</strong>: <%= link_to @booking.patient.name, patient_path(@booking.patient) %></p>
         <div class="d-flex justify-content-between mb-3">
-          <p class="mb-0"><strong>Patient</strong>: <%= link_to @booking.patient.name, patient_path(@booking.patient) %></p>
-          <%= link_to "Send SMS Notification", send_sms_booking_path(@booking), class: "btn btn-primary btn-sm", data: { confirm: "Confirm SMS sending?" } %>
+          <%= link_to "Send Confirmation", send_sms_confirmation_booking_path(@booking), class: "btn btn-primary btn-sm", data: { confirm: "Confirm SMS sending?" } %>
+          <%= link_to "Send Reminder", send_sms_reminder_booking_path(@booking), class: "btn btn-primary btn-sm", data: { confirm: "Confirm SMS sending?" } %>
         </div>
       <% end %>
       <p><%= @booking.start_time.strftime("%a, %e %b %Y") %>,
