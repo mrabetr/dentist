@@ -22,4 +22,14 @@ class PatientPolicy < ApplicationPolicy
   def send_password_email?
     doctor_or_admin?
   end
+
+  def send_sms_routine_reminder?
+    doctor?
+  end
+
+  private
+
+  def doctor?
+    user.doctor
+  end
 end

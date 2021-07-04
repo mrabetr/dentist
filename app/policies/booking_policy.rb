@@ -35,7 +35,11 @@ class BookingPolicy < ApplicationPolicy
     doctor_owner?
   end
 
-  def send_sms?
+  def send_sms_reminder?
+    doctor?
+  end
+
+  def send_sms_confirmation?
     doctor?
   end
 

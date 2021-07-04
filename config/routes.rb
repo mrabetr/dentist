@@ -15,7 +15,8 @@ Rails.application.routes.draw do
     resources :notes, only: :create
     resources :payments, only: :new
     patch :update_amount, on: :member
-    get :send_sms, on: :member
+    get :send_sms_reminder, on: :member
+    get :send_sms_confirmation, on: :member
   end
 
   resources :notes, only: [:edit, :update, :destroy]
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
 
   resources :patients, only: [:index, :show, :edit, :update, :destroy] do
     get 'send_password_email', to: 'patients#send_password_email'
+    get :send_sms_routine_reminder, on: :member
   end
 
   resources :medical_forms
