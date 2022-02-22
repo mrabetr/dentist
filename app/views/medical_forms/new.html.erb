@@ -8,6 +8,7 @@
           <h4>Personal Information</h4>
           <%= f.simple_fields_for(@form.patient.user) do |b| %>
             <%= b.hidden_field :email %>
+            <%= b.hidden_field :id %>
             <div class="form-row">
               <div class="col-6 form-group">
                 <%= b.input :first_name, required: true %>

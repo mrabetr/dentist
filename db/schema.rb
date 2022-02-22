@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_085811) do
+ActiveRecord::Schema.define(version: 2022_02_22_112940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,8 +199,12 @@ ActiveRecord::Schema.define(version: 2021_04_27_085811) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.string "parent_type"
+    t.bigint "parent_id"
+    t.boolean "is_child", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email", "first_name"], name: "index_users_on_email_and_first_name", unique: true
+    t.index ["parent_type", "parent_id"], name: "index_users_on_parent_type_and_parent_id"
     t.index ["profile_type", "profile_id"], name: "index_users_on_profile_type_and_profile_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -14,7 +14,10 @@ class MedicalFormsController < ApplicationController
     @form = MedicalForm.new(form_params)
     # user = current_user
     # Note the email param is given as a hidden field from the new view
-    user = User.find_by(email: user_params[:email])
+    # user = User.find_by(email: user_params[:email])
+    # Note the user id param is given as a hidden field from the new view
+    # This got updated due to allowing multiple users with same email
+    user = User.find(user_params[:id])
     patient = user.profile
     @form.patient = patient
     authorize @form
@@ -42,7 +45,7 @@ class MedicalFormsController < ApplicationController
 
   def user_params
     params.require(:medical_form).permit(user: [:title, :first_name, :last_name,
-      :mobile, :email])[:user]
+      :mobile, :email, :id])[:user]
   end
 
   def patient_params

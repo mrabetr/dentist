@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   end
 
   def new
+    # Providing params to User.new is for pre-filling details from requests
     @user = User.new(email: params[:email], first_name: params[:first_name],
                       last_name: params[:last_name], mobile: params[:mobile])
     authorize @user
