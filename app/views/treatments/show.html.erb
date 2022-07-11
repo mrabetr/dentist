@@ -2,6 +2,12 @@
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
       <h2 class="text-center mb-3">Treatment Plan #<%= @treatment.id %></h2>
+
+      <div class="d-flex justify-content-between mb-4">
+        <span class="badge badge-light"><%= "Created on #{@treatment.created_at.strftime("%e %b %Y")}" %></span>
+        <span class="badge badge-light"><%= "Last updated on #{@treatment.updated_at.strftime("%e %b %Y at %H:%M")}" %></span>
+      </div>
+
       <div class="d-flex justify-content-between">
         <p><strong>Patient</strong>: <%= link_to @treatment.patient.name, patient_path(@treatment.patient) %></p>
         <!-- Button trigger modal -->

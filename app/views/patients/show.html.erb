@@ -40,7 +40,12 @@
       <br>
       <h2 class="text-center mb-3">Treatment Plans</h2>
       <% @treatments.each do |treatment| %>
-        <%= link_to "Treatment Plan #{treatment.id}", treatment_path(treatment), class: "list-group-item list-group-item-action" %>
+        <%= link_to treatment_path(treatment), class: "list-group-item list-group-item-action" do %>
+          <div class="d-flex justify-content-between">
+            <%= "Treatment Plan #{treatment.id}" %>
+            <span class="badge badge-secondary p-2"><%= "Created on #{treatment.created_at.strftime("%e %b %Y")}" %></span>
+          </div>
+        <% end %>
       <% end %>
       <br>
       <h2 class="text-center mb-3">Bookings</h2>
