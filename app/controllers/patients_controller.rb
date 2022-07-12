@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :find_patient, only: [:show, :edit, :update, :destroy, :send_sms_routine_reminder]
+  before_action :find_patient, except: [:index]
 
   def index
     # @patients = policy_scope(Patient).order(id: :asc)
@@ -35,9 +35,14 @@ class PatientsController < ApplicationController
     redirect_to patients_path
   end
 
+  def destroy_image
+    @image = @patient.images.find(params[:image_id])
+    @image.purge
+
+    redirect_to patient_path(@patient)
+  end
+
   def send_password_email
-    @patient = Patient.find(params[:patient_id])
-    authorize @patient
     @patient.user.send_reset_password_instructions
     redirect_to patient_path(@patient), notice: 'Your patient has been notified!'
   end
@@ -52,12 +57,13 @@ class PatientsController < ApplicationController
   private
 
   def find_patient
-    @patient = Patient.find(params[:id])
+    patient_id = params[:id] || params[:patient_id]
+    @patient = Patient.find(patient_id)
     authorize @patient
   end
 
   def patient_params
-    params.require(:patient).permit(:dob)
+    params.require(:patient).permit(:dob, add_images: [], images: [])
   end
 
   def user_params

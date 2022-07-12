@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   resources :patients, only: [:index, :show, :edit, :update, :destroy] do
     get 'send_password_email', to: 'patients#send_password_email'
     get :send_sms_routine_reminder, on: :member
+    delete "images", to: "patients#destroy_image"
   end
 
   resources :medical_forms

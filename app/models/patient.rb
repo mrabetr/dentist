@@ -5,6 +5,7 @@ class Patient < ApplicationRecord
   has_many :notes, through: :bookings
   has_many :medical_forms, dependent: :destroy
   has_many :treatments, dependent: :destroy
+  has_many_attached :images
 
   include PgSearch::Model
   pg_search_scope :patient_search, # name a method 'patient_search'
@@ -26,5 +27,9 @@ class Patient < ApplicationRecord
 
   def name_email
     "#{user.first_name} #{user.last_name} - #{user.email}"
+  end
+
+  def add_images=(attachables)
+    images.attach(attachables)
   end
 end

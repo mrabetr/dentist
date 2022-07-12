@@ -9,9 +9,14 @@
           <%= b.input :last_name %>
           <%= b.input :mobile %>
         <% end %>
+        <!-- replace all -->
+        <%#= f.input :images, as: :file, input_html: { multiple: true } %>
+        <!-- append files -->
+        <%= f.input :add_images, as: :file, input_html: { multiple: true } %>
         <%#= f.input :dob, label: "Date of birth (dd/mm/yyyy)", html5: true %>
         <%= f.submit class: "btn btn-primary w-100" %>
       <% end %>
+      <%= link_to "Back to patient", patient_path(@patient) %>
     </div>
   </div>
 </div>
