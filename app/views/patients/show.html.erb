@@ -55,6 +55,22 @@
         <% end %>
       <% end %>
       <br>
+      <h2 class="text-center mb-3">Images</h2>
+      <p class="mx-3">Add images from the <%= link_to "Edit", edit_patient_path(@patient) %> page.</p>
+      <div class="container">
+        <div class="row row-cols-3">
+          <% @patient.images.each do |image| %>
+            <div class="col position-relative my-2">
+              <!-- <p class="position-absolute badge rounded-pill bg-light m-2">Delete</p> -->
+              <%= link_to "X", patient_images_path(@patient, image_id: image.id), method: :delete, class: "position-absolute badge rounded-pill text-white bg-danger m-2", data: { confirm: "Are you sure?" } %>
+              <%= link_to cl_image_path(image.key), target: :_blank do %>
+                <%= cl_image_tag image.key, height: 150, width: 150, crop: :fill %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
