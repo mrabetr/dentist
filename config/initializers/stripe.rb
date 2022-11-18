@@ -9,6 +9,8 @@ Stripe.api_key = Rails.configuration.stripe[:secret_key]
 StripeEvent.signing_secret = Rails.configuration.stripe[:signing_secret]
 
 # make sure you have created StripeCheckoutSessionService class in the app/services directory
-StripeEvent.configure do |events|
-  events.subscribe 'checkout.session.completed', StripeCheckoutSessionService.new
+Rails.application.config.to_prepare do
+  StripeEvent.configure do |events|
+    events.subscribe 'checkout.session.completed', StripeCheckoutSessionService.new
+  end
 end
