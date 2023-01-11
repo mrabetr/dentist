@@ -8,10 +8,10 @@
             <!-- Daily Calendar View -->
             <%= calendar(number_of_days: 1, events: @bookings) do |date, bookings| %>
               <% (8..19).each do |hour| %>
-                <% (0..1).each do |m| %>
+                <% (0..3).each do |m| %>
                 <div class="row m-0 p-0">
                   <div class="col-2 m-0 p-0">
-                    <% time = DateTime.parse([date, "#{hour}:#{m * 30}"].join(' ')) %>
+                    <% time = DateTime.parse([date, "#{hour}:#{m * 15}"].join(' ')) %>
                     <% time_to_s = time.strftime("%H:%M") %>
                     <%= link_to time_to_s, new_booking_path(date: date, time: time_to_s), class:"btn btn-light btn-block rounded-0 p-0" %>
                   </div>

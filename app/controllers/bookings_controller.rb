@@ -29,7 +29,7 @@ class BookingsController < ApplicationController
 
       return render_new unless @booking.save
 
-      redirect_to bookings_path
+      redirect_to bookings_path(start_date: booking_params[:start_time])
     elsif policy(User).patient?
       @booking.patient = current_user.profile
       @booking.doctor = Doctor.first
