@@ -11,11 +11,11 @@ class Booking < ApplicationRecord
   STATUS = ["Pending", "Completed", "Cancelled"]
   TIME = []
   (8..19).each do |hour|
-    (0..1).each do |m|
-      TIME << Time.parse("#{hour}:#{m * 30}").strftime("%H:%M")
+    (0..3).each do |m|
+      TIME << Time.parse("#{hour}:#{m * 15}").strftime("%H:%M")
     end
   end
-  LENGTH = [30, 60, 90, 120]
+  LENGTH = [15, 30, 60, 90, 120]
 
   # validates :date, future_date_only: true
   validates :start_time, presence: true
