@@ -21,6 +21,7 @@
             <%= f.input :comments, label: "Comments or special requests",
                         placeholder: "e.g. type of dental treatment required and preferred day/time of the week for an appopintment.",
                         required: true %>
+            <%= invisible_captcha %>
         </div>
         <%= f.submit "Request an Appointment", class: "btn btn-primary mb-4 w-100 shadow" %>
       <% end %>
