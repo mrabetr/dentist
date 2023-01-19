@@ -1,6 +1,7 @@
 class RequestsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :create]
   before_action :find_request, only: [:show]
+  invisible_captcha only: :create
 
   def index
     @requests = policy_scope(Request).order(id: :desc)
@@ -9,6 +10,8 @@ class RequestsController < ApplicationController
   def new
     @request = Request.new
     authorize @request
+    # Assigning the virtual remote_ip attribute for invisible_captcha to work
+    @request.remote_ip = request.remote_ip
   end
 
   def create

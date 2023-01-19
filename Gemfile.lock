@@ -121,6 +121,8 @@ GEM
       domain_name (~> 0.5)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    invisible_captcha (2.0.0)
+      rails (>= 5.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -335,6 +337,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   font-awesome-sass
+  invisible_captcha (~> 2.0)
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.2)

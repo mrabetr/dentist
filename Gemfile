@@ -41,6 +41,7 @@ gem 'pg_search', '~> 2.3.0'
 gem 'twilio-ruby'
 gem 'phonelib'
 gem 'cloudinary'
+gem 'invisible_captcha', '~> 2.0'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
