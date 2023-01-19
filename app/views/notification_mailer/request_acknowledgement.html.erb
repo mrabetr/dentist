@@ -4,7 +4,7 @@
 
 <p>Hi <%= @customer %>,</p>
 
-<p>Thank you for contacting Design Dental Clinic. This email confirms our receipt of your request.</p>
+<p>Thank you for contacting Design Dental Clinic.</p>
 
 <p>We will get back to you as soon as possible.</p>
 <br>
@@ -12,3 +12,15 @@
 <p>Design Dental Clinic</p>
 <p><%= link_to '122 Glenthorne Rd, Hammersmith, London W6 0LP', 'https://g.page/design-dental-clinic-122' %></p>
 <p>Follow us on <%= link_to 'Instagram', 'https://www.instagram.com/leilaimenenebia' %>.</p>
+
+<br>
+
+<p>------------------------------------------------------------------</p>
+<h4>Request details</h4>
+
+<p><strong>Full Name</strong>: <%= "#{@request.first_name} #{@request.last_name}" %></p>
+<p><strong>Email</strong>: <%= @request.email %></p>
+<p><strong>Mobile</strong>: <%= @request.mobile %></p>
+
+<p><strong>Message</strong>:</p>
+<p><%= @request.comments %></p>
