@@ -1,20 +1,26 @@
-// Visit The Stimulus Handbook for more details
-// https://stimulusjs.org/handbook/introduction
-//
-// This example controller works with specially annotated HTML like:
-//
-// <div data-controller="hello">
-//   <h1 data-target="hello.output"></h1>
-// </div>
-
 import { Controller } from "stimulus"
 import Calendar from '@toast-ui/calendar';
 
 export default class extends Controller {
-  // static targets = [ "output" ]
+
+  getCalendarData() {
+    let url = '/bookings.json'
+    fetch(url)
+    .then(response => response.json())
+    .then(response => response.forEach(booking => {
+      this.calendar.createEvents([
+        {
+          id: booking.id,
+          calendarId: booking.calendarId,
+          title: booking.title,
+          start: booking.start,
+          end: booking.end,
+        },
+      ])
+    }))
+  }
 
   connect() {
-    // this.outputTarget.textContent = 'Hello, Stimulus!'
     const container = document.getElementById('calendar');
     const options = {
       defaultView: 'week',
@@ -40,5 +46,21 @@ export default class extends Controller {
 
     // const calendar = new Calendar(container, options);
     this.calendar = new Calendar(container, options);
+
+    // Creating multiple events
+    // this.calendar.createEvents([
+    //   {
+    //     id: 'event1',
+    //     calendarId: 'calendar',
+    //     title: 'Weekly Meeting',
+    //     start: '2023-01-20T15:00:00',
+    //     end: '2023-01-20T16:00:00',
+    //   },
+    // ]);
+
+    // const firstEvent = this.calendar.getEvent('event1', 'calendar');
+
+    // console.log(firstEvent.title); // 'Weekly Meeting'
+    this.getCalendarData();
   }
 }
