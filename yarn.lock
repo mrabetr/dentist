@@ -7699,7 +7699,7 @@ tty-browserify@0.0.0:
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
   integrity sha1-oVe6QC2iTpv5V/mqadUk7tQpAaY=
 
-tui-date-picker@^4.0.1:
+tui-date-picker@^4.0.1, tui-date-picker@^4.3.3:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/tui-date-picker/-/tui-date-picker-4.3.3.tgz#a5f895d06cddcdbcb7fe081b62c17d8089aa0bca"
   integrity sha512-/2YoLnj5c1e+Ag1ZZYOgzEs2o0v7Ol7c5UAnBj438zGlkwkMxyH0HwP2pVqqIYX05WE7K0+6nTWVMybS8otBgw==

@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 import Calendar from '@toast-ui/calendar';
+import DatePicker from 'tui-date-picker';
+import TimePicker from 'tui-time-picker';
 
 export default class extends Controller {
 
@@ -23,7 +25,9 @@ export default class extends Controller {
   connect() {
     const container = document.getElementById('calendar');
     const options = {
-      defaultView: 'week',
+      defaultView: 'day',
+      useFormPopup: true,
+      useDetailPopup: true,
       week: {
         taskView: false,
       },
@@ -46,6 +50,14 @@ export default class extends Controller {
 
     // const calendar = new Calendar(container, options);
     this.calendar = new Calendar(container, options);
+
+    const params = new URLSearchParams(window.location.search);
+    let date = params.get('start_date');
+    // date ||= new Date();
+    // console.log(params.get('start_date'));
+    // console.log(date);
+
+    date && this.calendar.setDate(date);
 
     // Creating multiple events
     // this.calendar.createEvents([
