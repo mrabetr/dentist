@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :find_booking, only: [:show, :edit, :update, :update_amount, :destroy, :send_sms_reminder, :send_sms_confirmation]
+  before_action :find_booking, only: [:show, :edit, :update, :update_booking, :update_amount, :destroy, :send_sms_reminder, :send_sms_confirmation]
 
   def index
     @bookings = policy_scope(Booking).order(start_time: :asc)
@@ -84,6 +84,13 @@ class BookingsController < ApplicationController
     return render_edit unless @booking.save
 
     redirect_to booking_path(@booking)
+  end
+
+  def update_booking
+    return render_edit unless @booking.update(booking_params)
+
+    set_booking_times
+    return render_edit unless @booking.save
   end
 
   def update_amount

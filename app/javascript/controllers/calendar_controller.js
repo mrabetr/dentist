@@ -6,7 +6,7 @@ import Rails from "@rails/ujs"
 
 export default class extends Controller {
 
-  viewCalendarBooking() {
+  showCalendarBooking() {
     let calendar = this.calendar;
     calendar.on('clickEvent', (event) => {
 
@@ -35,6 +35,32 @@ export default class extends Controller {
         success: function(result) {
           window.location = `/bookings/new?date=${date}&time=${time}&length=${length}`;
         },
+      })
+    })
+  }
+
+  updateCalendarBooking() {
+    let calendar = this.calendar;
+    calendar.on('beforeUpdateEvent', (event) => {
+      const booking_id = event.event.id
+      let start_time = event.event.start.d.d
+      event.changes.start && (start_time = event.changes.start.d.d)
+      const end_time = event.changes.end.d.d
+      const time = start_time.toISOString().split('T')[1].substring(0, 5)
+      const length = (end_time.getTime() - start_time.getTime()) / (1000 * 60)
+
+      let formData = new FormData()
+      formData.append('[booking]start_time', start_time);
+      formData.append('[booking]end_time', end_time);
+      formData.append('[booking]time', time);
+      formData.append('[booking]length', length);
+
+      calendar.updateEvent(booking_id, 'calendar', event.changes);
+
+      Rails.ajax({
+        type: "PATCH",
+        url: `/bookings/${booking_id}/update_booking`,
+        data: formData
       })
     })
   }
@@ -117,20 +143,8 @@ export default class extends Controller {
     const options = {
       defaultView: 'day',
       // useFormPopup: true,
-      useDetailPopup: true,
+      // useDetailPopup: true,
       template: {
-        titlePlaceholder() {
-          return 'Test';
-        },
-        popupSave() {
-          return 'New Booking';
-        },
-        popupEdit() {
-          return 'Edit';
-        },
-        popupUpdate() {
-          return 'Edit Booking';
-        },
         timegridDisplayPrimaryTime({ time }) {
           return `${time.getHours()}:00`;
         },
@@ -182,6 +196,7 @@ export default class extends Controller {
     // console.log(firstEvent.title); // 'Weekly Meeting'
     this.getCalendarData();
     this.newCalendarBooking();
-    this.viewCalendarBooking();
+    this.showCalendarBooking();
+    this.updateCalendarBooking();
   }
 }
