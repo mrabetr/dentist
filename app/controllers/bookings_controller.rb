@@ -15,7 +15,7 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @booking = Booking.new(start_time: params[:date], time: params[:time])
+    @booking = Booking.new(start_time: params[:date], time: params[:time], length: params[:length])
     @booking.booking_services.build
     authorize @booking
   end
@@ -58,6 +58,19 @@ class BookingsController < ApplicationController
 
       redirect_to new_booking_payment_path(@booking)
     end
+  end
+
+  # added to create booking from Tui Calendar
+  def new_booking
+    authorize Booking
+
+    # passing on params from calendar_controller.js
+    start_time = DateTime.parse(booking_params[:start_time])
+    end_time = DateTime.parse(booking_params[:end_time])
+    time = booking_params[:start_time].to_time.strftime("%H:%M")
+    length = ((end_time - start_time) * 60 * 24).to_i
+
+    redirect_to new_booking_path(date: start_time.to_date, time: time, length: length)
   end
 
   def edit

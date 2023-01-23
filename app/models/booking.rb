@@ -15,7 +15,7 @@ class Booking < ApplicationRecord
       TIME << Time.parse("#{hour}:#{m * 15}").strftime("%H:%M")
     end
   end
-  LENGTH = [15, 30, 60, 90, 120]
+  LENGTH = [15, 30, 60, 90, 120, 150, 180, 210, 240]
 
   # validates :date, future_date_only: true
   validates :start_time, presence: true

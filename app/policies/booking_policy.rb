@@ -23,6 +23,10 @@ class BookingPolicy < ApplicationPolicy
     doctor?
   end
 
+  def new_booking?
+    new?
+  end
+
   def update?
     doctor_owner?
   end
