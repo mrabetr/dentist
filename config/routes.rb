@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     patch :update_amount, on: :member
     get :send_sms_reminder, on: :member
     get :send_sms_confirmation, on: :member
+    # added to create booking from Tui Calendar
+    post :new_booking, to: "bookings#new_booking", on: :collection
+    patch :update_booking, to: "bookings#update_booking", on: :member
   end
 
   resources :notes, only: [:edit, :update, :destroy]

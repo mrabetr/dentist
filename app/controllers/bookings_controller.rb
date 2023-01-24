@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :find_booking, only: [:show, :edit, :update, :update_amount, :destroy, :send_sms_reminder, :send_sms_confirmation]
+  before_action :find_booking, only: [:show, :edit, :update, :update_booking, :update_amount, :destroy, :send_sms_reminder, :send_sms_confirmation]
 
   def index
     @bookings = policy_scope(Booking).order(start_time: :asc)
@@ -15,7 +15,7 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @booking = Booking.new(start_time: params[:date], time: params[:time])
+    @booking = Booking.new(start_time: params[:date], time: params[:time], length: params[:length])
     @booking.booking_services.build
     authorize @booking
   end
@@ -60,6 +60,19 @@ class BookingsController < ApplicationController
     end
   end
 
+  # added to create booking from Tui Calendar
+  def new_booking
+    authorize Booking
+
+    # passing on params from calendar_controller.js
+    start_time = DateTime.parse(booking_params[:start_time])
+    end_time = DateTime.parse(booking_params[:end_time])
+    time = booking_params[:start_time].to_time.strftime("%H:%M")
+    length = ((end_time - start_time) * 60 * 24).to_i
+
+    redirect_to new_booking_path(date: start_time.to_date, time: time, length: length)
+  end
+
   def edit
     @services_count = @booking.booking_services.count
   end
@@ -71,6 +84,13 @@ class BookingsController < ApplicationController
     return render_edit unless @booking.save
 
     redirect_to booking_path(@booking)
+  end
+
+  def update_booking
+    return render_edit unless @booking.update(booking_params)
+
+    set_booking_times
+    return render_edit unless @booking.save
   end
 
   def update_amount

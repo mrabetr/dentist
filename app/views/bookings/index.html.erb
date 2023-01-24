@@ -7,27 +7,15 @@
           <div class="col-12 col-lg-6">
             <!-- Daily Calendar View -->
             <%= calendar(number_of_days: 1, events: @bookings) do |date, bookings| %>
-              <% (8..19).each do |hour| %>
-                <% (0..3).each do |m| %>
-                <div class="row m-0 p-0">
-                  <div class="col-2 m-0 p-0">
-                    <% time = DateTime.parse([date, "#{hour}:#{m * 15}"].join(' ')) %>
-                    <% time_to_s = time.strftime("%H:%M") %>
-                    <%= link_to time_to_s, new_booking_path(date: date, time: time_to_s), class:"btn btn-light btn-block rounded-0 p-0" %>
-                  </div>
-                  <div class="col-10 m-0 p-0">
-                    <% bookings.select{ |b| time >= b.start_time && time < b.end_time }.each do |booking| %>
-                      <%= link_to booking_path(booking), class:"btn btn-outline-secondary btn-block rounded-0 py-0 border-0 text-left" do  %>
-                        <%= booking.patient.name %>
-                      <% end %>
-                    <% end %>
-                  </div>
-                  </div>
-                <% end %>
-              <% end %>
+              <%# here used to be the simple_calendar logic %>
             <% end %>
+            <!-- the Tui Calendar replacing simple_calendar  -->
+            <div data-controller="calendar">
+              <div id="calendar" class="mb-3" style="height: 640px;">
+              </div>
+            </div>
           </div>
-          <div class="col-12 col-lg-6">
+          <div class="col-12 col-lg-6 mb-3">
             <!-- Monthly Calendar View -->
             <%= month_calendar(events: @bookings) do |date, bookings| %>
               <%= link_to date.day, bookings_path(start_date: date), class: "btn btn-outline-secondary border-0 w-100 h-100 p-0 d-flex justify-content-center align-items-center" %>
