@@ -151,6 +151,8 @@ export default class extends Controller {
       },
       week: {
         taskView: false,
+        hourStart: 7,
+        hourEnd: 21,
       },
       timezone: {
         zones: [

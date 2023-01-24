@@ -56,7 +56,7 @@
             </div>
           <% else %>
             <%= simple_form_for([@booking, @note], remote: true) do |f| %>
-              <h5><%= f.input :note, label: "Notes" %></h5>
+              <h5><%= f.input :note, label: "Clinical Notes" %></h5>
               <%= f.submit "Add Notes", class: "btn btn-primary w-100 mb-3" %>
             <% end %>
           <% end %>
