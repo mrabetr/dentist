@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_11_162635) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_01_24_152646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,7 +19,7 @@ ActiveRecord::Schema.define(version: 2022_07_11_162635) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -32,46 +31,47 @@ ActiveRecord::Schema.define(version: 2022_07_11_162635) do
     t.text "metadata"
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
   create_table "admins", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "booking_services", force: :cascade do |t|
     t.bigint "booking_id", null: false
     t.bigint "service_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["booking_id"], name: "index_booking_services_on_booking_id"
     t.index ["service_id"], name: "index_booking_services_on_service_id"
   end
 
   create_table "bookings", force: :cascade do |t|
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.datetime "start_time", precision: nil
+    t.datetime "end_time", precision: nil
     t.string "status", default: "Pending"
     t.bigint "doctor_id", null: false
     t.bigint "patient_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "time"
     t.integer "length"
     t.string "state"
     t.string "checkout_session_id"
     t.integer "amount_cents", default: 0, null: false
     t.bigint "treatment_id"
+    t.text "popup_note"
     t.index ["doctor_id"], name: "index_bookings_on_doctor_id"
     t.index ["patient_id"], name: "index_bookings_on_patient_id"
     t.index ["treatment_id"], name: "index_bookings_on_treatment_id"
   end
 
   create_table "doctors", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "medical_forms", force: :cascade do |t|
@@ -120,22 +120,22 @@ ActiveRecord::Schema.define(version: 2022_07_11_162635) do
     t.boolean "bad_breath", default: false
     t.text "other_smile_info"
     t.bigint "patient_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["patient_id"], name: "index_medical_forms_on_patient_id"
   end
 
   create_table "notes", force: :cascade do |t|
     t.text "note"
     t.bigint "booking_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["booking_id"], name: "index_notes_on_booking_id"
   end
 
   create_table "patients", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.date "dob"
     t.string "street"
     t.string "city"
@@ -153,8 +153,8 @@ ActiveRecord::Schema.define(version: 2022_07_11_162635) do
   create_table "payments", force: :cascade do |t|
     t.integer "amount_cents", default: 0, null: false
     t.bigint "treatment_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["treatment_id"], name: "index_payments_on_treatment_id"
   end
 
@@ -163,8 +163,8 @@ ActiveRecord::Schema.define(version: 2022_07_11_162635) do
     t.string "justification"
     t.integer "price_cents", default: 0, null: false
     t.bigint "treatment_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "completed", default: false
     t.index ["treatment_id"], name: "index_procedures_on_treatment_id"
   end
@@ -175,15 +175,15 @@ ActiveRecord::Schema.define(version: 2022_07_11_162635) do
     t.string "email"
     t.string "mobile"
     t.text "comments"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "services", force: :cascade do |t|
     t.string "name"
     t.bigint "doctor_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "description"
     t.integer "price_cents", default: 0, null: false
     t.boolean "public", default: false
@@ -195,8 +195,8 @@ ActiveRecord::Schema.define(version: 2022_07_11_162635) do
     t.text "recommendations"
     t.text "discussion"
     t.bigint "patient_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["patient_id"], name: "index_treatments_on_patient_id"
   end
 
@@ -204,10 +204,10 @@ ActiveRecord::Schema.define(version: 2022_07_11_162635) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "title"
     t.string "first_name"
     t.string "last_name"
@@ -217,8 +217,8 @@ ActiveRecord::Schema.define(version: 2022_07_11_162635) do
     t.boolean "doctor", default: false
     t.boolean "admin", default: false
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.string "parent_type"
     t.bigint "parent_id"
