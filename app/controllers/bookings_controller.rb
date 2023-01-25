@@ -132,7 +132,7 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:start_time, :end_time, :time, :length, :status,
-      :patient_id, :doctor_id, :amount, :treatment_id,
+      :patient_id, :doctor_id, :amount, :treatment_id, :popup_note,
       booking_services_attributes: [:id, :service_id, :_destroy])
   end
 
