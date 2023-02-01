@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     put 'users' => 'devise/registrations#update', :as => 'user_registration'
   end
 
+  authenticated :user do
+    root to: "bookings#index", as: :authenticated_root
+  end
+
   root to: 'pages#home'
   get 'links', to: 'pages#links'
 
