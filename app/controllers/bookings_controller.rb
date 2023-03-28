@@ -137,7 +137,7 @@ class BookingsController < ApplicationController
   end
 
   def set_booking_times
-    @booking.start_time = DateTime.parse("#{@booking.start_time.to_date}T#{@booking.time}")
+    @booking.start_time = Time.zone.parse("#{@booking.start_time.to_date} #{@booking.time}").in_time_zone('UTC')
     @booking.end_time = @booking.start_time + @booking.length.minutes
   end
 
