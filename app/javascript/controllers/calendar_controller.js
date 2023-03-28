@@ -26,7 +26,8 @@ export default class extends Controller {
       const start_time = event.start
       const end_time = event.end
       const date = start_time.toISOString().split('T')[0]
-      const time = start_time.toISOString().split('T')[1].substring(0, 5)
+      // const time = start_time.toISOString().split('T')[1].substring(0, 5)
+      const time = start_time.toTimeString().split()[0].substring(0, 5)
       const length = (end_time.getTime() - start_time.getTime()) / (1000 * 60)
 
       Rails.ajax({
@@ -46,7 +47,8 @@ export default class extends Controller {
       let start_time = event.event.start.d.d
       event.changes.start && (start_time = event.changes.start.d.d)
       const end_time = event.changes.end.d.d
-      const time = start_time.toISOString().split('T')[1].substring(0, 5)
+      // const time = start_time.toISOString().split('T')[1].substring(0, 5)
+      const time = start_time.toTimeString().split()[0].substring(0, 5)
       const length = (end_time.getTime() - start_time.getTime()) / (1000 * 60)
 
       let formData = new FormData()
