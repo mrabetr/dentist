@@ -1,13 +1,13 @@
 <div class="container min-vh-100 mt-3">
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6 mb-4">
-      <h2 class="text-center mb-3">Patients</h2>
-      <%= form_tag patients_path, method: :get do %>
+      <h2 class="text-center mb-3">Clients</h2>
+      <%= form_tag clients_path, method: :get do %>
         <div class="d-flex justify-content-between">
             <%= text_field_tag :query,
               params[:query],
               class: "form-control rounded-pill pl-4",
-              placeholder: " 🕵️‍♀️ find your patient",
+              placeholder: " 🕵️‍♀️ find your client",
               autofocus: true
             %>
             <%= submit_tag "Search", :style => "display: none;" %>
@@ -15,9 +15,9 @@
       <% end %>
       <br>
       <div class="list-group">
-        <% @patients.each do |patient| %>
-          <%= link_to patient_path(patient), class: "list-group-item list-group-item-action" do  %>
-            <%= patient.name %> (<%= patient.user.email %>)
+        <% @clients.each do |client| %>
+          <%= link_to client_path(client), class: "list-group-item list-group-item-action" do  %>
+            <%= client.name %> (<%= client.user.email %>)
           <% end %>
         <% end %>
       </div>

@@ -1,7 +1,7 @@
 # json.array! @bookings, :id, :start_time, :end_time
 json.array! @bookings do |booking|
   # json.(booking, :id, :start_time, :end_time)
-  title = booking.patient.name
+  title = booking.client.name
   title += " 🗒️ #{booking.popup_note}" if booking.popup_note.present?
 
   json.id           booking.id

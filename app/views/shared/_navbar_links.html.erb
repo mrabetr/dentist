@@ -1,7 +1,7 @@
 <!-- <div class="navbar navbar-expand-sm navbar-light navbar-lewagon fixed-top"> -->
   <%= link_to root_path, class: "navbar-brand" do %>
     <%#= image_tag "https://lirp-cdn.multiscreensite.com/c416ec49/dms3rep/multi/opt/tooth-allport-166w.png" %>
-    <%= image_tag "design-dental-clinic-logo.png" %>
+    <%= image_tag "app-logo.png" %>
     <%#= image_tag "clinic_name.png" %>
     <% end %>
 
@@ -16,17 +16,11 @@
         <li class="nav-item dropdown">
           <%= image_tag "plus-icon-dark-blue.png", class: "avatar dropdown-toggle", id: "navbarDropdown", role: "button", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdown">
-            <% if policy(Treatment).new? %>
-              <%= link_to "New Treatment", new_treatment_path, class: "dropdown-item" %>
-            <% end %>
             <% if policy(Booking).new? %>
               <%= link_to "New Booking", new_booking_path, class: "dropdown-item" %>
             <% end %>
-            <% if policy(MedicalForm).new? && current_user.profile_type == "Patient" %>
-              <%= link_to "New Medical Form", new_medical_form_path(patient_id: current_user.profile.id), class: "dropdown-item" %>
-            <% end %>
             <% if policy(User).new? %>
-              <%= link_to "New Patient", new_user_path, class: "dropdown-item" %>
+              <%= link_to "New Client", new_user_path, class: "dropdown-item" %>
             <% end %>
             <% if policy(Service).new? %>
               <%= link_to "New Service", new_service_path, class: "dropdown-item" %>
@@ -36,11 +30,6 @@
         <li class="nav-item">
           <%= link_to "Bookings", bookings_path, class: "nav-link" %>
         </li>
-        <% if current_user.profile_type == "Patient" && current_user.profile.medical_forms.last %>
-          <li class="nav-item">
-            <%= link_to "Medical Form", medical_form_path(current_user.profile.medical_forms.last), class: "nav-link" %>
-          </li>
-        <% end %>
         <% if policy(Request).index? %>
           <li class="nav-item">
             <%= link_to "Requests", requests_path, class: "nav-link" %>
@@ -51,9 +40,9 @@
             <%= link_to "Services", services_path, class: "nav-link" %>
           </li>
         <% end %>
-        <% if policy(User).patients? %>
+        <% if policy(User).clients? %>
           <li class="nav-item">
-            <%= link_to "Patients", patients_path, class: "nav-link" %>
+            <%= link_to "Clients", clients_path, class: "nav-link" %>
           </li>
         <% end %>
         <% if policy(User).index? %>

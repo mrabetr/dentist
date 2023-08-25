@@ -168,7 +168,7 @@ export default class extends Controller {
         {
           id: 'calendar',
           name: 'Work',
-          backgroundColor: '#03bd9e',
+          backgroundColor: '#83a2d7',
         },
       ],
     };

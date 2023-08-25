@@ -1,6 +1,6 @@
 class Booking < ApplicationRecord
-  belongs_to :doctor
-  belongs_to :patient
+  belongs_to :provider
+  belongs_to :client
   has_many :booking_services, dependent: :destroy
   has_many :services, through: :booking_services
   has_one :note, dependent: :destroy
@@ -20,7 +20,7 @@ class Booking < ApplicationRecord
   # validates :date, future_date_only: true
   validates :start_time, presence: true
   validates :status, presence: true, inclusion: { in: STATUS }
-  validates_uniqueness_of :start_time, scope: [:doctor_id]
+  validates_uniqueness_of :start_time, scope: [:provider_id]
 
   # the below is commented out otherwise you can't save a booking without having a treatment referenced
   # belongs_to :treatment
@@ -32,24 +32,24 @@ class Booking < ApplicationRecord
   end
 
   def sms_reminder
-    dr_name = "Dr #{doctor.user.last_name}"
-    dr_mobile = doctor.user.mobile
-    patient_name = patient.user.first_name
-    patient_mobile = patient.user.mobile
+    dr_name = "Dr #{provider.user.last_name}"
+    dr_mobile = provider.user.mobile
+    client_name = client.user.first_name
+    client_mobile = client.user.mobile
     booking_time = start_time.strftime('%a, %e %b %Y at %H:%M')
-    message = "Hi #{patient_name}, this is a reminder that your dental appointment is scheduled on #{booking_time}. Looking forward to seeing you. Thanks -- #{dr_name}, Design Dental Clinic. (Please call or message #{dr_mobile} if unable to attend)"
-    sms = TwilioSms.new(from: dr_name, to: patient_mobile, message: message)
+    message = "Hi #{client_name}, this is a reminder that your dental appointment is scheduled on #{booking_time}. Looking forward to seeing you. Thanks -- #{dr_name}, Design Dental Clinic. (Please call or message #{dr_mobile} if unable to attend)"
+    sms = TwilioSms.new(from: dr_name, to: client_mobile, message: message)
     sms.call
   end
 
   def sms_confirmation
-    dr_name = "Dr #{doctor.user.last_name}"
-    dr_mobile = doctor.user.mobile
-    patient_name = patient.user.first_name
-    patient_mobile = patient.user.mobile
+    dr_name = "Dr #{provider.user.last_name}"
+    dr_mobile = provider.user.mobile
+    client_name = client.user.first_name
+    client_mobile = client.user.mobile
     booking_time = start_time.strftime('%a, %e %b %Y at %H:%M')
-    message = "Hi #{patient_name}, your appointment has been booked for #{booking_time}. Thanks -- #{dr_name}, Design Dental Clinic, 122 Glenthorne Rd, London W6 0LP. Mobile: #{dr_mobile}"
-    sms = TwilioSms.new(from: dr_name, to: patient_mobile, message: message)
+    message = "Hi #{client_name}, your appointment has been booked for #{booking_time}. Thanks -- #{dr_name}, Design Dental Clinic, 122 Glenthorne Rd, London W6 0LP. Mobile: #{dr_mobile}"
+    sms = TwilioSms.new(from: dr_name, to: client_mobile, message: message)
     sms.call
   end
 end

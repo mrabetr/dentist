@@ -1,0 +1,54 @@
+<div class="container min-vh-100 mt-3">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-8 col-lg-6">
+      <h2 class="text-center mb-3">Client</h2>
+      <div class="d-flex justify-content-between mb-3">
+          <div></div>
+          <%= link_to "Send Routine Reminder", send_sms_routine_reminder_client_path(@client), class: "btn btn-primary btn-sm", data: { confirm: "Confirm SMS sending?" } %>
+        </div>
+      <div class="container bg-white rounded rounded-3 my-3 p-3">
+        <p><strong>Full Name</strong>: <%= @client.name %></p>
+        <p><strong>Email</strong>: <%= @client.user.email %></p>
+        <p><strong>Mobile</strong>: <%= @client.user.mobile %></p>
+        <p><strong>DoB</strong>: <%= @client.dob %></p>
+      </div>
+      <div class="d-flex justify-content-between">
+        <% if policy(@client).edit? %>
+          <%= link_to edit_client_path(@client), class: "btn btn-outline-secondary btn-sm w-25" do %>
+            Edit
+          <% end %>
+        <% end %>
+        <% if policy(@client).destroy? %>
+          <%= link_to client_path(@client), class: "btn btn-outline-secondary btn-sm w-25", method: :delete, data: { confirm: "Are you sure?" } do %>
+            Delete
+          <% end %>
+        <% end %>
+      </div>
+
+      <hr>
+      <h2 class="text-center mb-3">Bookings</h2>
+      <% @bookings.each do |booking| %>
+        <%= link_to booking_path(booking), class: "list-group-item list-group-item-action" do  %>
+          <% "#{booking.start_time.strftime("%a, %e %b %Y")}" %>
+        <% end %>
+      <% end %>
+      <br>
+      <h2 class="text-center mb-3">Images</h2>
+      <p class="mx-3">Add images from the <%= link_to "Edit", edit_client_path(@client) %> page.</p>
+      <div class="container">
+        <div class="row row-cols-3">
+          <% @client.images.each do |image| %>
+            <div class="col position-relative my-2">
+              <!-- <p class="position-absolute badge rounded-pill bg-light m-2">Delete</p> -->
+              <%= link_to "X", client_images_path(@client, image_id: image.id), method: :delete, class: "position-absolute badge rounded-pill text-white bg-danger m-2", data: { confirm: "Are you sure?" } %>
+              <%= link_to cl_image_path(image.key), target: :_blank do %>
+                <%= cl_image_tag image.key, height: 150, width: 150, crop: :fill %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

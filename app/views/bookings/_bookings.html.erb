@@ -14,10 +14,10 @@
           <%= link_to booking_path(booking), class: "list-group-item list-group-item-action p-2" do  %>
             <% if policy(Booking).index? %>
               <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
-              Patient: #{booking.patient.name}" %>
+              Client: #{booking.client.name}" %>
             <% else %>
               <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
-              Doctor: #{booking.doctor.name}" %>
+              Provider: #{booking.provider.name}" %>
             <% end %>
           <% end %>
         <% end %>
@@ -30,10 +30,10 @@
           <%= link_to booking_path(booking), class: "list-group-item list-group-item-action p-2" do  %>
             <% if policy(Booking).index? %>
               <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
-              Patient: #{booking.patient.name}" %>
+              Client: #{booking.client.name}" %>
             <% else %>
               <% "#{booking.start_time.strftime("%a, %e %b %Y")} -
-              Doctor: #{booking.doctor.name}" %>
+              Provider: #{booking.provider.name}" %>
             <% end %>
           <% end %>
         <% end %>

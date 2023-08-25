@@ -33,22 +33,16 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :new, :edit] do
     post "create_user", to: "users#create", as: :create, on: :collection
     patch "update_user", to: "users#update", as: :update, on: :member
-    get :patients, as: :patients, on: :collection
+    get :clients, as: :clients, on: :collection
     post :impersonate, on: :member
     post :stop_impersonating, on: :collection
   end
 
-  resources :patients, only: [:index, :show, :edit, :update, :destroy] do
-    get 'send_password_email', to: 'patients#send_password_email'
+  resources :clients, only: [:index, :show, :edit, :update, :destroy] do
+    get 'send_password_email', to: 'clients#send_password_email'
     get :send_sms_routine_reminder, on: :member
-    delete "images", to: "patients#destroy_image"
+    delete "images", to: "clients#destroy_image"
   end
-
-  resources :medical_forms
 
   resources :requests, only: [:new, :create, :index, :show]
-
-  resources :treatments, except: :index do
-    resources :payments, only: :create
-  end
 end

@@ -18,23 +18,23 @@ class User < ApplicationRecord
 
   before_create :default_profile
   def default_profile
-    self.profile = Patient.create
+    self.profile = Client.create
   end
 
-  def doctor_profile!
-    self.doctor = true
-    patient = self.profile
-    self.profile = Doctor.create
+  def provider_profile!
+    self.provider = true
+    client = self.profile
+    self.profile = Provider.create
     self.save
-    patient.destroy
+    client.destroy
   end
 
   def admin_profile!
     self.admin = true
-    patient = self.profile
+    client = self.profile
     self.profile = Admin.create
     self.save
-    patient.destroy
+    client.destroy
   end
 
   # Uncomment below for manually getting the token and send on email with the link:

@@ -9,8 +9,8 @@ class BookingsController < ApplicationController
   end
 
   def show
-    @doctor = @booking.doctor.user
-    @patient = @booking.patient.user
+    @provider = @booking.provider.user
+    @client = @booking.client.user
     @note = Note.new
   end
 
@@ -23,16 +23,16 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     authorize @booking
-    if policy(User).doctor?
-      @booking.doctor = current_user.profile
+    if policy(User).provider?
+      @booking.provider = current_user.profile
       set_booking_times
 
       return render_new unless @booking.save
 
       redirect_to bookings_path(start_date: booking_params[:start_time])
-    elsif policy(User).patient?
-      @booking.patient = current_user.profile
-      @booking.doctor = Doctor.first
+    elsif policy(User).client?
+      @booking.client = current_user.profile
+      @booking.provider = Provider.first
       set_booking_times
 
       return render_new unless @booking.save
@@ -110,17 +110,17 @@ class BookingsController < ApplicationController
   end
 
   def send_sms_reminder
-    return missing_mobile_alert unless @booking.patient.user.mobile.present?
+    return missing_mobile_alert unless @booking.client.user.mobile.present?
 
     @booking.sms_reminder
-    redirect_to booking_path(@booking), notice: 'Your patient has been notified!'
+    redirect_to booking_path(@booking), notice: 'Your client has been notified!'
   end
 
   def send_sms_confirmation
-    return missing_mobile_alert unless @booking.patient.user.mobile.present?
+    return missing_mobile_alert unless @booking.client.user.mobile.present?
 
     @booking.sms_confirmation
-    redirect_to booking_path(@booking), notice: 'Your patient has been notified!'
+    redirect_to booking_path(@booking), notice: 'Your client has been notified!'
   end
 
   private
@@ -132,7 +132,7 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:start_time, :end_time, :time, :length, :status,
-      :patient_id, :doctor_id, :amount, :treatment_id, :popup_note,
+      :client_id, :provider_id, :amount, :treatment_id, :popup_note,
       booking_services_attributes: [:id, :service_id, :_destroy])
   end
 
@@ -156,7 +156,7 @@ class BookingsController < ApplicationController
   end
 
   def missing_mobile_alert
-    flash[:alert] = 'Error: Patient not notified. Please add patient\'s mobile number first'
+    flash[:alert] = 'Error: Client not notified. Please add client\'s mobile number first'
     redirect_to booking_path(@booking)
   end
 end

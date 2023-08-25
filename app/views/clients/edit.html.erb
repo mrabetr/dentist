@@ -1,9 +1,9 @@
 <div class="container min-vh-100 mt-3">
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-8 col-lg-6">
-      <h2 class="text-center mb-3">Update patient</h2>
-      <%= simple_form_for(@patient) do |f| %>
-        <%= f.simple_fields_for(@patient.user) do |b| %>
+      <h2 class="text-center mb-3">Update client</h2>
+      <%= simple_form_for(@client) do |f| %>
+        <%= f.simple_fields_for(@client.user) do |b| %>
           <%= b.input :email %>
           <%= b.input :first_name %>
           <%= b.input :last_name %>
@@ -16,7 +16,7 @@
         <%#= f.input :dob, label: "Date of birth (dd/mm/yyyy)", html5: true %>
         <%= f.submit class: "btn btn-primary w-100" %>
       <% end %>
-      <%= link_to "Back to patient", patient_path(@patient) %>
+      <%= link_to "Back to client", client_path(@client) %>
     </div>
   </div>
 </div>

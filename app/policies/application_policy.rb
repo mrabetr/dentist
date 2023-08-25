@@ -49,14 +49,14 @@ class ApplicationPolicy
     private
 
     # added this method here as the one outsie doesn't work for this sub-class
-    def doctor_or_admin?
-      @user.doctor || @user.admin
+    def provider_or_admin?
+      @user.provider || @user.admin
     end
   end
 
   private
 
-  def doctor_or_admin?
-    @user.doctor || @user.admin
+  def provider_or_admin?
+    @user.provider || @user.admin
   end
 end

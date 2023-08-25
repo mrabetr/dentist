@@ -14,7 +14,7 @@ class ServicesController < ApplicationController
 
   def create
     @service = Service.new(service_params)
-    @service.doctor = current_user.profile
+    @service.provider = current_user.profile
     authorize @service
 
     if @service.save

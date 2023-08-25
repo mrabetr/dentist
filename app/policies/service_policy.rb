@@ -1,7 +1,7 @@
 class ServicePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      raise Pundit::NotAuthorizedError, 'not allowed to view this page' unless doctor_or_admin?
+      raise Pundit::NotAuthorizedError, 'not allowed to view this page' unless provider_or_admin?
 
       scope.all
       # For a multi-tenant SaaS app, you may want to use:
@@ -10,32 +10,32 @@ class ServicePolicy < ApplicationPolicy
   end
 
   def index?
-    doctor_or_admin?
+    provider_or_admin?
   end
 
   def show?
-    doctor_or_admin?
+    provider_or_admin?
   end
 
   def create?
-    doctor?
+    provider?
   end
 
   def update?
-    doctor_owner?
+    provider_owner?
   end
 
   def destroy?
-    doctor_owner?
+    provider_owner?
   end
 
   private
 
-  def doctor?
-    user.doctor
+  def provider?
+    user.provider
   end
 
-  def doctor_owner?
-    user == record.doctor.user
+  def provider_owner?
+    user == record.provider.user
   end
 end

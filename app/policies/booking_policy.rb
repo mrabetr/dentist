@@ -2,25 +2,25 @@ class BookingPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       # scope.all
-      if doctor_or_admin?
+      if provider_or_admin?
         scope.all
       else
-        scope.where(patient: user.profile)
+        scope.where(client: user.profile)
       end
     end
   end
 
   def index?
-    doctor_or_admin?
+    provider_or_admin?
   end
 
   def show?
-    doctor_admin_or_patient_owner?
+    provider_admin_or_client_owner?
   end
 
   def create?
-    # update to true when ready to allow patient to add a new booking
-    doctor?
+    # update to true when ready to allow client to add a new booking
+    provider?
   end
 
   def new_booking?
@@ -28,7 +28,7 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def update?
-    doctor_owner?
+    provider_owner?
   end
 
   def update_booking?
@@ -40,28 +40,28 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def destroy?
-    doctor_owner?
+    provider_owner?
   end
 
   def send_sms_reminder?
-    doctor?
+    provider?
   end
 
   def send_sms_confirmation?
-    doctor?
+    provider?
   end
 
   private
 
-  def doctor?
-    user.doctor
+  def provider?
+    user.provider
   end
 
-  def doctor_owner?
-    user == record.doctor.user
+  def provider_owner?
+    user == record.provider.user
   end
 
-  def doctor_admin_or_patient_owner?
-    user.doctor || user.admin || user == record.patient.user
+  def provider_admin_or_client_owner?
+    user.provider || user.admin || user == record.client.user
   end
 end

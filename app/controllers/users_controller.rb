@@ -5,8 +5,8 @@ class UsersController < ApplicationController
     @users = policy_scope(User).order(:id)
   end
 
-  def patients
-    @patients = policy_scope(User).where(profile_type: "Patient").order(:id)
+  def clients
+    @clients = policy_scope(User).where(profile_type: "Client").order(:id)
   end
 
   def new
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user.skip_confirmation!
 
     if @user.save
-      redirect_to bookings_path, notice: 'Your patient was added successfully!'
+      redirect_to bookings_path, notice: 'Your client was added successfully!'
     else
       flash[:alert] = @user.errors.full_messages
       render :new
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     @user.skip_reconfirmation!
 
     if @user.update(user_params)
-      redirect_to patient_path(@user.profile)
+      redirect_to client_path(@user.profile)
     else
       flash[:alert] = @user.errors.full_messages
       render :new

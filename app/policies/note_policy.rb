@@ -6,24 +6,24 @@ class NotePolicy < ApplicationPolicy
   end
 
   def create?
-    doctor?
+    provider?
   end
 
   def update?
-    doctor_owner?
+    provider_owner?
   end
 
   def destroy?
-    doctor_owner?
+    provider_owner?
   end
 
   private
 
-  def doctor?
-    user.doctor
+  def provider?
+    user.provider
   end
 
-  def doctor_owner?
-    user == record.booking.doctor.user
+  def provider_owner?
+    user == record.booking.provider.user
   end
 end

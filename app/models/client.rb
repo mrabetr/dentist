@@ -1,14 +1,12 @@
-class Patient < ApplicationRecord
+class Client < ApplicationRecord
   has_one :user, as: :profile, dependent: :destroy
   has_many :bookings, dependent: :destroy
-  has_many :doctors, through: :bookings
+  has_many :providers, through: :bookings
   has_many :notes, through: :bookings
-  has_many :medical_forms, dependent: :destroy
-  has_many :treatments, dependent: :destroy
   has_many_attached :images
 
   include PgSearch::Model
-  pg_search_scope :patient_search, # name a method 'patient_search'
+  pg_search_scope :client_search, # name a method 'client_search'
     against: [:sex, :city],       # specify which columns I am searching
     associated_against: {         # search in an associated table
       user: [:first_name, :last_name, :email]
