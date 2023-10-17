@@ -1,4 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'contact@designdentalclinic.com'
+  CONTACT_EMAIL = ENV['CONTACT_EMAIL'] || 'contact@designdentalclinic.com'
+
+  default from: CONTACT_EMAIL
   layout 'mailer'
 end
